@@ -75,6 +75,15 @@ export default {
   height: 70px;
 }
 
+.navbar a {
+  color: white !important;
+  font-family: pokemonsolid;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-size: 30px !important;
+
+  text-align: center;
+}
+
 .navbar-brand {
   font-family: pokemonsolid;
   text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
@@ -90,13 +99,5 @@ export default {
 }
 
 @media (min-width: 768px) {
-  .nav-item {
-  font-family: pokemonsolid;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  font-size: 30px !important;
-  color: rgb(255, 255, 255);
-    width: 130px;
-    text-align: center;
-  }
 }
 </style>
