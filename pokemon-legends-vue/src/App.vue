@@ -5,19 +5,17 @@
     <!-- End navbar -->
 
     <div class="container">
-      <RegisterPage />
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-import RegisterPage from "./components/RegisterPage";
 import NavBar from "./components/NavBar";
 
 export default {
   name: "App",
   components: {
-    RegisterPage,
     NavBar,
   },
 };

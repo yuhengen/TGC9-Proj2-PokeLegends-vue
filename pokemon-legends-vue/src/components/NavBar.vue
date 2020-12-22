@@ -6,8 +6,12 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item href="#" class="mr-4">Home</b-nav-item>
-            <b-nav-item href="#" class="ml-4 mr-4">About</b-nav-item>
+            <b-nav-item class="mr-4"
+              ><router-link to="/">Home</router-link></b-nav-item
+            >
+            <b-nav-item class="ml-4 mr-4"
+              ><router-link to="/register">Register</router-link></b-nav-item
+            >
           </b-navbar-nav>
 
           <b-navbar-brand href="#" class="ml-4 mr-4">
