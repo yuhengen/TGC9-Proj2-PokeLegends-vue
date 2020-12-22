@@ -98,7 +98,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 
 export default {
   data: function () {
@@ -196,7 +196,7 @@ export default {
         this.form.email = "";
         this.form.password = "";
         this.cfmPassword = "";
-        this.gender = "";
+        this.form.gender = false;
         alert("New account has been registered!");
       }
     },
