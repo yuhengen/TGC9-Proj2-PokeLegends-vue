@@ -19,12 +19,9 @@
           </b-nav-item>
 
           <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto" v-if="username == ''">
+          <b-navbar-nav class="ml-auto" v-if="loginUser == ''">
             <b-nav-item href="#" class="ml-5 mr-5" disabled>Pokédex</b-nav-item>
-            <b-nav-item
-              href="#"
-              class="ml-5 mr-5"
-              v-b-modal.modal-prevent-closing
+            <b-nav-item href="#" class="ml-5 mr-5" v-b-modal.modal-center
               >Login</b-nav-item
             >
           </b-navbar-nav>
@@ -33,7 +30,7 @@
             <b-nav-item-dropdown right class="ml-5 mr-5">
               <!-- Using 'button-content' slot -->
               <template #button-content>
-                <em>User</em>
+                <em>{{loginUser}}</em>
               </template>
               <b-dropdown-item href="#">Profile</b-dropdown-item>
               <b-dropdown-item href="#">Sign Out</b-dropdown-item>
@@ -47,11 +44,40 @@
     <div class="container">
       <LoginPage />
     </div>
+
+    <!-- Login Modal -->
+    <b-modal
+      id="modal-center"
+      centered
+      title="Login"
+      @show="resetModal"
+      @hidden="resetModal"
+      @ok="handleOk"
+    >
+      <form ref="form" @submit.stop.prevent="handleSubmit">
+        <b-form-group
+          label="Username"
+          label-for="username-input"
+          invalid-feedback="Invalid username"
+          :state="usernameState"
+        >
+          <b-form-input
+            id="username-input"
+            v-model="username"
+            :state="usernameState"
+            required
+          ></b-form-input>
+        </b-form-group>
+      </form>
+    </b-modal>
+    <!-- End Login Model -->
   </div>
 </template>
 
 <script>
 import LoginPage from "./components/LoginPage";
+// import axios from "axios";
+
 export default {
   name: "App",
   components: {
@@ -60,7 +86,52 @@ export default {
   data: function () {
     return {
       username: "",
+      usernameState: null,
+      loginUser: "",
     };
+  },
+  methods: {
+    //   Login Modal
+    checkFormValidity() {
+      const valid = this.$refs.form.checkValidity();
+      this.usernameState = valid;
+      return valid;
+    },
+    resetModal() {
+      this.username = "";
+      this.usernameState = null;
+    },
+    handleOk(bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      // Trigger submit handler
+      this.handleSubmit();
+    },
+    handleSubmit() {
+      // Exit when the form isn't valid
+      if (!this.checkFormValidity()) {
+        return;
+      }
+      this.loginUser = this.username;
+      
+      // Hide the modal manually
+      this.$nextTick(() => {
+        this.$bvModal.hide("modal-center");
+      });
+
+      //   const response = await axios.post(
+      //     "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/login",
+      //     {
+      //       username: this.username,
+      //     }
+      //   );
+      //   console.log("res", response);
+
+      //   if (response.data === "User is not found") {
+      //     console.log(response.data);
+      //   } else {
+      //   }
+    },
   },
 };
 </script>
