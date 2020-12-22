@@ -122,12 +122,8 @@ export default {
       genderError: false,
     };
   },
-};
 
-
-
-
-methods: {
+  methods: {
     registerAccount: async function () {
       let response = await axios.get(
         "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata"
@@ -205,6 +201,7 @@ methods: {
       }
     },
   },
+};
 </script>
 
 <style scoped>
