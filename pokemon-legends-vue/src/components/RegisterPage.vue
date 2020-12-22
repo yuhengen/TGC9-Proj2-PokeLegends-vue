@@ -123,6 +123,88 @@ export default {
     };
   },
 };
+
+
+
+
+methods: {
+    registerAccount: async function () {
+      let response = await axios.get(
+        "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata"
+      );
+      let users = response.data;
+
+      this.userError = false;
+      this.userErrorMsg = "";
+      this.emailError = false;
+      this.emailErrorMsg = "";
+      this.pwError = false;
+      this.pwErrorMsg = "";
+      this.genderError = false;
+      this.genderErrorMsg = "";
+
+      for (let u of users) {
+        if (this.form.username === "") {
+          this.userErrorMsg = "* Username is required";
+          this.userError = true;
+        } else if (
+          this.form.username.toLowerCase() == u.username.toLowerCase()
+        ) {
+          this.userErrorMsg = "* Username already exists";
+          this.userError = true;
+        }
+      }
+
+      for (let u of users) {
+        if (this.form.email === "") {
+          this.emailErrorMsg = "* Email address is required";
+          this.emailError = true;
+        } else if (this.form.email.toLowerCase() == u.email.toLowerCase()) {
+          this.emailErrorMsg = "* Email already exists";
+          this.emailError = true;
+        }
+      }
+
+      if (this.form.password === "") {
+        this.pwErrorMsg = "* Password cannot be empty";
+        this.pwError = true;
+      } else if (this.form.password !== this.cfmPassword) {
+        this.pwErrorMsg2 = "* Password mismatch";
+        this.pwError = true;
+      }
+
+      if (
+        this.form.gender.toLowerCase() !== "male" &&
+        this.form.gender.toLowerCase() !== "female"
+      ) {
+        this.genderErrorMsg = "* Please select your gender";
+        this.genderError = true;
+      }
+
+      if (
+        !this.userError &&
+        !this.emailError &&
+        !this.pwError &&
+        !this.genderErrorMsg
+      ) {
+        await axios.post(
+          "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata",
+          {
+            username: this.form.username,
+            email: this.form.email,
+            password: this.form.password,
+            gender: this.form.gender,
+          }
+        );
+        this.form.username = "";
+        this.form.email = "";
+        this.form.password = "";
+        this.cfmPassword = "";
+        this.gender = "";
+        alert("New account has been registered!");
+      }
+    },
+  },
 </script>
 
 <style scoped>
