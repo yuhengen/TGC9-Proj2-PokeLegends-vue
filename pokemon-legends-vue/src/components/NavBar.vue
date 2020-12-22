@@ -156,6 +156,10 @@ export default {
   width: 150px;
 }
 
+.nav-item:hover {
+    text-decoration: underline;
+}
+
 .navbar-brand {
   width: 8vw;
   margin-top: 36px !important;

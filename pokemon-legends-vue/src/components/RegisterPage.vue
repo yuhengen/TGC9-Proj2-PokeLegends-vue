@@ -71,7 +71,7 @@
         </b-form-group>
 
         <!-- gender -->
-        <b-form-group label="Gender" v-slot="{ ariaDescribedby }">
+        <b-form-group label="Gender:" v-slot="{ ariaDescribedby }">
           <b-form-radio
             v-model="form.gender"
             :aria-describedby="ariaDescribedby"
