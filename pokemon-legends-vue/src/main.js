@@ -9,6 +9,7 @@ import VueRouter from 'vue-router';
 
 import Home from './components/Home'
 import RegisterPage from "./components/RegisterPage";
+import Game from './components/Game'
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
@@ -26,6 +27,10 @@ const routes = [
     {
         path: '/register',
         component: RegisterPage
+    },
+    {
+        path: '/game',
+        component: Game
     }
 ]
 
@@ -35,6 +40,6 @@ const router = new VueRouter({ routes })
 Vue.use(VueRouter);
 
 new Vue({
-  render: h => h(App),
-  router
+    render: h => h(App),
+    router
 }).$mount('#app')

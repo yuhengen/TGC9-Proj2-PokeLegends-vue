@@ -14,17 +14,19 @@
             >
           </b-navbar-nav>
 
-          <b-navbar-brand href="#" class="ml-4 mr-4">
-            <img
-              src="https://i.pinimg.com/originals/50/e1/db/50e1db4684e6f697f93590950eb832f6.png"
-              class="brand-logo"
-            />
+          <b-navbar-brand class="ml-4 mr-4">
+            <router-link to="/game">
+              <img
+                src="https://i.pinimg.com/originals/50/e1/db/50e1db4684e6f697f93590950eb832f6.png"
+                class="brand-logo"
+              />
+            </router-link>
           </b-navbar-brand>
 
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto" v-if="loginUser == ''">
             <b-nav-item href="#" class="ml-4 mr-4" disabled>Pokédex</b-nav-item>
-            <b-nav-item href="#" class="ml-4" v-b-modal.modal-center
+            <b-nav-item href="#" class="ml-4" v-b-modal.loginModal
               >Login</b-nav-item
             >
           </b-navbar-nav>
@@ -33,10 +35,10 @@
             <b-nav-item-dropdown right class="ml-4">
               <!-- Using 'button-content' slot -->
               <template #button-content>
-                <em>{{ loginUser }}</em>
+                <em>Profile</em>
               </template>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <!-- <b-dropdown-item @click="logoutAccount">Sign Out</b-dropdown-item> -->
+              <b-dropdown-item href="#">Settings</b-dropdown-item>
+              <b-dropdown-item @click="logoutAccount">Log Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -46,29 +48,43 @@
     <!-- Login Modal -->
     <div>
       <b-modal
-        id="modal-center"
+        id="loginModal"
         centered
         title="Login"
         @show="resetModal"
         @hidden="resetModal"
-        @ok="handleOk"
       >
         <form ref="form" @submit.stop.prevent="handleSubmit">
-          <b-form-group
-            label="Username"
-            label-for="username-input"
-            invalid-feedback="Invalid username"
-            :state="usernameState"
-          >
+          <b-form-group label="Username" label-for="username-input">
             <b-form-input
               id="username-input"
               v-model="username"
-              :state="usernameState"
               required
             ></b-form-input>
-            <span>{{ invalidUser }}</span>
+            <span class="errorMsg">{{ invalidUser }}</span>
+          </b-form-group>
+          <b-form-group label="Password" label-for="password-input">
+            <b-form-input
+              id="password-input"
+              v-model="password"
+              required
+            ></b-form-input>
+            <span class="errorMsg">{{ invalidPW }}</span>
           </b-form-group>
         </form>
+        <div slot="modal-footer">
+          <button class="btn btn-primary modalBtns mr-3" @click="handleSubmit">
+            Login
+          </button>
+          <router-link to="/register"
+            ><button
+              class="btn btn-secondary modalBtns ml-3"
+              @click="handleRegister"
+            >
+              Register
+            </button></router-link
+          >
+        </div>
       </b-modal>
     </div>
     <!-- End Login Model -->
@@ -81,22 +97,19 @@ export default {
   data: function () {
     return {
       username: "",
-      usernameState: null,
-      loginUser: "",
+      password: "",
       invalidUser: "",
+      invalidPW: "",
+      loginUser: "",
     };
   },
   methods: {
     //   Login Modal
-    checkFormValidity() {
-      const valid = this.$refs.form.checkValidity();
-      this.usernameState = valid;
-      return valid;
-    },
     resetModal() {
       this.username = "";
-      this.usernameState = null;
+      this.password = "";
       this.invalidUser = "";
+      this.invalidPW = "";
     },
     handleOk(bvModalEvt) {
       // Prevent modal from closing
@@ -104,34 +117,56 @@ export default {
       // Trigger submit handler
       this.handleSubmit();
     },
+    handleRegister() {
+      this.$nextTick(() => {
+        this.$bvModal.hide("loginModal");
+      });
+    },
     handleSubmit: async function () {
-      // Exit when the form isn't valid
-      if (!this.checkFormValidity()) {
-        return;
-      }
+      this.invalidUser = "";
+      this.invalidPW = "";
 
       let response = await axios.get(
         "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata"
       );
       let users = response.data;
 
+      // user validation
       for (let u of users) {
-        if (this.username.toLowerCase() == u.username.toLowerCase()) {
-          this.loginUser = u.username;
-          // Hide the modal manually
-          this.$nextTick(() => {
-            this.$bvModal.hide("modal-center");
-          });
+        if (this.username !== "") {
+          if (this.username.toLowerCase() === u.username.toLowerCase()) {
+            this.invalidUser = "";
+            if (this.password === u.password) {
+              this.invalidPW = "";
+              this.loginUser = u.username;
+              // Hide the modal manually
+              this.$nextTick(() => {
+                this.$bvModal.hide("loginModal");
+              });
+            } else {
+              this.invalidPW = "Incorrect password";
+            }
+          } else {
+            this.invalidUser = "Username does not exist";
+            this.invalidPW = "Incorrect password";
+          }
         } else {
-          this.invalidUser = "Username does not exist";
+          this.invalidUser = "Username cannot be empty";
         }
       }
+
+      if (this.password === "") {
+        this.invalidPW = "Password cannot be empty";
+      }
+    },
+    logoutAccount() {
+      this.loginUser = "";
     },
   },
 };
 </script>
 
-<style scoped>
+<style>
 .navbar {
   height: 70px;
 }
@@ -157,7 +192,7 @@ export default {
 }
 
 .nav-item:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .navbar-brand {
@@ -173,5 +208,20 @@ export default {
 .dropdown-menu {
   background-color: #343a40;
   color: white;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 20px !important;
+}
+
+.errorMsg {
+  color: red;
+  font-weight: bold;
+}
+
+.modal-footer {
+  justify-content: center !important;
+}
+
+.modalBtns {
+  width: 140px;
 }
 </style>
