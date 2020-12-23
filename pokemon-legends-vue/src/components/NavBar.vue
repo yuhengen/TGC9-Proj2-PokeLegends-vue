@@ -37,6 +37,7 @@
               <template #button-content>
                 <em>Profile</em>
               </template>
+              <span class="user-alignment">{{ loginUser }}</span>
               <b-dropdown-item href="#">Settings</b-dropdown-item>
               <b-dropdown-item @click="logoutAccount">Log Out</b-dropdown-item>
             </b-nav-item-dropdown>
