@@ -37,7 +37,8 @@
               <template #button-content>
                 <em>Profile</em>
               </template>
-              <span class="user-alignment">{{ loginUser }}</span>
+              <span>{{ loginUser }}</span>
+              <div class="dropdown-divider"></div>
               <b-dropdown-item href="#">Settings</b-dropdown-item>
               <b-dropdown-item @click="logoutAccount">Log Out</b-dropdown-item>
             </b-nav-item-dropdown>
@@ -132,28 +133,24 @@ export default {
       );
       let users = response.data;
 
-      // user validation
-      for (let u of users) {
-        if (this.username !== "") {
-          if (this.username.toLowerCase() === u.username.toLowerCase()) {
-            this.invalidUser = "";
-            if (this.password === u.password) {
-              this.invalidPW = "";
-              this.loginUser = u.username;
-              // Hide the modal manually
-              this.$nextTick(() => {
-                this.$bvModal.hide("loginModal");
-              });
-            } else {
-              this.invalidPW = "Incorrect password";
-            }
+      let checkUser = users.find((u) => u.username === this.username);
+
+      if (this.username !== "") {
+        if (checkUser !== undefined) {
+          if (this.password === checkUser.password) {
+            this.loginUser = checkUser.username;
+            // Hide the modal manually
+            this.$nextTick(() => {
+              this.$bvModal.hide("loginModal");
+            });
           } else {
-            this.invalidUser = "Username does not exist";
             this.invalidPW = "Incorrect password";
           }
         } else {
-          this.invalidUser = "Username cannot be empty";
+          this.invalidUser = "Username does not exist";
         }
+      } else {
+        this.invalidUser = "Username cannot be empty";
       }
 
       if (this.password === "") {
@@ -211,6 +208,7 @@ export default {
   color: white;
   font-family: Arial, Helvetica, sans-serif !important;
   font-size: 20px !important;
+  text-align: center !important;
 }
 
 .errorMsg {
