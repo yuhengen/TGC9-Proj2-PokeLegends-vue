@@ -1,9 +1,7 @@
 <template>
   <div>
-    <h1>Login</h1>
     <div>
-      <label>Username</label>
-      <input type="text" v-model="username" />
+
     </div>
   </div>
 </template>
@@ -15,7 +13,7 @@ export default {
   data: function () {
     return {
       userdata: [],
-      username: "",
+    //   loginUser: "phantomshiro",
     };
   },
   created: async function () {

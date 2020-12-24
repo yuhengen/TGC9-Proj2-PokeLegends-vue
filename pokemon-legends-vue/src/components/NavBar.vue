@@ -22,7 +22,7 @@
           </b-navbar-brand>
 
           <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto" v-if="loginUser == ''">
+          <b-navbar-nav class="ml-auto" v-if="this.$store.state.username == ''">
             <b-nav-item class="ml-4 mr-4" disabled>Pokédex</b-nav-item>
             <b-nav-item class="ml-4" v-b-modal.loginModal
               >Login</b-nav-item
@@ -35,7 +35,7 @@
               <template #button-content>
                 <em>Profile</em>
               </template>
-              <span>{{ loginUser }}</span>
+              <span>{{ this.$store.state.username }}</span>
               <div class="dropdown-divider"></div>
               <b-dropdown-item href="#">Settings</b-dropdown-item>
               <b-dropdown-item @click="logoutAccount">Log Out</b-dropdown-item>
@@ -93,6 +93,7 @@
 
 <script>
 import axios from "axios";
+// import { createStore } from "vuex";
 export default {
   data: function () {
     return {
@@ -100,9 +101,9 @@ export default {
       password: "",
       invalidUser: "",
       invalidPW: "",
-      loginUser: "",
     };
   },
+  
   methods: {
     //   Login Modal
     resetModal() {
@@ -136,7 +137,7 @@ export default {
       if (this.username !== "") {
         if (checkUser !== undefined) {
           if (this.password === checkUser.password) {
-            this.loginUser = checkUser.username;
+            this.$store.state.username = checkUser.username;
             // Hide the modal manually
             this.$nextTick(() => {
               this.$bvModal.hide("loginModal");
@@ -156,7 +157,7 @@ export default {
       }
     },
     logoutAccount() {
-      this.loginUser = "";
+      this.$store.state.username = "";
     },
   },
 };
