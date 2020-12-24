@@ -132,7 +132,7 @@ export default {
       );
       let users = response.data;
 
-      let checkUser = users.find((u) => u.username === this.username);
+      let checkUser = users.find((u) => u.username.toLowerCase() === this.username.toLowerCase());
 
       if (this.username !== "") {
         if (checkUser !== undefined) {

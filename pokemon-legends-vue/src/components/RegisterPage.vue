@@ -1,6 +1,12 @@
 <template>
   <div>
     <h1 class="mt-4">Register Account</h1>
+    <p>
+      Register an account with us to play Pokémon Legends!<br />
+      Please note that your username will be used as your in-game name, and that
+      your character gender in game will be adjusted according to your gender
+      selected below.
+    </p>
     <div>
       <b-form>
         <!-- email address -->
@@ -23,7 +29,7 @@
         <!-- username -->
         <b-form-group
           id="input-group-2"
-          label="Userame:"
+          label="Username:"
           label-for="usernameField"
           class="mt-4"
         >
@@ -139,26 +145,41 @@ export default {
       this.genderError = false;
       this.genderErrorMsg = "";
 
-      for (let u of users) {
-        if (this.form.username === "") {
-          this.userErrorMsg = "* Username is required";
-          this.userError = true;
-        } else if (
-          this.form.username.toLowerCase() == u.username.toLowerCase()
-        ) {
-          this.userErrorMsg = "* Username already exists";
-          this.userError = true;
-        }
+      let checkUser = users.find(
+        (u) => u.username.toLowerCase() === this.form.username.toLowerCase()
+      );
+      if (this.form.username === "") {
+        this.userErrorMsg = "* Username is required";
+        this.userError = true;
+      } else if (this.form.username.includes(" ")) {
+        this.userErrorMsg = "* Username cannot contain spaces";
+        this.userError = true;
+      } else if (
+        this.form.username.length < 4 ||
+        this.form.username.length > 12
+      ) {
+        this.userErrorMsg = "* Username must be between 4 and 12 characters";
+        this.userError = true;
+      } else if (checkUser !== undefined) {
+        this.userErrorMsg = "* Username already exists";
+        this.userError = true;
       }
 
-      for (let u of users) {
-        if (this.form.email === "") {
-          this.emailErrorMsg = "* Email address is required";
-          this.emailError = true;
-        } else if (this.form.email.toLowerCase() == u.email.toLowerCase()) {
-          this.emailErrorMsg = "* Email already exists";
-          this.emailError = true;
-        }
+      let checkEmail = users.find(
+        (u) => u.email.toLowerCase() === this.form.email.toLowerCase()
+      );
+      if (this.form.email === "") {
+        this.emailErrorMsg = "* Email address is required";
+        this.emailError = true;
+      } else if (
+        !this.form.email.includes("@") ||
+        !this.form.email.includes(".")
+      ) {
+        this.emailErrorMsg = "* Invalid email format";
+        this.emailError = true;
+      } else if (checkEmail !== undefined) {
+        this.emailErrorMsg = "* Email already exists";
+        this.emailError = true;
       }
 
       if (this.form.password === "") {
