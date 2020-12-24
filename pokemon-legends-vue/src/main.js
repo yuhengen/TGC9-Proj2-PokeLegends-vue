@@ -10,6 +10,7 @@ import VueRouter from 'vue-router';
 import Home from './components/Home'
 import RegisterPage from "./components/RegisterPage";
 import Game from './components/Game'
+import Pokedex from './components/Pokedex'
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
@@ -31,6 +32,10 @@ const routes = [
     {
         path: '/game',
         component: Game
+    },
+    {
+        path: '/pokedex',
+        component: Pokedex
     }
 ]
 

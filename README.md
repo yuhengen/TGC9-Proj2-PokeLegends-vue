@@ -41,3 +41,14 @@ The primary purpose of this website is to let players play the Pokémon Legends 
 - Social Medial signup/Login
 - Claiming of codes to redeem in-game rewards
 ```
+
+# Technologies
+- Vue and CSS for structuring and styling the website
+- Javascript to implement interactivty with website
+- BootstrapVue for Navbar and other Bootstrap components
+- GitHub for version control and repositories
+- GitPod as coding platform
+- Axios to read from JSON files and database
+- Express, HBS for data rendering
+- GIMP for image editing
+- Responsive Web Design Checker to check how it looks like on other devices

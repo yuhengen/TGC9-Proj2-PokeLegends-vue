@@ -3,11 +3,9 @@
     <b-navbar toggleable="lg" type="dark" variant="dark">
       <div class="mx-auto">
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item class="mr-4"
-              ><router-link to="/">Home</router-link></b-nav-item
+            <b-nav-item class="mr-4"><router-link to="/">Home</router-link></b-nav-item
             >
             <b-nav-item class="ml-4 mr-4"
               ><router-link to="/register">Register</router-link></b-nav-item
@@ -25,13 +23,13 @@
 
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto" v-if="loginUser == ''">
-            <b-nav-item href="#" class="ml-4 mr-4" disabled>Pokédex</b-nav-item>
-            <b-nav-item href="#" class="ml-4" v-b-modal.loginModal
+            <b-nav-item class="ml-4 mr-4" disabled>Pokédex</b-nav-item>
+            <b-nav-item class="ml-4" v-b-modal.loginModal
               >Login</b-nav-item
             >
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto" v-else>
-            <b-nav-item href="#" class="ml-4 mr-4">Pokédex</b-nav-item>
+            <b-nav-item class="ml-4 mr-4"><router-link to="/pokedex">Pokédex</router-link></b-nav-item>
             <b-nav-item-dropdown right class="ml-4">
               <!-- Using 'button-content' slot -->
               <template #button-content>
@@ -174,7 +172,7 @@ export default {
   color: white !important;
   font-family: pokemonsolid;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  font-size: 30px !important;
+  font-size: 30px;
   text-align: center;
   padding-bottom: 20px !important;
 }
@@ -186,7 +184,7 @@ export default {
 }
 
 .nav-item {
-  width: 150px;
+  width: 170px;
 }
 
 .nav-item:hover {
@@ -196,6 +194,7 @@ export default {
 .navbar-brand {
   width: 8vw;
   margin-top: 36px !important;
+  text-align: center;
 }
 
 .brand-logo {
@@ -209,6 +208,10 @@ export default {
   font-family: Arial, Helvetica, sans-serif !important;
   font-size: 20px !important;
   text-align: center !important;
+}
+
+.dropdown-item {
+    padding-top: 13px;
 }
 
 .errorMsg {
