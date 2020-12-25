@@ -35,25 +35,21 @@ const routes = [
     {
         path: '/',
         component: Home,
-        name: Home,
         meta: { title: 'Home - Pokémon Legends' }
     },
     {
         path: '/register',
         component: RegisterPage,
-        name: RegisterPage,
         meta: { title: 'Register - Pokémon Legends' }
     },
     {
         path: '/game',
         component: Game,
-        name: Game,
         meta: { title: 'Play Pokémon Legends' }
     },
     {
         path: '/pokedex',
         component: Pokedex,
-        name: Pokedex,
         meta: { title: 'Pokédex - Pokémon Legends' }
     }
 ]
@@ -65,7 +61,7 @@ router.afterEach((to, from, next) => {
     Vue.nextTick(() => {
         document.title = to.meta.title ? to.meta.title : 'default title';
     });
-    next()
+    next;
 })
 
 Vue.use(VueRouter);
@@ -74,13 +70,4 @@ new Vue({
     render: h => h(App),
     router,
     store,
-    data() {
-        return {
-            pagetitle: 'not set'
-        }
-    },
-    watch: {
-        '$route': function () {
-        }
-    }
 }).$mount('#app')

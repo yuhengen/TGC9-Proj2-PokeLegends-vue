@@ -6,14 +6,13 @@
 
     <!-- Background Image -->
     <img
-      src="https://images.wallpapersden.com/image/download/pokemon-pikachu-art_a25tbW6UmZqaraWkpJRmbmdlrWZlbWU.jpg"
+      src="https://archive-media-1.nyafuu.org/vp/image/1562/29/1562294461462.gif"
       class="bgImg"
       alt="Pikachu Background"
     />
     <!-- End Background image -->
 
     <div class="container">
-  <h1 v-text="pagetitle">{{ $route.meta.title }}</h1>
       <router-view></router-view>
     </div>
   </div>
@@ -37,21 +36,23 @@ export default {
 }
 
 .container {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
   padding-top: 30px !important;
   padding-bottom: 50px !important;
-  padding-left:2vw;
-  padding-right:2vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
 }
 
 .bgImg {
   position: fixed;
-  left:0px;
+  left: 0px;
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
   z-index: -10;
+  /* -webkit-transform: scaleX(-1);
+  transform: scaleX(-1); */
 }
 </style>
 <style scoped>
