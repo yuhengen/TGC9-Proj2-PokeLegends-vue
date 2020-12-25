@@ -34,29 +34,53 @@ Vue.config.productionTip = false
 const routes = [
     {
         path: '/',
-        component: Home
+        component: Home,
+        name: Home,
+        meta: { title: 'Home - Pokémon Legends' }
     },
     {
         path: '/register',
-        component: RegisterPage
+        component: RegisterPage,
+        name: RegisterPage,
+        meta: { title: 'Register - Pokémon Legends' }
     },
     {
         path: '/game',
-        component: Game
+        component: Game,
+        name: Game,
+        meta: { title: 'Play Pokémon Legends' }
     },
     {
         path: '/pokedex',
-        component: Pokedex
+        component: Pokedex,
+        name: Pokedex,
+        meta: { title: 'Pokédex - Pokémon Legends' }
     }
 ]
 
 // create router
 const router = new VueRouter({ routes })
 
+router.afterEach((to, from, next) => {
+    Vue.nextTick(() => {
+        document.title = to.meta.title ? to.meta.title : 'default title';
+    });
+    next()
+})
+
 Vue.use(VueRouter);
 
 new Vue({
     render: h => h(App),
     router,
-    store
+    store,
+    data() {
+        return {
+            pagetitle: 'not set'
+        }
+    },
+    watch: {
+        '$route': function () {
+        }
+    }
 }).$mount('#app')
