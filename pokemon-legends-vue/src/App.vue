@@ -51,8 +51,6 @@ export default {
   min-width: 100%;
   min-height: 100%;
   z-index: -10;
-  /* -webkit-transform: scaleX(-1);
-  transform: scaleX(-1); */
 }
 </style>
 <style scoped>

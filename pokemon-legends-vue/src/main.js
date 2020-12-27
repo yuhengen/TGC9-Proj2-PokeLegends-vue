@@ -1,11 +1,10 @@
 import '@babel/polyfill'
 import 'mutationobserver-shim'
 import Vue from 'vue'
-import './plugins/bootstrap-vue'
 import App from './App.vue'
+import './plugins/bootstrap-vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import Vuex from 'vuex'
-import createPersistedState from "vuex-persistedstate";
+import store from './store'
 
 import VueRouter from 'vue-router';
 
@@ -18,15 +17,6 @@ import Pokedex from './components/Pokedex'
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
-
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
-    state: {
-        username: "",
-    },
-    plugins: [createPersistedState()]
-});
 
 Vue.config.productionTip = false
 

@@ -93,7 +93,7 @@
 
 <script>
 import axios from "axios";
-// import { createStore } from "vuex";
+
 export default {
   data: function () {
     return {
@@ -103,7 +103,6 @@ export default {
       invalidPW: "",
     };
   },
-  
   methods: {
     //   Login Modal
     resetModal() {
@@ -204,8 +203,8 @@ export default {
 
 .dropdown-item,
 .dropdown-menu {
-  background-color: #343a40;
-  color: white;
+  background-color: #343a40 !important;
+  color: white !important;
   font-family: Arial, Helvetica, sans-serif !important;
   font-size: 20px !important;
   text-align: center !important;

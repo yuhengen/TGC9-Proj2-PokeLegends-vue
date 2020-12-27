@@ -1,11 +1,14 @@
 <template>
   <div class="mt-5" id="gameWindow">
     <div v-if="this.$store.state.username == ''">
-      <h2>Please login to play the game!</h2>
+      <h2 class="pleaseLogin">Please login to play the game!</h2>
     </div>
     <div v-else>
-      <div v-if="gameState == 'start_game'">
+      <div v-if="this.$store.state.gameState == 'logged-in'">
         <StartGame />
+      </div>
+      <div v-if="this.$store.state.gameState == 'game-menu'">
+        <GameMenu />
       </div>
     </div>
   </div>
@@ -14,14 +17,15 @@
 <script>
 import axios from "axios";
 import StartGame from "./gamewindow/StartGame";
+import GameMenu from "./gamewindow/GameMenu";
 
 export default {
   components: {
     StartGame,
+    GameMenu,
   },
   data: function () {
     return {
-      gameState: "",
       userdata: [],
     };
   },
@@ -32,7 +36,7 @@ export default {
     this.userdata = response.data;
 
     if (this.$store.state.username !== "") {
-      this.gameState = "start_game";
+      this.$store.state.gameState = "logged-in";
     }
   },
 };
@@ -40,14 +44,17 @@ export default {
 
 <style>
 #gameWindow {
-  /* width: 100%; */
   background-image: url("https://24wallpapers.com/Content/Images/WallpaperImages/wi96d63dfdb9-ddcf-457f-bc94-81d9d0c62eee1.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
   background-color: black;
-  height: 650px;
+  height: 700px;
   text-align: center;
-  position:relative;
+  position: relative;
+}
+
+.pleaseLogin {
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 </style>
