@@ -1,24 +1,20 @@
 <template>
-  <div>
+  <div class="mt-5">
     <fullscreen :fullscreen.sync="fullscreen">
-      <div
-        class="mt-5"
-        id="gameWindow"
-        v-bind:style="{ height: heightSize + 'px' }"
-      >
+      <div id="gameWindow" v-bind:style="{ height: heightSize }">
         <div v-if="this.$store.state.username == ''">
           <h2 class="pleaseLogin">Please login to play the game!</h2>
         </div>
         <div v-else>
           <div
             v-if="this.$store.state.gameState == 'logged-in'"
-            v-bind:style="{ height: heightSize + 'px' }"
+            v-bind:style="{ height: heightSize }"
           >
             <StartGame />
           </div>
           <div
             v-if="this.$store.state.gameState == 'game-menu'"
-            v-bind:style="{ height: heightSize + 'px' }"
+            v-bind:style="{ height: heightSize }"
           >
             <GameMenu />
           </div>
@@ -41,7 +37,7 @@ export default {
   data: function () {
     return {
       userData: [],
-      heightSize: 700,
+      heightSize: "650px",
       fullscreen: false,
     };
   },
@@ -63,9 +59,9 @@ export default {
   watch: {
     fullscreen: function () {
       if (this.fullscreen == true) {
-        this.heightSize = 980;
+        this.heightSize = "100vh";
       } else {
-        this.heightSize = 700;
+        this.heightSize = "650px";
       }
     },
   },
@@ -82,10 +78,6 @@ export default {
   background-color: black;
   text-align: center;
   position: relative;
-}
-
-.gameWindowH {
-  height: 700px;
 }
 
 .pleaseLogin {

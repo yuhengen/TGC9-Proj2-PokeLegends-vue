@@ -19,7 +19,7 @@ export default {
 <style scoped>
 .startGameBtn {
   position: absolute !important;
-  bottom: 70px;
+  bottom: 3%;
   margin-left: auto;
   margin-right: auto;
   left: 0;
