@@ -1,7 +1,18 @@
 <template>
   <div>
     <div class="info-box">
-      <h1>Hello~ {{ this.userData.tutorial }}</h1>
+      <h1>Hello~ {{ this.userData.username }}</h1>
+    </div>
+    <div>
+      <img
+        v-if="this.userData.gender == 'Male'"
+        src="https://cdn.bulbagarden.net/upload/thumb/c/c0/HeartGold_SoulSilver_Ethan.png/455px-HeartGold_SoulSilver_Ethan.png"
+        class="char-image"
+      />
+      <img
+        v-if="this.userData.gender == 'Female'" src="https://cdn.bulbagarden.net/upload/2/25/HeartGold_SoulSilver_Lyra.png"
+        class="char-image"
+      />
     </div>
     <div class="buttons-div">
       <SelectButtons message="Placeholder button" />
@@ -56,6 +67,13 @@ h1 {
   right: 0;
   text-align: center;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.char-image {
+  position: absolute !important;
+  bottom: 0;
+  right: 10px;
+  height: 90%;
 }
 
 .buttons-div {
