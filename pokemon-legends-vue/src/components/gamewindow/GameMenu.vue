@@ -1,23 +1,28 @@
 <template>
   <div id="game-menu">
-      <div v-if="this.userData.tutorial"></div>
-    <div id="user-info">
-      <h1>Hello {{ this.userData.username }}~</h1>
+    <div v-if="this.userData.tutorial == 0">
+      <h1>Begin Tutorial</h1>
     </div>
+    <div v-else>
+      <div id="user-info">
+        <h1>Hello {{ this.userData.username }}~</h1>
+      </div>
       <img
         v-if="this.userData.gender == 'Male'"
         src="https://cdn.bulbagarden.net/upload/thumb/c/c0/HeartGold_SoulSilver_Ethan.png/455px-HeartGold_SoulSilver_Ethan.png"
         class="char-image"
       />
       <img
-        v-if="this.userData.gender == 'Female'" src="https://cdn.bulbagarden.net/upload/2/25/HeartGold_SoulSilver_Lyra.png"
+        v-if="this.userData.gender == 'Female'"
+        src="https://cdn.bulbagarden.net/upload/2/25/HeartGold_SoulSilver_Lyra.png"
         class="char-image"
       />
-    <div class="buttons-div">
-      <SelectButtons message="Battle" />
-      <SelectButtons message="Pokémon" />
-      <SelectButtons message="Pokédex" />
-      <SelectButtons message="Bag" />
+      <div class="buttons-div">
+        <SelectButtons message="Battle" />
+        <SelectButtons message="Pokémon" />
+        <SelectButtons message="Pokédex" />
+        <SelectButtons message="Bag" />
+      </div>
     </div>
   </div>
 </template>
@@ -48,12 +53,12 @@ export default {
 <style scoped>
 #game-menu {
   background-image: url("https://pbs.twimg.com/media/EWoQbTdU0AEuxyT.jpg");
-  background-size:cover;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   /* background-size: 99%; */
   background-color: black;
-  height: 65vh;
+  height: 100%;
   text-align: center;
   position: relative;
 }

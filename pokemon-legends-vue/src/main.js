@@ -5,6 +5,7 @@ import App from './App.vue'
 import './plugins/bootstrap-vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import store from './store'
+import fullscreen from 'vue-fullscreen'
 
 import VueRouter from 'vue-router';
 
@@ -17,6 +18,8 @@ import Pokedex from './components/Pokedex'
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+
+Vue.use(fullscreen)
 
 Vue.config.productionTip = false
 

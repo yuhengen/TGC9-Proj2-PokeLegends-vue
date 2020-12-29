@@ -1,16 +1,30 @@
 <template>
-  <div class="mt-5" id="gameWindow">
-    <div v-if="this.$store.state.username == ''">
-      <h2 class="pleaseLogin">Please login to play the game!</h2>
-    </div>
-    <div v-else>
-      <div v-if="this.$store.state.gameState == 'logged-in'">
-        <StartGame />
-      </div>
-      <div v-if="this.$store.state.gameState == 'game-menu'">
-        <GameMenu />
-      </div>
-    </div>
+  <div>
+    <fullscreen :fullscreen.sync="fullscreen">
+      <div
+        class="mt-5"
+        id="gameWindow"
+        v-bind:style="{ height: heightSize + 'px' }"
+      >
+        <div v-if="this.$store.state.username == ''">
+          <h2 class="pleaseLogin">Please login to play the game!</h2>
+        </div>
+        <div v-else>
+          <div
+            v-if="this.$store.state.gameState == 'logged-in'"
+            v-bind:style="{ height: heightSize + 'px' }"
+          >
+            <StartGame />
+          </div>
+          <div
+            v-if="this.$store.state.gameState == 'game-menu'"
+            v-bind:style="{ height: heightSize + 'px' }"
+          >
+            <GameMenu />
+          </div>
+        </div></div
+    ></fullscreen>
+    <button type="button" @click="toggle">Fullscreen</button>
   </div>
 </template>
 
@@ -27,6 +41,8 @@ export default {
   data: function () {
     return {
       userData: [],
+      heightSize: 700,
+      fullscreen: false,
     };
   },
   created: async function () {
@@ -39,6 +55,20 @@ export default {
       this.$store.state.gameState = "logged-in";
     }
   },
+  methods: {
+    toggle() {
+      this.fullscreen = !this.fullscreen;
+    },
+  },
+  watch: {
+    fullscreen: function () {
+      if (this.fullscreen == true) {
+        this.heightSize = 980;
+      } else {
+        this.heightSize = 700;
+      }
+    },
+  },
 };
 </script>
 
@@ -50,9 +80,12 @@ export default {
   background-repeat: no-repeat;
   /* background-size: 99%; */
   background-color: black;
-  height: 65vh;
   text-align: center;
   position: relative;
+}
+
+.gameWindowH {
+  height: 700px;
 }
 
 .pleaseLogin {

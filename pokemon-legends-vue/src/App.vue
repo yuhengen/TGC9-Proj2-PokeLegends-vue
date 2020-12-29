@@ -40,8 +40,8 @@ export default {
   color: white;
   padding-top: 30px !important;
   padding-bottom: 50px !important;
-  padding-left: 5vw;
-  padding-right: 5vw;
+  padding-left: 2vw;
+  padding-right: 2vw;
 }
 
 .bgImg {

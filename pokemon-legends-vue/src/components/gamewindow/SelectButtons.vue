@@ -11,7 +11,7 @@ export default {
       //   message: "Placeholder message",
     };
   },
-  props: ["message", "btnBgColor"],
+  props: ["message"],
 };
 </script>
 
