@@ -44,12 +44,13 @@ export default {
 
 <style>
 #gameWindow {
-  background-image: url("https://24wallpapers.com/Content/Images/WallpaperImages/wi96d63dfdb9-ddcf-457f-bc94-81d9d0c62eee1.jpg");
+  background-image: url("https://i.pinimg.com/originals/b5/c2/b4/b5c2b47b1c4cc051995d68991e855e76.jpg");
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 99%;
+  /* background-size: 99%; */
   background-color: black;
-  height: 50vw;
+  height: 65vh;
   text-align: center;
   position: relative;
 }

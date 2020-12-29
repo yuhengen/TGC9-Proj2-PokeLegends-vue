@@ -1,5 +1,6 @@
 <template>
   <div id="game-menu">
+      <div v-if="this.userData.tutorial"></div>
     <div id="user-info">
       <h1>Hello {{ this.userData.username }}~</h1>
     </div>
@@ -47,11 +48,12 @@ export default {
 <style scoped>
 #game-menu {
   background-image: url("https://pbs.twimg.com/media/EWoQbTdU0AEuxyT.jpg");
+  background-size:cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 99%;
+  /* background-size: 99%; */
   background-color: black;
-  height: 50vw;
+  height: 65vh;
   text-align: center;
   position: relative;
 }
