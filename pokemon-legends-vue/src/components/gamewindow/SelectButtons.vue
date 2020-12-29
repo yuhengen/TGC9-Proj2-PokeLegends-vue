@@ -17,7 +17,8 @@ export default {
 
 <style scoped>
 .btn-design {
-  margin-top: auto;
+  padding-top: 17px;
   border: 3px solid white !important;
+  width: 23%;
 }
 </style>

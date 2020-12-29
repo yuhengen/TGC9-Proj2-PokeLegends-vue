@@ -1,9 +1,8 @@
 <template>
-  <div>
-    <div class="info-box">
-      <h1>Hello~ {{ this.userData.username }}</h1>
+  <div id="game-menu">
+    <div id="user-info">
+      <h1>Hello {{ this.userData.username }}~</h1>
     </div>
-    <div>
       <img
         v-if="this.userData.gender == 'Male'"
         src="https://cdn.bulbagarden.net/upload/thumb/c/c0/HeartGold_SoulSilver_Ethan.png/455px-HeartGold_SoulSilver_Ethan.png"
@@ -13,12 +12,11 @@
         v-if="this.userData.gender == 'Female'" src="https://cdn.bulbagarden.net/upload/2/25/HeartGold_SoulSilver_Lyra.png"
         class="char-image"
       />
-    </div>
     <div class="buttons-div">
-      <SelectButtons message="Placeholder button" />
-      <SelectButtons message="Placeholder button 2" />
-      <SelectButtons message="Placeholder button 3" />
-      <SelectButtons message="Placeholder button 4" />
+      <SelectButtons message="Battle" />
+      <SelectButtons message="Pokémon" />
+      <SelectButtons message="Pokédex" />
+      <SelectButtons message="Bag" />
     </div>
   </div>
 </template>
@@ -47,20 +45,18 @@ export default {
 </script>
 
 <style scoped>
-.info-box {
+#game-menu {
   background-image: url("https://pbs.twimg.com/media/EWoQbTdU0AEuxyT.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 99%;
   background-color: black;
-  height: 700px;
+  height: 50vw;
   text-align: center;
   position: relative;
 }
 
 h1 {
-  /* position: absolute !important;
-  bottom: 100px; */
   margin-left: auto;
   margin-right: auto;
   left: 0;
@@ -72,16 +68,16 @@ h1 {
 .char-image {
   position: absolute !important;
   bottom: 0;
-  right: 10px;
+  left: 10%;
   height: 90%;
 }
 
 .buttons-div {
   position: absolute !important;
-  bottom: 50px;
+  bottom: 5%;
   display: flex;
   justify-content: space-around;
-  width: 85%;
+  width: 100%;
   margin: auto;
 }
 </style>

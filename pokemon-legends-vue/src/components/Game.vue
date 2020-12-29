@@ -26,15 +26,14 @@ export default {
   },
   data: function () {
     return {
-      userdata: [],
+      userData: [],
     };
   },
   created: async function () {
     let response = await axios.get(
       "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/"
     );
-    this.userdata = response.data;
-            console.log(this.$store.state.gameState)
+    this.userData = response.data;
 
     if (this.$store.state.username !== "") {
       this.$store.state.gameState = "logged-in";
@@ -50,7 +49,7 @@ export default {
   background-repeat: no-repeat;
   background-size: 99%;
   background-color: black;
-  height: 700px;
+  height: 50vw;
   text-align: center;
   position: relative;
 }
