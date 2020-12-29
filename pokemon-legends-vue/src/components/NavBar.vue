@@ -5,7 +5,8 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item class="mr-4"><router-link to="/">Home</router-link></b-nav-item
+            <b-nav-item class="mr-4"
+              ><router-link to="/">Home</router-link></b-nav-item
             >
             <b-nav-item class="ml-4 mr-4"
               ><router-link to="/register">Register</router-link></b-nav-item
@@ -24,12 +25,12 @@
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto" v-if="this.$store.state.username == ''">
             <b-nav-item class="ml-4 mr-4" disabled>Pokédex</b-nav-item>
-            <b-nav-item class="ml-4" v-b-modal.loginModal
-              >Login</b-nav-item
-            >
+            <b-nav-item class="ml-4" v-b-modal.loginModal>Login</b-nav-item>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto" v-else>
-            <b-nav-item class="ml-4 mr-4"><router-link to="/pokedex">Pokédex</router-link></b-nav-item>
+            <b-nav-item class="ml-4 mr-4"
+              ><router-link to="/pokedex">Pokédex</router-link></b-nav-item
+            >
             <b-nav-item-dropdown right class="ml-4">
               <!-- Using 'button-content' slot -->
               <template #button-content>
@@ -131,12 +132,15 @@ export default {
       );
       let users = response.data;
 
-      let checkUser = users.find((u) => u.username.toLowerCase() === this.username.toLowerCase());
+      let checkUser = users.find(
+        (u) => u.username.toLowerCase() === this.username.toLowerCase()
+      );
 
       if (this.username !== "") {
         if (checkUser !== undefined) {
           if (this.password === checkUser.password) {
             this.$store.state.username = checkUser.username;
+            this.$store.state.gameState = "logged-in";
             // Hide the modal manually
             this.$nextTick(() => {
               this.$bvModal.hide("loginModal");
@@ -211,7 +215,7 @@ export default {
 }
 
 .dropdown-item {
-    padding-top: 13px;
+  padding-top: 13px;
 }
 
 .errorMsg {

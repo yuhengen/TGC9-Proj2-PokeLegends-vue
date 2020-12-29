@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="startGameBtn" @click="gameStart"><h1>
+    <button class="startGameBtn btn btn-secondary" @click="gameStart"><h1>
         Welcome, {{ this.$store.state.username }}<br />Click to Start Game
     </h1></button>
   </div>
@@ -11,7 +11,6 @@ export default {
     methods: {
         gameStart: function () {
             this.$store.state.gameState = "game-menu"
-            console.log(this.$store.state.gameState)
         }
     }
 };
@@ -20,7 +19,7 @@ export default {
 <style scoped>
 .startGameBtn {
   position: absolute !important;
-  bottom: 100px;
+  bottom: 70px;
   margin-left: auto;
   margin-right: auto;
   left: 0;

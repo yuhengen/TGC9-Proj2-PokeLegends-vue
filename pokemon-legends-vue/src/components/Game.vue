@@ -34,6 +34,7 @@ export default {
       "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/"
     );
     this.userdata = response.data;
+            console.log(this.$store.state.gameState)
 
     if (this.$store.state.username !== "") {
       this.$store.state.gameState = "logged-in";
@@ -47,7 +48,7 @@ export default {
   background-image: url("https://24wallpapers.com/Content/Images/WallpaperImages/wi96d63dfdb9-ddcf-457f-bc94-81d9d0c62eee1.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 99%;
   background-color: black;
   height: 700px;
   text-align: center;

@@ -217,6 +217,7 @@ export default {
             pokedex: [],
             badges: [],
             bag: [],
+            tutorial: 0,
           }
         );
         this.form.username = "";
