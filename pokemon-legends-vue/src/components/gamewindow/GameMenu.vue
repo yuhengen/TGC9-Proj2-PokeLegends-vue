@@ -4,6 +4,10 @@
       <h1>Begin Tutorial</h1>
     </div>
     <div v-else>
+      <img
+        src="https://icon-library.com/images/pokeball-icon-png/pokeball-icon-png-2.jpg"
+        class="user-info-icon"
+      />
       <div
         id="user-info"
         class="d-flex flex-column justify-content-around pl-5 pr-5 pt-2"
@@ -32,11 +36,15 @@
               this.userData.party_pokemon && this.userData.party_pokemon.length
             }}/4
           </h5>
-          <div class="d-flex justify-content-around">
+        </div>
+        <div class="d-flex justify-content-center" id="party-pokemon-div">
+          <div v-bind:key="i" v-for="(pokemon, i) in userData.party_pokemon">
             <img
+              class="party-pokemon-sprite"
               v-bind:src="
-                this.pokemonData.sprites &&
-                this.pokemonData.sprites.front_default
+                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
+                userData.party_pokemon[i].pokemon_id +
+                '.png'
               "
             />
           </div>
@@ -71,7 +79,7 @@ export default {
   data: function () {
     return {
       userData: {},
-      pokemonData: {},
+      pokemonData: "",
       toggleInfo: false,
     };
   },
@@ -85,7 +93,7 @@ export default {
     );
     this.userData = response.data;
 
-    let response2 = await axios.get("https://pokeapi.co/api/v2/pokemon/4");
+    let response2 = await axios.get("https://pokeapi.co/api/v2/pokemon/");
     this.pokemonData = response2.data;
   },
 };
@@ -108,11 +116,19 @@ export default {
   height: 70%;
   width: 38%;
   background-color: rgba(52, 58, 64, 0.9);
-  right: 10px;
-  top: 10px;
+  right: 12px;
+  top: 12px;
   z-index: 3;
   border-radius: 10px;
   border: 3px solid white !important;
+}
+
+.user-info-icon {
+  position: absolute !important;
+  width: 7%;
+  right: 4px;
+  top: 4px;
+  z-index: 5;
 }
 
 h3 {
@@ -126,7 +142,16 @@ h3 {
 }
 
 h5 {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
+}
+
+#party-pokemon-div {
+  margin-top: -15%;
+  margin-bottom: 3%;
+}
+
+.party-pokemon-sprite {
+  height: 140%;
 }
 
 .char-image {
