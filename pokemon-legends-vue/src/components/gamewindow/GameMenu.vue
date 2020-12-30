@@ -4,8 +4,43 @@
       <h1>Begin Tutorial</h1>
     </div>
     <div v-else>
-      <div id="user-info">
-        <h1>Hello {{ this.userData.username }}~</h1>
+      <div
+        id="user-info"
+        class="d-flex flex-column justify-content-around pl-5 pr-5 pt-2"
+      >
+        <h3>User Info</h3>
+        <div class="d-flex justify-content-between">
+          <h5>Name:</h5>
+          <h5>{{ this.userData.username }}</h5>
+        </div>
+        <div class="d-flex justify-content-between">
+          <h5>Pokédollar:</h5>
+          <h5>{{ this.userData.pokedollar }}</h5>
+        </div>
+        <div class="d-flex justify-content-between">
+          <h5>Pokédex:</h5>
+          <h5>{{ this.userData.pokedex && this.userData.pokedex.length }}</h5>
+        </div>
+        <div class="d-flex justify-content-between">
+          <h5>Gym Badges:</h5>
+          <h5>{{ this.userData.badges && this.userData.badges.length }}</h5>
+        </div>
+        <div>
+          <h5>
+            Pokémon Party:
+            {{
+              this.userData.party_pokemon && this.userData.party_pokemon.length
+            }}/4
+          </h5>
+          <div class="d-flex justify-content-around">
+            <img
+              v-bind:src="
+                this.pokemonData.sprites &&
+                this.pokemonData.sprites.front_default
+              "
+            />
+          </div>
+        </div>
       </div>
       <img
         v-if="this.userData.gender == 'Male'"
@@ -18,10 +53,11 @@
         class="char-image"
       />
       <div class="buttons-div">
-        <SelectButtons message="Battle" />
-        <SelectButtons message="Pokémon" />
         <SelectButtons message="Pokédex" />
+        <SelectButtons message="Pokémon" />
+        <SelectButtons message="Battle" />
         <SelectButtons message="Bag" />
+        <SelectButtons message="Shop" />
       </div>
     </div>
   </div>
@@ -35,6 +71,8 @@ export default {
   data: function () {
     return {
       userData: {},
+      pokemonData: {},
+      toggleInfo: false,
     };
   },
   components: {
@@ -46,6 +84,9 @@ export default {
         this.$store.state.username
     );
     this.userData = response.data;
+
+    let response2 = await axios.get("https://pokeapi.co/api/v2/pokemon/4");
+    this.pokemonData = response2.data;
   },
 };
 </script>
@@ -56,20 +97,36 @@ export default {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* background-size: 99%; */
   background-color: black;
   height: 100%;
   text-align: center;
   position: relative;
 }
 
-h1 {
+#user-info {
+  position: absolute !important;
+  height: 70%;
+  width: 38%;
+  background-color: rgba(52, 58, 64, 0.9);
+  right: 10px;
+  top: 10px;
+  z-index: 3;
+  border-radius: 10px;
+  border: 3px solid white !important;
+}
+
+h3 {
   margin-left: auto;
   margin-right: auto;
   left: 0;
   right: 0;
   text-align: center;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-size: 2rem;
+}
+
+h5 {
+  font-size: 1.6rem;
 }
 
 .char-image {
@@ -81,7 +138,7 @@ h1 {
 
 .buttons-div {
   position: absolute !important;
-  bottom: 5%;
+  bottom: 3%;
   display: flex;
   justify-content: space-around;
   width: 100%;

@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import StartGame from "./gamewindow/StartGame";
 import GameMenu from "./gamewindow/GameMenu";
 
@@ -41,12 +40,7 @@ export default {
       fullscreen: false,
     };
   },
-  created: async function () {
-    let response = await axios.get(
-      "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/"
-    );
-    this.userData = response.data;
-
+  created: function () {
     if (this.$store.state.username !== "") {
       this.$store.state.gameState = "logged-in";
     }

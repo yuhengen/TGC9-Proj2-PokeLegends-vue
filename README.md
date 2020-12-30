@@ -46,10 +46,13 @@ The primary purpose of this website is to let players play the Pokémon Legends 
 - Vue and CSS for structuring and styling the website
 - Javascript to implement interactivty with website
 - BootstrapVue for Navbar and other Bootstrap components
-- Vuex-PersistedState for inter-page state control
 - GitHub for version control and repositories
 - GitPod as coding platform
 - Axios to read from JSON files and database
 - Express, HBS for data rendering
 - GIMP for image editing
 - Responsive Web Design Checker to check how it looks like on other devices
+
+# Credits
+- [Vue Fullscreen](http://mirari.cc/vue-fullscreen/) for granting fullscreen to the game window
+- [Vuex-PersistedState](https://www.npmjs.com/package/vuex-persistedstate) for simple inter-component state control

@@ -211,7 +211,7 @@ export default {
             email: this.form.email,
             password: this.form.password,
             gender: this.form.gender,
-            game_currency: 0,
+            pokedollar: 0,
             party_pokemon: [],
             store_pokemon: [],
             pokedex: [],

@@ -19,6 +19,6 @@ export default {
 .btn-design {
   padding-top: 17px;
   border: 3px solid white !important;
-  width: 23%;
+  width: 19%;
 }
 </style>
