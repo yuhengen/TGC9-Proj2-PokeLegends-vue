@@ -4,11 +4,17 @@
       <h1>Begin Tutorial</h1>
     </div>
     <div v-else>
-      <img
-        src="https://icon-library.com/images/pokeball-icon-png/pokeball-icon-png-2.jpg"
-        class="user-info-icon"
+            <img v-if="!toggleInfo"
+        src="https://i.pinimg.com/originals/50/e1/db/50e1db4684e6f697f93590950eb832f6.png"
+        class="user-info-icon" @click="toggleInfoWin"
       />
-      <div
+      <img v-else
+        src="https://icon-library.com/images/pokeball-icon-png/pokeball-icon-png-2.jpg"
+        class="user-info-icon" @click="toggleInfoWin"
+      />
+        <div v-if="!toggleInfo">
+      </div>
+      <div v-else
         id="user-info"
         class="d-flex flex-column justify-content-around pl-5 pr-5 pt-2"
       >
@@ -96,6 +102,11 @@ export default {
     let response2 = await axios.get("https://pokeapi.co/api/v2/pokemon/");
     this.pokemonData = response2.data;
   },
+  methods: {
+      toggleInfoWin(){
+          (this.toggleInfo == false) ? this.toggleInfo = true : this.toggleInfo = false
+      }
+  }
 };
 </script>
 
@@ -125,7 +136,7 @@ export default {
 
 .user-info-icon {
   position: absolute !important;
-  width: 7%;
+  width: 80px;
   right: 4px;
   top: 4px;
   z-index: 5;
