@@ -2,24 +2,26 @@
   <div class="mt-5">
     <fullscreen :fullscreen.sync="fullscreen">
       <div id="gameWindow" v-bind:style="{ height: heightSize }">
-        <div v-if="this.$store.state.username == ''">
+        <div v-if="this.$store.state.loginState == false">
           <h2 class="pleaseLogin">Please login to play the game!</h2>
         </div>
         <div v-else>
           <div
-            v-if="this.$store.state.gameState == 'logged-in'"
+            v-if="this.$store.state.gameState == 'logged_in'"
             v-bind:style="{ height: heightSize }"
           >
             <StartGame />
           </div>
           <div
-            v-if="this.$store.state.gameState == 'game-menu'"
+            v-if="this.$store.state.gameState == 'game_menu'"
             v-bind:style="{ height: heightSize }"
           >
             <GameMenu />
           </div>
-        </div></div
-    ></fullscreen>
+          <div v-if="this.$store.state.gameState == 'battle_start'"
+            v-bind:style="{ height: heightSize }">
+              <Battlefield/>
+        </div></div></div></fullscreen>
     <button type="button" @click="toggle">Fullscreen</button>
   </div>
 </template>
@@ -27,11 +29,13 @@
 <script>
 import StartGame from "./gamewindow/StartGame";
 import GameMenu from "./gamewindow/GameMenu";
+import Battlefield from "./gamewindow/Battlefield"
 
 export default {
   components: {
     StartGame,
     GameMenu,
+    Battlefield
   },
   data: function () {
     return {
@@ -42,7 +46,7 @@ export default {
   },
   created: function () {
     if (this.$store.state.username !== "") {
-      this.$store.state.gameState = "logged-in";
+      this.$store.state.gameState = "logged_in";
     }
   },
   methods: {

@@ -23,7 +23,7 @@
           </b-navbar-brand>
 
           <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto" v-if="this.$store.state.username == ''">
+          <b-navbar-nav class="ml-auto" v-if="this.$store.state.loginState == false">
             <b-nav-item class="ml-4 mr-4" disabled>Pokédex</b-nav-item>
             <b-nav-item class="ml-4" v-b-modal.loginModal>Login</b-nav-item>
           </b-navbar-nav>
@@ -140,7 +140,8 @@ export default {
         if (checkUser !== undefined) {
           if (this.password === checkUser.password) {
             this.$store.state.username = checkUser.username;
-            this.$store.state.gameState = "logged-in";
+            this.$store.state.gameState = "logged_in";
+            this.$store.state.loginState = true;
             // Hide the modal manually
             this.$nextTick(() => {
               this.$bvModal.hide("loginModal");
@@ -161,6 +162,8 @@ export default {
     },
     logoutAccount() {
       this.$store.state.username = "";
+            this.$store.state.gameState = "";
+      this.$store.state.loginState = false;
     },
   },
 };

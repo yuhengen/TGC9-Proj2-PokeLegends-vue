@@ -10,7 +10,7 @@
 export default {
     methods: {
         gameStart: function () {
-            this.$store.state.gameState = "game-menu"
+            this.$store.state.gameState = "game_menu"
         }
     }
 };

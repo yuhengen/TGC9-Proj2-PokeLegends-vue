@@ -4,6 +4,7 @@
       <h1>Begin Tutorial</h1>
     </div>
     <div v-else>
+        <!-- User info window -->
             <img v-if="!toggleInfo"
         src="https://i.pinimg.com/originals/50/e1/db/50e1db4684e6f697f93590950eb832f6.png"
         class="user-info-icon" @click="toggleInfoWin"
@@ -47,29 +48,36 @@
           <div v-bind:key="i" v-for="(pokemon, i) in userData.party_pokemon">
             <img
               class="party-pokemon-sprite"
-              v-bind:src="
-                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
+              v-bind:src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
                 userData.party_pokemon[i].pokemon_id +
-                '.png'
-              "
+                '.png'"
             />
           </div>
         </div>
       </div>
+
+      <!-- character image -->
       <img
         v-if="this.userData.gender == 'Male'"
         src="https://cdn.bulbagarden.net/upload/thumb/c/c0/HeartGold_SoulSilver_Ethan.png/455px-HeartGold_SoulSilver_Ethan.png"
-        class="char-image"
+        class="char-image" @click="toggleInfoWin"
       />
       <img
         v-if="this.userData.gender == 'Female'"
         src="https://cdn.bulbagarden.net/upload/2/25/HeartGold_SoulSilver_Lyra.png"
-        class="char-image"
+        class="char-image" @click="toggleInfoWin"
       />
+
+      <!-- Battle button -->
+      <div class="battle-button-div">
+      <img src="https://www.logolynx.com/images/logolynx/0c/0c8c0f527e118c62eefd0d7ef727e040.png" class="battle-button">
+      <h1 class="battle-text" @click="enterBattle">Battle</h1>
+      </div>
+
+        <!-- bottom buttons -->
       <div class="buttons-div">
         <SelectButtons message="Pokédex" />
         <SelectButtons message="Pokémon" />
-        <SelectButtons message="Battle" />
         <SelectButtons message="Bag" />
         <SelectButtons message="Shop" />
       </div>
@@ -101,10 +109,15 @@ export default {
 
     let response2 = await axios.get("https://pokeapi.co/api/v2/pokemon/");
     this.pokemonData = response2.data;
+
+    this.toggleInfo = false;
   },
   methods: {
       toggleInfoWin(){
           (this.toggleInfo == false) ? this.toggleInfo = true : this.toggleInfo = false
+      },
+      enterBattle:function() {
+          this.$store.state.gameState = "battle_start"
       }
   }
 };
@@ -139,6 +152,7 @@ export default {
   width: 80px;
   right: 4px;
   top: 4px;
+   cursor:pointer;
   z-index: 5;
 }
 
@@ -168,8 +182,44 @@ h5 {
 .char-image {
   position: absolute !important;
   bottom: 0;
-  left: 10%;
+  left: 6%;
   height: 90%;
+   cursor:pointer;
+}
+
+.battle-button-div {
+  position: absolute !important;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+   bottom:20%;
+}
+
+.battle-button {
+    width: 13vw;
+    -webkit-animation: clockwiseSpin 5s infinite linear;
+animation: clockwiseSpin 5s infinite linear;
+}
+
+@-webkit-keyframes clockwiseSpin {
+	0%  {-webkit-transform: rotate(360deg);transform: rotate(360deg);}
+	100% {-webkit-transform: rotate(0deg);transform: rotate(0deg);}
+    
+}@keyframes clockwiseSpin {
+	0%  {-webkit-transform: rotate(360deg);transform: rotate(360deg);}
+	100% {-webkit-transform: rotate(0deg);transform: rotate(0deg);}	
+}
+
+.battle-text {
+    position: absolute;
+    top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: pokemonsolid;
+  font-size: 5vw;
+   cursor:pointer;
+  text-shadow: -4px 0 rgb(52, 58, 64), 0 4px rgb(52, 58, 64), 4px 0 rgb(52, 58, 64), 0 -4px rgb(52, 58, 64);
 }
 
 .buttons-div {
