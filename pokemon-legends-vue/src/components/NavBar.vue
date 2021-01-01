@@ -23,7 +23,10 @@
           </b-navbar-brand>
 
           <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto" v-if="this.$store.state.loginState == false">
+          <b-navbar-nav
+            class="ml-auto"
+            v-if="$store.state.loginState == false"
+          >
             <b-nav-item class="ml-4 mr-4" disabled>Pokédex</b-nav-item>
             <b-nav-item class="ml-4" v-b-modal.loginModal>Login</b-nav-item>
           </b-navbar-nav>
@@ -36,7 +39,7 @@
               <template #button-content>
                 <em>Profile</em>
               </template>
-              <span>{{ this.$store.state.username }}</span>
+              <span>{{ $store.state.username }}</span>
               <div class="dropdown-divider"></div>
               <b-dropdown-item href="#">Settings</b-dropdown-item>
               <b-dropdown-item @click="logoutAccount">Log Out</b-dropdown-item>
@@ -142,6 +145,13 @@ export default {
             this.$store.state.username = checkUser.username;
             this.$store.state.gameState = "logged_in";
             this.$store.state.loginState = true;
+
+            let response = await axios.get(
+              "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
+                this.$store.state.username
+            );
+            this.$store.state.userData = response.data;
+
             // Hide the modal manually
             this.$nextTick(() => {
               this.$bvModal.hide("loginModal");
@@ -162,8 +172,9 @@ export default {
     },
     logoutAccount() {
       this.$store.state.username = "";
-            this.$store.state.gameState = "";
+      this.$store.state.gameState = "";
       this.$store.state.loginState = false;
+      this.$store.state.userData = {};
     },
   },
 };
