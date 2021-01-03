@@ -1,13 +1,9 @@
 <template>
-<div id="battle-window">
-
-</div>
+  <div id="battle-window"></div>
 </template>
 
 <script>
-export default {
-    
-}
+export default {};
 </script>
 
 <style scoped>

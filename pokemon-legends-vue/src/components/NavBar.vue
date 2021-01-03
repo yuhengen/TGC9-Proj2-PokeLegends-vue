@@ -23,10 +23,7 @@
           </b-navbar-brand>
 
           <!-- Right aligned nav items -->
-          <b-navbar-nav
-            class="ml-auto"
-            v-if="$store.state.loginState == false"
-          >
+          <b-navbar-nav class="ml-auto" v-if="$store.state.loginState == false">
             <b-nav-item class="ml-4 mr-4" disabled>Pokédex</b-nav-item>
             <b-nav-item class="ml-4" v-b-modal.loginModal>Login</b-nav-item>
           </b-navbar-nav>

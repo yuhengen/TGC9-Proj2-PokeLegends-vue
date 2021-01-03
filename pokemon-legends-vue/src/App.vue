@@ -53,5 +53,3 @@ export default {
   z-index: -10;
 }
 </style>
-<style scoped>
-</style>

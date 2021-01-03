@@ -45,7 +45,7 @@ The primary purpose of this website is to let players play the Pokémon Legends 
 # Technologies
 - Vue and CSS for structuring and styling the website
 - Javascript to implement interactivty with website
-- BootstrapVue for Navbar and other Bootstrap components
+- [BootstrapVue](https://bootstrap-vue.org/) for Navbar and other Bootstrap components
 - GitHub for version control and repositories
 - GitPod as coding platform
 - Axios to read from JSON files and database
@@ -54,5 +54,8 @@ The primary purpose of this website is to let players play the Pokémon Legends 
 - Responsive Web Design Checker to check how it looks like on other devices
 
 # Credits
+- [POKÉMON](https://www.pokemon.com/sg/) for the series and the assets
+- [Pokémon API](https://pokeapi.co/)
+- [Pokémon Font](https://www.dafont.com/pokemon.font)
 - [Vue Fullscreen](http://mirari.cc/vue-fullscreen/) for granting fullscreen to the game window
 - [Vuex-PersistedState](https://www.npmjs.com/package/vuex-persistedstate) for simple inter-component state control

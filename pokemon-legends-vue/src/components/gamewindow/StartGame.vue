@@ -1,18 +1,18 @@
 <template>
   <div>
-    <button class="startGameBtn btn btn-secondary" @click="gameStart"><h1>
-        Welcome, {{ this.$store.state.username }}<br />Click to Start Game
-    </h1></button>
+    <button class="startGameBtn btn btn-secondary" @click="gameStart">
+      <h1>Welcome, {{ $store.state.username }}<br />Click to Start Game</h1>
+    </button>
   </div>
 </template>
 
 <script>
 export default {
-    methods: {
-        gameStart: function () {
-            this.$store.state.gameState = "game_menu"
-        }
-    }
+  methods: {
+    gameStart: function () {
+      this.$store.state.gameState = "game_menu";
+    },
+  },
 };
 </script>
 

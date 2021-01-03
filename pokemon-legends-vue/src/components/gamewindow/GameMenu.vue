@@ -45,7 +45,8 @@
           <h5>Gym Badges:</h5>
           <h5>
             {{
-              $store.state.userData.badges && $store.state.userData.badges.length
+              $store.state.userData.badges &&
+              $store.state.userData.badges.length
             }}
           </h5>
         </div>
@@ -59,7 +60,10 @@
           </h5>
         </div>
         <div class="d-flex justify-content-center" id="party-pokemon-div">
-          <div v-bind:key="i" v-for="(pokemon, i) in $store.state.userData.party_pokemon">
+          <div
+            v-bind:key="i"
+            v-for="(pokemon, i) in $store.state.userData.party_pokemon"
+          >
             <img
               class="party-pokemon-sprite"
               v-bind:src="
@@ -123,7 +127,7 @@ export default {
   created: function () {
     this.toggleInfo = false;
 
-    console.log(this.$store.state.userData)
+    console.log(this.$store.state.userData);
     //   let response = await axios.get(
     //     "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
     //       this.$store.state.username
