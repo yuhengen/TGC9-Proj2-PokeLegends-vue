@@ -1,7 +1,7 @@
 <template>
   <div>
     <button class="startGameBtn btn btn-secondary" @click="gameStart">
-      <h1>Welcome, {{ $store.state.username }}<br />Click to Start Game</h1>
+      <h2>Welcome, {{ $store.state.username }}<br />Click to Start Game</h2>
     </button>
   </div>
 </template>
@@ -19,12 +19,13 @@ export default {
 <style scoped>
 .startGameBtn {
   position: absolute !important;
-  bottom: 3%;
+  bottom: 1%;
   margin-left: auto;
   margin-right: auto;
-  left: 0;
+  left: 3%;
   right: 0;
   text-align: center;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  z-index:2;
 }
 </style>

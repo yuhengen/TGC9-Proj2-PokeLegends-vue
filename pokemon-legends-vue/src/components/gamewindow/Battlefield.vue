@@ -1,9 +1,34 @@
 <template>
-  <div id="battle-window"></div>
+  <div id="battle-window">
+    <img class="ally-pokemon-portrait" v-bind:src="
+                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/' +
+                allyActivePkmn.pokemon_id +
+                '.png'
+              "/>
+    <img class="foe-pokemon-portrait" v-bind:src="foeActivePkmn.sprites.front_default"/>
+  </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data: function () {
+    return {
+      allyActivePkmn: "",
+      foeActivePkmn: "",
+    };
+  },
+  created: async function () {
+    this.allyActivePkmn = this.$store.state.userData.party_pokemon[0];
+
+    let randomEnemyID = Math.floor(Math.random() * 150) + 1;
+    let response = await axios.get(
+      "https://pokeapi.co/api/v2/pokemon/" + randomEnemyID
+    );
+
+    this.foeActivePkmn = response.data;
+  },
+};
 </script>
 
 <style scoped>

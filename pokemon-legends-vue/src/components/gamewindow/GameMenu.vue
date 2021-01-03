@@ -126,8 +126,6 @@ export default {
   },
   created: function () {
     this.toggleInfo = false;
-
-    console.log(this.$store.state.userData);
     //   let response = await axios.get(
     //     "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
     //       this.$store.state.username

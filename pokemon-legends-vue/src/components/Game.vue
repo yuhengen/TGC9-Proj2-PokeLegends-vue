@@ -4,12 +4,14 @@
       <div id="gameWindow" v-bind:style="{ height: heightSize }">
         <div v-if="$store.state.loginState == false">
           <h2 class="pleaseLogin">Please login to play the game!</h2>
+          <h1 class="legendsText">Legends</h1>
         </div>
         <div v-else>
           <div
             v-if="$store.state.gameState == 'logged_in'"
             v-bind:style="{ height: heightSize }"
           >
+          <h1 class="legendsText">Legends</h1>
             <StartGame />
           </div>
           <div
@@ -72,7 +74,8 @@ export default {
 
 <style>
 #gameWindow {
-  background-image: url("https://i.pinimg.com/originals/b5/c2/b4/b5c2b47b1c4cc051995d68991e855e76.jpg");
+  /* background-image: url("https://i.pinimg.com/originals/b5/c2/b4/b5c2b47b1c4cc051995d68991e855e76.jpg"); */
+  background-image: url("https://i.imgur.com/JDvCBHC.gif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -83,6 +86,28 @@ export default {
 }
 
 .pleaseLogin {
+  position: absolute !important;
+  bottom: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  background-color: rgba(52, 58, 64, 1);
+}
+
+.legendsText {
+  font-family: pokemonsolid;
+  font-size: 130px;
+  color:#f3f0ad;
+  position: absolute !important;
+  bottom:23%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  text-shadow: -5px 0 black, 0 5px black, 5px 0 black, 0 -5px black;
 }
 </style>
