@@ -79,4 +79,19 @@ export default {
   width: 100%;
   margin: auto;
 }
+
+.ally-pokemon-portrait {
+  position: absolute !important;
+  bottom: 0;
+  left:5%;
+  height:50%;
+}
+
+.foe-pokemon-portrait {
+  position: absolute !important;
+  top: 15%;
+  right:5%;
+  height:50%;
+
+}
 </style>
