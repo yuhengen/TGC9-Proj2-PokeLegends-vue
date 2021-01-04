@@ -1,5 +1,8 @@
 <template>
   <div id="battle-window">
+    <div class="top-message-div">
+      {{ battleMessage }}
+    </div>
     <img
       class="ally-pokemon-portrait"
       v-bind:src="
@@ -10,15 +13,23 @@
     />
     <img
       class="foe-pokemon-portrait"
-      v-bind:src="foeActivePkmn.sprites.front_default"
+      v-bind:src="foeActivePkmn && foeActivePkmn.sprites.front_default"
     />
 
     <!-- bottom buttons -->
     <div class="buttons-div">
-      <SelectButtons :message="allyActivePkmnMove[0].attack" />
-      <SelectButtons :message="allyActivePkmnMove[1].move1" />
-      <SelectButtons :message="allyActivePkmnMove[2].move2" />
-      <SelectButtons :message="allyActivePkmnMove[3].ultimate" />
+      <SelectButtons
+        :message="allyActivePkmnMove[0] && allyActivePkmnMove[0].attack"
+      />
+      <SelectButtons
+        :message="allyActivePkmnMove[1] && allyActivePkmnMove[1].move1"
+      />
+      <SelectButtons
+        :message="allyActivePkmnMove[2] && allyActivePkmnMove[2].move2"
+      />
+      <SelectButtons
+        :message="allyActivePkmnMove[3] && allyActivePkmnMove[3].ultimate"
+      />
     </div>
   </div>
 </template>
@@ -32,14 +43,22 @@ export default {
       allyActivePkmn: "",
       allyActivePkmnMove: [],
       foeActivePkmn: "",
+      foeActivePkmnName: "",
+      battleState: "",
+      battleMessage: "",
     };
   },
   components: {
     SelectButtons,
   },
+  //   created: function () {
+  //   },
   created: async function () {
+    this.battleState = "battle_start";
+    // ally pokemon
     this.allyActivePkmn = this.$store.state.userData.party_pokemon[0];
 
+    // ally pokemon move
     let response = await axios.get(
       "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/movesets"
     );
@@ -49,12 +68,24 @@ export default {
     );
     this.allyActivePkmnMove = pkmnmoveset.moveset;
 
+    // foe pokemon
     let randomEnemyID = Math.floor(Math.random() * 150) + 1;
     let response2 = await axios.get(
       "https://pokeapi.co/api/v2/pokemon/" + randomEnemyID
     );
 
     this.foeActivePkmn = response2.data;
+    this.foeActivePkmnName = this.foeActivePkmn.name;
+    this.battleMessage = `Encountered ${
+      this.foeActivePkmnName.charAt(0).toUpperCase() + this.foeActivePkmnName.slice(1)
+    }!`;
+  },
+  watch: {
+    battleState: function () {
+      if (this.battleState == "battle_start") {
+        console.log(this.foeActivePkmn);
+      }
+    },
   },
 };
 </script>
@@ -73,7 +104,7 @@ export default {
 
 .buttons-div {
   position: absolute !important;
-  bottom: 3%;
+  bottom: 1%;
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -83,15 +114,14 @@ export default {
 .ally-pokemon-portrait {
   position: absolute !important;
   bottom: 0;
-  left:5%;
-  height:50%;
+  left: 5%;
+  height: 50%;
 }
 
 .foe-pokemon-portrait {
   position: absolute !important;
-  top: 15%;
-  right:5%;
-  height:50%;
-
+  top: 20%;
+  right: 5%;
+  height: 50%;
 }
 </style>
