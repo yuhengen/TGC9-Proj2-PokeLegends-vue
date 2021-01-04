@@ -1,6 +1,6 @@
 <template>
   <div id="battle-window">
-    <div class="top-message-div">
+    <div class="top-message-div btn-dark">
       {{ battleMessage }}
     </div>
     <img
@@ -17,7 +17,16 @@
     />
 
     <!-- bottom buttons -->
-    <div class="buttons-div">
+    <!-- select action -->
+    <div v-if="battleState == 'p1_select'" class="buttons-div">
+      <SelectButtons message="Fight" />
+      <SelectButtons message="Pokémon" />
+      <SelectButtons message="Bag" />
+      <SelectButtons message="Run" @click.native="runFromBattle" />
+    </div>
+
+    <!-- select move -->
+    <div v-if="battleState == 'p1_moves'" class="buttons-div">
       <SelectButtons
         :message="allyActivePkmnMove[0] && allyActivePkmnMove[0].attack"
       />
@@ -77,13 +86,24 @@ export default {
     this.foeActivePkmn = response2.data;
     this.foeActivePkmnName = this.foeActivePkmn.name;
     this.battleMessage = `Encountered ${
-      this.foeActivePkmnName.charAt(0).toUpperCase() + this.foeActivePkmnName.slice(1)
+      this.foeActivePkmnName.charAt(0).toUpperCase() +
+      this.foeActivePkmnName.slice(1)
     }!`;
+  },
+  methods: {
+    runFromBattle() {
+      this.battleState = "";
+      this.battleMessage = "Got away safely!";
+      setTimeout(() => (this.$store.state.gameState = "game_menu"), 2000);
+    },
   },
   watch: {
     battleState: function () {
       if (this.battleState == "battle_start") {
-        console.log(this.foeActivePkmn);
+        setTimeout(() => (this.battleState = "p1_select"), 3000);
+      }
+      if (this.battleState == "p1_select") {
+        this.battleMessage = "What will you like to do?";
       }
     },
   },
@@ -100,6 +120,19 @@ export default {
   height: 100%;
   text-align: center;
   position: relative;
+}
+
+.top-message-div {
+  position: absolute !important;
+  top: 0;
+  width: 100%;
+  height: 15%;
+  margin: auto;
+  border: 3px solid white !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5vh;
 }
 
 .buttons-div {
