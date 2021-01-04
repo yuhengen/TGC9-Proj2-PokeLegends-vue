@@ -24,7 +24,7 @@
             v-if="$store.state.gameState == 'battle_start'"
             v-bind:style="{ height: heightSize }"
           >
-            <Battlefield />
+            <RandomBattle />
           </div>
         </div></div
     ></fullscreen>
@@ -35,13 +35,13 @@
 <script>
 import StartGame from "./gamewindow/StartGame";
 import GameMenu from "./gamewindow/GameMenu";
-import Battlefield from "./gamewindow/Battlefield";
+import RandomBattle from './gamewindow/RandomBattle.vue';
 
 export default {
   components: {
     StartGame,
     GameMenu,
-    Battlefield,
+    RandomBattle,
   },
   data: function () {
     return {
@@ -73,6 +73,7 @@ export default {
 </script>
 
 <style>
+
 #gameWindow {
   /* background-image: url("https://i.pinimg.com/originals/b5/c2/b4/b5c2b47b1c4cc051995d68991e855e76.jpg"); */
   background-image: url("https://i.imgur.com/JDvCBHC.gif");
@@ -83,6 +84,7 @@ export default {
   background-color: black;
   text-align: center;
   position: relative;
+    font-family: pixelfont;
 }
 
 .pleaseLogin {

@@ -1,6 +1,6 @@
 <template>
   <div id="battle-window">
-    <div class="top-message-div btn-dark">
+    <div class="top-message-div bg-dark">
       {{ battleMessage }}
     </div>
     <img
@@ -19,7 +19,7 @@
     <!-- bottom buttons -->
     <!-- select action -->
     <div v-if="battleState == 'p1_select'" class="buttons-div">
-      <SelectButtons message="Fight" />
+      <SelectButtons message="Fight" @click.native="selectMove"/>
       <SelectButtons message="Pokémon" />
       <SelectButtons message="Bag" />
       <SelectButtons message="Run" @click.native="runFromBattle" />
@@ -36,7 +36,10 @@
       <SelectButtons
         :message="allyActivePkmnMove[2] && allyActivePkmnMove[2].move2"
       />
-      <SelectButtons
+      <SelectButtons v-if="allyPkmnMP < 10"
+        message="Back" @click.native="backFunction"
+      />
+      <SelectButtons v-else
         :message="allyActivePkmnMove[3] && allyActivePkmnMove[3].ultimate"
       />
     </div>
@@ -51,8 +54,12 @@ export default {
     return {
       allyActivePkmn: "",
       allyActivePkmnMove: [],
+      allyPkmnHP: 0,
+      allyPkmnMP: 0,
       foeActivePkmn: "",
       foeActivePkmnName: "",
+      foePkmnHP: 0,
+      foePkmnMP: 0,
       battleState: "",
       battleMessage: "",
     };
@@ -67,16 +74,6 @@ export default {
     // ally pokemon
     this.allyActivePkmn = this.$store.state.userData.party_pokemon[0];
 
-    // ally pokemon move
-    let response = await axios.get(
-      "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/movesets"
-    );
-    let pkmnmove = response.data;
-    let pkmnmoveset = pkmnmove.find(
-      (pm) => pm.pokemon_id == this.allyActivePkmn.pokemon_id
-    );
-    this.allyActivePkmnMove = pkmnmoveset.moveset;
-
     // foe pokemon
     let randomEnemyID = Math.floor(Math.random() * 150) + 1;
     let response2 = await axios.get(
@@ -89,6 +86,22 @@ export default {
       this.foeActivePkmnName.charAt(0).toUpperCase() +
       this.foeActivePkmnName.slice(1)
     }!`;
+
+    this.foePkmnHP = this.foeActivePkmn.stats[0].base_stat
+
+    setTimeout(() => (this.battleState = "p1_select"), 3000);
+
+    // ally pokemon move
+    let response = await axios.get(
+      "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/movesets"
+    );
+    let pkmnmove = response.data;
+    let pkmnmoveset = pkmnmove.find(
+      (pm) => pm.pokemon_id == this.allyActivePkmn.pokemon_id
+    );
+    this.allyActivePkmnMove = pkmnmoveset.moveset;
+    this.allyPkmnHP = this.allyActivePkmn.stats.hp
+    this.allyPkmnMP = 0
   },
   methods: {
     runFromBattle() {
@@ -96,12 +109,19 @@ export default {
       this.battleMessage = "Got away safely!";
       setTimeout(() => (this.$store.state.gameState = "game_menu"), 2000);
     },
+    selectMove() {
+        this.battleState = "p1_moves"
+        this.battleMessage = "Which move will you like to use?"
+    },
+    backFunction() {
+        this.battleState= "p1_select"
+    }
   },
   watch: {
     battleState: function () {
-      if (this.battleState == "battle_start") {
-        setTimeout(() => (this.battleState = "p1_select"), 3000);
-      }
+      //   if (this.battleState == "battle_start") {
+      //     setTimeout(() => (this.battleState = "p1_select"), 3000);
+      //   }
       if (this.battleState == "p1_select") {
         this.battleMessage = "What will you like to do?";
       }
@@ -111,6 +131,7 @@ export default {
 </script>
 
 <style scoped>
+
 #battle-window {
   background-image: url("https://cutewallpaper.org/21/pokemon-battle-field-background/OR-AS-Battle-Background-1B-by-PhoenixOfLight92-on-DeviantArt.jpg");
   background-size: cover;
@@ -132,7 +153,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.5vh;
+  font-size: 2vh;
 }
 
 .buttons-div {

@@ -35,6 +35,11 @@ export default {
   src: url("./assets/fonts/Pokemon-Solid.ttf");
 }
 
+@font-face {
+    font-family: pixelfont;
+    src:url("./assets/fonts/PressStart2P-vaV7.ttf")
+}
+
 .container {
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
