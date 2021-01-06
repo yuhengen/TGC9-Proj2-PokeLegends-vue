@@ -3,7 +3,7 @@
     <div class="d-flex flex-column align-items-center">
       <h1>Pokédex</h1>
       <input
-        class="form-control mt-4 mb-4 col-sm-10"
+        class="form-control shadow mt-4 mb-4 col-sm-10"
         type="text"
         placeholder="Search by Pokémon name"
         v-model="search_pkmn"
@@ -27,7 +27,7 @@
           img-alt="Pokemon Image"
           img-top
           style="width: 13rem"
-          class="m-3"
+          class="m-3 shadow"
         >
         </b-card>
       </div>

@@ -4,7 +4,7 @@
       {{ battleMessage }}
     </div>
     <img
-      class="ally-pokemon-portrait"
+      class="ally-pokemon-portrait shadow"
       v-bind:src="
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/' +
         allyActivePkmn.pokemon_id +

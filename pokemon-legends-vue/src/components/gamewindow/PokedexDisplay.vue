@@ -1,6 +1,7 @@
 <template>
     <div id='pokedex-display' class='d-flex align-items-center'>
     <Pokedex class="pokedex-window"/>
+    <img src="https://image.flaticon.com/icons/png/512/458/458594.png" @click="closePokedex" class="cancelBtn"/>
     </div>
 </template>
 
@@ -9,6 +10,12 @@ import Pokedex from '../Pokedex'
 export default {
     components: {
         Pokedex
+    },
+    methods: {
+        closePokedex: function() {
+            this.$store.state.gameState = 'game_menu'
+            console.log(this.$store.state.gameState)
+        }
     }
 }
 </script>
@@ -29,5 +36,16 @@ export default {
     width:100%;
     overflow-y: scroll;
     font-size: 0.8rem;
+}
+
+.cancelBtn {
+    position:absolute;
+    top: 1%;
+    right: 1%;
+    height:10%;
+}
+
+.cancelBtn:hover {
+    cursor:pointer;
 }
 </style>
