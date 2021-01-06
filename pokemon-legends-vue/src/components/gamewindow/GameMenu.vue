@@ -101,7 +101,7 @@
 
       <!-- bottom buttons -->
       <div class="buttons-div">
-        <SelectButtons message="Pokédex" />
+        <SelectButtons message="Pokédex" @click.native="openPokedex"/>
         <SelectButtons message="Pokémon" />
         <SelectButtons message="Bag" />
         <SelectButtons message="Shop" />
@@ -144,6 +144,9 @@ export default {
     enterBattle: function () {
       this.$store.state.gameState = "battle_start";
     },
+    openPokedex: function () {
+      this.$store.state.gameState = "open_pokedex";
+    }
   },
 };
 </script>
@@ -154,7 +157,6 @@ export default {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: black;
   height: 100%;
   text-align: center;
   position: relative;

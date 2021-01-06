@@ -1,12 +1,14 @@
 <template>
   <div>
-    <h1>Pokédex</h1>
-    <input
-      class="form-control mt-4"
-      type="text"
-      placeholder="Search by Pokémon name"
-      v-model="search_pkmn"
-    />
+    <div class="d-flex flex-column align-items-center">
+      <h1>Pokédex</h1>
+      <input
+        class="form-control mt-4 mb-4 col-sm-10"
+        type="text"
+        placeholder="Search by Pokémon name"
+        v-model="search_pkmn"
+      />
+    </div>
     <div class="pokedex-list">
       <div class="d-flex flex-wrap justify-content-center">
         <b-card
@@ -24,7 +26,7 @@
           "
           img-alt="Pokemon Image"
           img-top
-          style="width: 10rem"
+          style="width: 13rem"
           class="m-3"
         >
         </b-card>
@@ -53,6 +55,7 @@ export default {
 h1 {
   text-align: center;
   font-family: pokemonsolid;
+  font-size: 3rem;
 }
 
 .card {

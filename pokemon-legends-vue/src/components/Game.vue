@@ -11,7 +11,7 @@
             v-if="$store.state.gameState == 'logged_in'"
             v-bind:style="{ height: heightSize }"
           >
-          <h1 class="legendsText">Legends</h1>
+            <h1 class="legendsText">Legends</h1>
             <StartGame />
           </div>
           <div
@@ -26,6 +26,12 @@
           >
             <RandomBattle />
           </div>
+          <div
+            v-if="$store.state.gameState == 'open_pokedex'"
+            v-bind:style="{ height: heightSize }"
+          >
+            <PokedexDisplay/>
+          </div>
         </div></div
     ></fullscreen>
     <button type="button" @click="toggle">Fullscreen</button>
@@ -35,13 +41,15 @@
 <script>
 import StartGame from "./gamewindow/StartGame";
 import GameMenu from "./gamewindow/GameMenu";
-import RandomBattle from './gamewindow/RandomBattle.vue';
+import RandomBattle from "./gamewindow/RandomBattle.vue";
+import PokedexDisplay from "./gamewindow/PokedexDisplay.vue";
 
 export default {
   components: {
     StartGame,
     GameMenu,
     RandomBattle,
+    PokedexDisplay,
   },
   data: function () {
     return {
@@ -73,7 +81,6 @@ export default {
 </script>
 
 <style>
-
 #gameWindow {
   /* background-image: url("https://i.pinimg.com/originals/b5/c2/b4/b5c2b47b1c4cc051995d68991e855e76.jpg"); */
   background-image: url("https://i.imgur.com/JDvCBHC.gif");
@@ -84,7 +91,7 @@ export default {
   background-color: black;
   text-align: center;
   position: relative;
-    font-family: pixelfont;
+  font-family: pixelfont;
 }
 
 .pleaseLogin {
@@ -102,9 +109,9 @@ export default {
 .legendsText {
   font-family: pokemonsolid;
   font-size: 130px;
-  color:#f3f0ad;
+  color: #f3f0ad;
   position: absolute !important;
-  bottom:23%;
+  bottom: 23%;
   margin-left: auto;
   margin-right: auto;
   left: 0;

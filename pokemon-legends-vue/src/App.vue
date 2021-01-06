@@ -36,9 +36,37 @@ export default {
 }
 
 @font-face {
-    font-family: pixelfont;
-    src:url("./assets/fonts/PressStart2P-vaV7.ttf")
+  font-family: pixelfont;
+  src: url("./assets/fonts/PressStart2P-vaV7.ttf");
 }
+
+/* Shared scrollbar design */
+
+/* width */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* End Scrollbar CSS */
 
 .container {
   background-color: rgba(0, 0, 0, 0.7);
