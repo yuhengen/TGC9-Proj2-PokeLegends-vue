@@ -15,8 +15,7 @@
       class="foe-pokemon-portrait"
       v-bind:src="foeActivePkmn && foeActivePkmn.sprites.front_default"
     />
-
-    <!-- bottom buttons -->
+    
     <!-- select action -->
     <div v-if="battleState == 'p1_select'" class="buttons-div">
       <SelectButtons message="Fight" @click.native="selectMove"/>
@@ -154,6 +153,7 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: 2vh;
+  border-radius:7px;
 }
 
 .buttons-div {

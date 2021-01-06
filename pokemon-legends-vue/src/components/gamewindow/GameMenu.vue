@@ -188,11 +188,11 @@ h3 {
   right: 0;
   text-align: center;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-  font-size: 2rem;
+  font-size: 3vh;
 }
 
 h5 {
-  font-size: 1.5rem;
+  font-size: 1.8vh;
 }
 
 #party-pokemon-div {
