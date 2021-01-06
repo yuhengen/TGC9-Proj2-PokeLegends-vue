@@ -1,5 +1,5 @@
 <template>
-  <div class="btn btn-lg btn-dark btn-design">
+  <div class="btn btn-lg btn-dark btn-design shadow">
     <p>{{ message }}</p>
   </div>
 </template>

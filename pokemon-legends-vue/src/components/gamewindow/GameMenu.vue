@@ -21,7 +21,7 @@
       <div
         v-else
         id="user-info"
-        class="d-flex flex-column justify-content-around pl-5 pr-5 pt-2"
+        class="d-flex flex-column justify-content-around pl-5 pr-5 pt-2 shadow"
       >
         <h3>User Info</h3>
         <div class="d-flex justify-content-between">

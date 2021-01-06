@@ -14,7 +14,6 @@ export default {
     methods: {
         closePokedex: function() {
             this.$store.state.gameState = 'game_menu'
-            console.log(this.$store.state.gameState)
         }
     }
 }
