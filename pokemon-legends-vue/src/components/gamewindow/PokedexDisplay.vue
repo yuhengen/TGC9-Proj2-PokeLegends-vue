@@ -26,6 +26,7 @@ export default {
 
 .pokedex-window {
     height: 90%;
+    width:100%;
     overflow-y: scroll;
     font-size: 0.8rem;
 }

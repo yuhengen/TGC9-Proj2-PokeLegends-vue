@@ -12,7 +12,7 @@
     <div class="pokedex-list">
       <div class="d-flex flex-wrap justify-content-center">
         <b-card
-          v-for="(pokemon, i) in pokedex"
+          v-for="(pokemon, i) in searchResult"
           v-bind:key="i"
           v-bind:title="
             pokemon &&
@@ -48,6 +48,14 @@ export default {
     let response = await axios.get("https://pokeapi.co/api/v2/pokedex/kanto");
     this.pokedex = response.data.pokemon_entries;
   },
+  computed: {
+      searchResult: function() {
+          let filteredResult = this.pokedex.filter((name)=>{
+              return name.pokemon_species.name.toLowerCase().includes(this.search_pkmn.toLowerCase())
+          })
+          return filteredResult
+      }
+  }
 };
 </script>
 
@@ -56,6 +64,7 @@ h1 {
   text-align: center;
   font-family: pokemonsolid;
   font-size: 3rem;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 .card {
