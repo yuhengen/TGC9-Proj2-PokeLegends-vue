@@ -68,7 +68,7 @@
               class="party-pokemon-sprite"
               v-bind:src="
                 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
-                $store.state.userData.party_pokemon[i].pokemon_id +
+                pokemon.pokemon_id +
                 '.png'
               "
             />
@@ -188,11 +188,11 @@ h3 {
   right: 0;
   text-align: center;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-  font-size: 3vh;
+  font-size: 1.2rem;
 }
 
 h5 {
-  font-size: 1.8vh;
+  font-size: 0.9rem;
 }
 
 #party-pokemon-div {
@@ -222,7 +222,7 @@ h5 {
 }
 
 .battle-button {
-  width: 13vw;
+  width: 25%;
   -webkit-animation: clockwiseSpin 5s infinite linear;
   animation: clockwiseSpin 5s infinite linear;
 }
@@ -254,7 +254,7 @@ h5 {
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: pokemonsolid;
-  font-size: 5vw;
+  font-size: 5rem;
   cursor: pointer;
   text-shadow: -4px 0 rgb(52, 58, 64), 0 4px rgb(52, 58, 64),
     4px 0 rgb(52, 58, 64), 0 -4px rgb(52, 58, 64);

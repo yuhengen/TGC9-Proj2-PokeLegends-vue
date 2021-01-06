@@ -1,13 +1,70 @@
 <template>
-    <h1>Pokedex!</h1>
+  <div>
+    <h1>Pokédex</h1>
+    <input
+      class="form-control mt-4"
+      type="text"
+      placeholder="Search by Pokémon name"
+      v-model="search_pkmn"
+    />
+    <div class="pokedex-list">
+      <div class="d-flex flex-wrap justify-content-center">
+        <b-card
+          v-for="(pokemon, i) in pokedex"
+          v-bind:key="i"
+          v-bind:title="
+            pokemon &&
+            pokemon.pokemon_species.name.charAt(0).toUpperCase() +
+              pokemon.pokemon_species.name.slice(1)
+          "
+          v-bind:img-src="
+            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
+            pokemon.entry_number +
+            '.png'
+          "
+          img-alt="Pokemon Image"
+          img-top
+          style="width: 10rem"
+          class="m-3"
+        >
+        </b-card>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-    
-}
+  data: function () {
+    return {
+      pokedex: [],
+      search_pkmn: "",
+    };
+  },
+  created: async function () {
+    let response = await axios.get("https://pokeapi.co/api/v2/pokedex/kanto");
+    this.pokedex = response.data.pokemon_entries;
+  },
+};
 </script>
 
 <style scoped>
+h1 {
+  text-align: center;
+  font-family: pokemonsolid;
+}
 
+.card {
+  background-image: url("https://cdn.wccftech.com/wp-content/uploads/2016/08/Pokemon-GO-PokeBall.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card-title {
+  font-size: 1rem;
+  color: black;
+  text-align: center;
+}
 </style>

@@ -152,7 +152,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2vh;
+  font-size: 1rem;
   border-radius:7px;
 }
 

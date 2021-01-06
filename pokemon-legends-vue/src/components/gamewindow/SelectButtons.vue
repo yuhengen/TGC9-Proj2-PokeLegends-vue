@@ -8,7 +8,6 @@
 export default {
   data: function () {
     return {
-      //   message: "Placeholder message",
     };
   },
   props: ["message"],
@@ -20,6 +19,6 @@ export default {
   padding-top: 20px;
   border: 3px solid white !important;
   width: 22%;
-  font-size:1.8vh;
+  font-size:0.9rem;
 }
 </style>
