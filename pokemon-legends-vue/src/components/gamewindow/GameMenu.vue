@@ -224,7 +224,7 @@ h5 {
 }
 
 .battle-button {
-  width: 25%;
+  height: 300px;
   -webkit-animation: clockwiseSpin 5s infinite linear;
   animation: clockwiseSpin 5s infinite linear;
 }
@@ -256,7 +256,7 @@ h5 {
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: pokemonsolid;
-  font-size: 5rem;
+  font-size: 5.5rem;
   cursor: pointer;
   text-shadow: -4px 0 rgb(52, 58, 64), 0 4px rgb(52, 58, 64),
     4px 0 rgb(52, 58, 64), 0 -4px rgb(52, 58, 64);

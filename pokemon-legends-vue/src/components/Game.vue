@@ -2,6 +2,12 @@
   <div class="mt-5">
     <fullscreen :fullscreen.sync="fullscreen">
       <div id="gameWindow" v-bind:style="{ height: heightSize }">
+        <img
+          v-if="fullscreen"
+          src="https://image.freepik.com/icones-gratis/sair-para-tela-cheia_318-9824.jpg"
+          class="exit-fullscreen-btn"
+          @click="toggle"
+        />
         <div v-if="$store.state.loginState == false">
           <h2 class="pleaseLogin">Please login to play the game!</h2>
           <h1 class="legendsText">Legends</h1>
@@ -30,13 +36,27 @@
             v-if="$store.state.gameState == 'open_pokedex'"
             v-bind:style="{ height: heightSize }"
           >
-            <PokedexDisplay/>
+            <PokedexDisplay />
           </div>
-        </div></div
-    ></fullscreen>
-    <button type="button" @click="toggle" class="btn btn-dark btn-block fullscreen-btn d-flex justify-content-between">
-        <div class="ml-5">Play in Fullscreen</div><div style="color:black; 
-  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;" class="mr-5">ESC to leave fullscreen</div></button>
+        </div>
+      </div>
+    </fullscreen>
+    <button
+      type="button"
+      @click="toggle"
+      class="btn btn-dark btn-block fullscreen-btn d-flex justify-content-between"
+    >
+      <div class="ml-5">Play in Fullscreen</div>
+      <div
+        style="
+          color: black;
+          text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+        "
+        class="mr-5"
+      >
+        ESC to leave fullscreen
+      </div>
+    </button>
   </div>
 </template>
 
@@ -98,9 +118,9 @@ export default {
 
 .pleaseLogin {
   position: absolute !important;
-  font-size:1.3rem;
-  padding-top:2%;
-  padding-bottom:2%;
+  font-size: 1.3rem;
+  padding-top: 2%;
+  padding-bottom: 2%;
   bottom: 1%;
   margin-left: auto;
   margin-right: auto;
@@ -126,13 +146,26 @@ export default {
 }
 
 .fullscreen-btn {
-    font-family:pixelfont;
-    background-image: url('https://tcgplayerpro-www.s1.umbraco.io/media/2483/pokemon_play_pokemon_banner-02-2x.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    text-align:left;
-    color:white;
+  font-family: pixelfont;
+  background-image: url("https://tcgplayerpro-www.s1.umbraco.io/media/2483/pokemon_play_pokemon_banner-02-2x.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: left;
+  color: white;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.exit-fullscreen-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 8%;
+  z-index: 20;
+  border: 3px solid black !important;
+}
+
+.exit-fullscreen-btn:hover {
+  cursor: pointer;
 }
 </style>

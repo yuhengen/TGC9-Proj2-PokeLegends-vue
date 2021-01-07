@@ -1,10 +1,10 @@
 <template>
   <div id="battle-window">
-    <div class="top-message-div bg-dark">
+    <div class="top-message-div bg-dark shadow">
       {{ battleMessage }}
     </div>
     <img
-      class="ally-pokemon-portrait shadow"
+      class="ally-pokemon-portrait"
       v-bind:src="
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/' +
         allyActivePkmn.pokemon_id +
@@ -15,10 +15,10 @@
       class="foe-pokemon-portrait"
       v-bind:src="foeActivePkmn && foeActivePkmn.sprites.front_default"
     />
-    
+
     <!-- select action -->
     <div v-if="battleState == 'p1_select'" class="buttons-div">
-      <SelectButtons message="Fight" @click.native="selectMove"/>
+      <SelectButtons message="Fight" @click.native="selectMove" />
       <SelectButtons message="Pokémon" />
       <SelectButtons message="Bag" />
       <SelectButtons message="Run" @click.native="runFromBattle" />
@@ -35,10 +35,13 @@
       <SelectButtons
         :message="allyActivePkmnMove[2] && allyActivePkmnMove[2].move2"
       />
-      <SelectButtons v-if="allyPkmnMP < 10"
-        message="Back" @click.native="backFunction"
+      <SelectButtons
+        v-if="allyPkmnMP < 10"
+        message="Back"
+        @click.native="backFunction"
       />
-      <SelectButtons v-else
+      <SelectButtons
+        v-else
         :message="allyActivePkmnMove[3] && allyActivePkmnMove[3].ultimate"
       />
     </div>
@@ -86,7 +89,8 @@ export default {
       this.foeActivePkmnName.slice(1)
     }!`;
 
-    this.foePkmnHP = this.foeActivePkmn.stats[0].base_stat
+    this.foePkmnHP = this.foeActivePkmn.stats[0].base_stat;
+    this.foePkmnMP = 0;
 
     setTimeout(() => (this.battleState = "p1_select"), 3000);
 
@@ -99,8 +103,8 @@ export default {
       (pm) => pm.pokemon_id == this.allyActivePkmn.pokemon_id
     );
     this.allyActivePkmnMove = pkmnmoveset.moveset;
-    this.allyPkmnHP = this.allyActivePkmn.stats.hp
-    this.allyPkmnMP = 0
+    this.allyPkmnHP = this.allyActivePkmn.stats.hp;
+    this.allyPkmnMP = 0;
   },
   methods: {
     runFromBattle() {
@@ -109,12 +113,12 @@ export default {
       setTimeout(() => (this.$store.state.gameState = "game_menu"), 2000);
     },
     selectMove() {
-        this.battleState = "p1_moves"
-        this.battleMessage = "Which move will you like to use?"
+      this.battleState = "p1_moves";
+      this.battleMessage = "Which move will you like to use?";
     },
     backFunction() {
-        this.battleState= "p1_select"
-    }
+      this.battleState = "p1_select";
+    },
   },
   watch: {
     battleState: function () {
@@ -130,7 +134,6 @@ export default {
 </script>
 
 <style scoped>
-
 #battle-window {
   background-image: url("https://cutewallpaper.org/21/pokemon-battle-field-background/OR-AS-Battle-Background-1B-by-PhoenixOfLight92-on-DeviantArt.jpg");
   background-size: cover;
@@ -153,7 +156,7 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: 1rem;
-  border-radius:7px;
+  border-radius: 7px;
 }
 
 .buttons-div {
