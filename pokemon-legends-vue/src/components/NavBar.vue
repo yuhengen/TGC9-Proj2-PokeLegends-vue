@@ -5,10 +5,10 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item class="mr-4"
+            <b-nav-item class="mr-4" @click="stopBGM"
               ><router-link to="/">Home</router-link></b-nav-item
             >
-            <b-nav-item class="ml-4 mr-4"
+            <b-nav-item class="ml-4 mr-4" @click="stopBGM"
               ><router-link to="/pokedex">Pokédex</router-link></b-nav-item
             >
           </b-navbar-nav>
@@ -41,7 +41,13 @@
               <span>{{ $store.state.username }}</span>
               <div class="dropdown-divider"></div>
               <b-dropdown-item href="#">Settings</b-dropdown-item>
-              <b-dropdown-item @click="logoutAccount">Log Out</b-dropdown-item>
+              <b-dropdown-item
+                @click="
+                  logoutAccount();
+                  stopBGM();
+                "
+                >Log Out</b-dropdown-item
+              >
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -175,7 +181,11 @@ export default {
       this.$store.state.loginState = false;
       this.$store.state.userData = {};
     },
-  }
+    stopBGM() {
+      this.$store.state.bgm.pause();
+      this.$store.state.bgmName = "";
+    },
+  },
 };
 </script>
 

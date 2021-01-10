@@ -96,15 +96,15 @@
           src="https://www.logolynx.com/images/logolynx/0c/0c8c0f527e118c62eefd0d7ef727e040.png"
           class="battle-button"
         />
-        <h1 class="battle-text" @click="enterBattle">Battle</h1>
+        <h1 class="battle-text" @click="enterRBattle">Battle</h1>
       </div>
 
       <!-- bottom buttons -->
       <div class="buttons-div">
         <SelectButtons message="Pokédex" @click.native="openPokedex" />
-        <SelectButtons message="Pokémon" />
-        <SelectButtons message="Bag" />
-        <SelectButtons message="Shop" />
+        <SelectButtons message="Pokémon" @click.native="comingSoon" />
+        <SelectButtons message="Bag" @click.native="comingSoon" />
+        <SelectButtons message="Shop" @click.native="comingSoon" />
       </div>
     </div>
   </div>
@@ -150,7 +150,7 @@ export default {
         ? (this.toggleInfo = true)
         : (this.toggleInfo = false);
     },
-    enterBattle: function () {
+    enterRBattle: function () {
       this.$store.state.bgm.pause();
       let rbattleBGM = new Audio("bgm/random-battle.mp3");
       this.$store.state.bgm = rbattleBGM;
@@ -163,6 +163,9 @@ export default {
     },
     openPokedex: function () {
       this.$store.state.gameState = "open_pokedex";
+    },
+    comingSoon() {
+      alert("Coming Soon!");
     },
   },
 };

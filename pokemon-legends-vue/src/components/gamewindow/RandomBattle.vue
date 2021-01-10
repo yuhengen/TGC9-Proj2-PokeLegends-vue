@@ -6,9 +6,9 @@
     <img
       class="ally-pokemon-portrait"
       v-bind:src="
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/' +
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/back/' +
         allyActivePkmn.pokemon_id +
-        '.png'
+        '.gif'
       "
     />
     <img
@@ -19,8 +19,8 @@
     <!-- select action -->
     <div v-if="battleState == 'p1_select'" class="buttons-div">
       <SelectButtons message="Fight" @click.native="selectMove" />
-      <SelectButtons message="Pokémon" />
-      <SelectButtons message="Bag" />
+      <SelectButtons message="Pokémon" @click.native="comingSoon" />
+      <SelectButtons message="Bag" @click.native="comingSoon" />
       <SelectButtons message="Run" @click.native="runFromBattle" />
     </div>
 
@@ -119,6 +119,9 @@ export default {
     backFunction() {
       this.battleState = "p1_select";
     },
+    comingSoon () {
+      alert("Coming Soon!");
+    },
   },
   watch: {
     battleState: function () {
@@ -170,15 +173,15 @@ export default {
 
 .ally-pokemon-portrait {
   position: absolute !important;
-  bottom: 0;
-  left: 5%;
-  height: 50%;
+  bottom: 10%;
+  left: 12%;
+  height: 20%;
 }
 
 .foe-pokemon-portrait {
   position: absolute !important;
-  top: 20%;
-  right: 5%;
-  height: 50%;
+  bottom: 30%;
+  right: 10%;
+  height: 40%;
 }
 </style>
