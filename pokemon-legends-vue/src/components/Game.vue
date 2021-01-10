@@ -97,7 +97,7 @@ export default {
       } else {
         this.heightSize = "650px";
       }
-    },
+    }
   },
 };
 </script>

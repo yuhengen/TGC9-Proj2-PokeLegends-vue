@@ -112,3 +112,8 @@ Big appreciation to the Pokémon series, w3schools, Stackoverflow forums, Bootst
 - [Vue Fullscreen](http://mirari.cc/vue-fullscreen/) for granting fullscreen to the game window
 - [Vuex-PersistedState](https://www.npmjs.com/package/vuex-persistedstate) for simple inter-component state control
 - [Am I Responsive Checker](http://ami.responsivedesign.is/)
+
+### Music
+- theme-music.mp3 - [POKÉMON Omega Ruby/Alpha Sapphire Title Theme](https://www.youtube.com/watch?v=hkoXy3jRpww)
+- town.mp3 - [POKÉMON Omega Ruby/Alpha Sapphire Littleroot Town Theme](https://www.youtube.com/watch?v=zRGCzCn5azI)
+- random-battle.mp3 - [POKÉMON Omega Ruby/Alpha Sapphire Battle! Zinnia Theme](https://www.youtube.com/watch?v=GIn8_Q27WFY)

@@ -175,7 +175,7 @@ export default {
       this.$store.state.loginState = false;
       this.$store.state.userData = {};
     },
-  },
+  }
 };
 </script>
 

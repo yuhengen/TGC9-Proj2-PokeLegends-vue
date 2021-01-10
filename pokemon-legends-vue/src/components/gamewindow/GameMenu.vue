@@ -126,18 +126,23 @@ export default {
   },
   created: function () {
     this.toggleInfo = false;
-    if (this.$store.state.bgm == null) {
-      let townBGM = new Audio("bgm/town.mp3");
+
+    let townBGM = new Audio("bgm/town.mp3");
+    if (this.$store.state.bgmName == "") {
+      this.$store.state.bgmName = "townBGM";
       this.$store.state.bgm = townBGM;
-      this.$store.state.bgm.volume = 0.1;
       this.$store.state.bgm.play();
+    } else if (this.$store.state.bgmName == "townBGM") {
+      this.$store.state.bgmName == "townBGM";
     } else {
       this.$store.state.bgm.pause();
-      let townBGM = new Audio("bgm/town.mp3");
+      this.$store.state.bgmName = "townBGM";
       this.$store.state.bgm = townBGM;
-      this.$store.state.bgm.volume = 0.1;
       this.$store.state.bgm.play();
     }
+
+    this.$store.state.bgm.volume = 0.5;
+    this.$store.state.bgm.loop = true;
   },
   methods: {
     toggleInfoWin() {
@@ -149,7 +154,9 @@ export default {
       this.$store.state.bgm.pause();
       let rbattleBGM = new Audio("bgm/random-battle.mp3");
       this.$store.state.bgm = rbattleBGM;
-      this.$store.state.bgm.volume = 0.1;
+      this.$store.state.bgmName = "battleBGM";
+      this.$store.state.bgm.volume = 0.5;
+      this.$store.state.bgm.loop = true;
       this.$store.state.bgm.play();
 
       this.$store.state.gameState = "battle_start";
