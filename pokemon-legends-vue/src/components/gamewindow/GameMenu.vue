@@ -101,7 +101,7 @@
 
       <!-- bottom buttons -->
       <div class="buttons-div">
-        <SelectButtons message="Pokédex" @click.native="openPokedex"/>
+        <SelectButtons message="Pokédex" @click.native="openPokedex" />
         <SelectButtons message="Pokémon" />
         <SelectButtons message="Bag" />
         <SelectButtons message="Shop" />
@@ -126,14 +126,18 @@ export default {
   },
   created: function () {
     this.toggleInfo = false;
-    //   let response = await axios.get(
-    //     "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
-    //       this.$store.state.username
-    //   );
-    //   this.$store.state.userData = response.data;
-
-    //   let response2 = await axios.get("https://pokeapi.co/api/v2/pokemon/");
-    //   this.pokemonData = response2.data;
+    if (this.$store.state.bgm == null) {
+      let townBGM = new Audio("bgm/town.mp3");
+      this.$store.state.bgm = townBGM;
+      this.$store.state.bgm.volume = 0.1;
+      this.$store.state.bgm.play();
+    } else {
+      this.$store.state.bgm.pause();
+      let townBGM = new Audio("bgm/town.mp3");
+      this.$store.state.bgm = townBGM;
+      this.$store.state.bgm.volume = 0.1;
+      this.$store.state.bgm.play();
+    }
   },
   methods: {
     toggleInfoWin() {
@@ -142,11 +146,17 @@ export default {
         : (this.toggleInfo = false);
     },
     enterBattle: function () {
+      this.$store.state.bgm.pause();
+      let rbattleBGM = new Audio("bgm/random-battle.mp3");
+      this.$store.state.bgm = rbattleBGM;
+      this.$store.state.bgm.volume = 0.1;
+      this.$store.state.bgm.play();
+
       this.$store.state.gameState = "battle_start";
     },
     openPokedex: function () {
       this.$store.state.gameState = "open_pokedex";
-    }
+    },
   },
 };
 </script>

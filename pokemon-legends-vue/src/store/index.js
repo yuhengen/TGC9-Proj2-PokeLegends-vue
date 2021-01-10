@@ -9,6 +9,7 @@ const store = new Vuex.Store({
         username: "",
         loginState: false,
         gameState: "",
+        bgm: null,
         userData: {}
     },
     plugins: [createPersistedState()]
