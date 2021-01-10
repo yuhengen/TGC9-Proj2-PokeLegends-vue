@@ -102,7 +102,12 @@ export default {
     let pkmnmoveset = pkmnmove.find(
       (pm) => pm.pokemon_id == this.allyActivePkmn.pokemon_id
     );
-    this.allyActivePkmnMove = pkmnmoveset.moveset;
+    if (pkmnmoveset == undefined) {
+      this.allyActivePkmnMove = pkmnmoveset.moveset;
+    } else {
+      let pkmnmoveset = pkmnmove.find((pm) => pm.pokemon_id == 0);
+      this.allyActivePkmnMove = pkmnmoveset.moveset;
+    }
     this.allyPkmnHP = this.allyActivePkmn.stats.hp;
     this.allyPkmnMP = 0;
   },
@@ -119,7 +124,7 @@ export default {
     backFunction() {
       this.battleState = "p1_select";
     },
-    comingSoon () {
+    comingSoon() {
       alert("Coming Soon!");
     },
   },
