@@ -3,18 +3,48 @@
     <div class="top-message-div bg-dark shadow">
       {{ battleMessage }}
     </div>
-    <img
-      class="ally-pokemon-portrait"
-      v-bind:src="
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/back/' +
-        allyActivePkmn.pokemon_id +
-        '.gif'
-      "
-    />
-    <img
-      class="foe-pokemon-portrait"
-      v-bind:src="foeActivePkmn && foeActivePkmn.sprites.front_default"
-    />
+
+    <!-- ally setup -->
+    <div class="ally-bar d-flex align-items-center justify-content-between">
+      <img
+        class="ally-pokemon-portrait"
+        v-bind:src="
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/back/' +
+          allyActivePkmn.pokemon_id +
+          '.png'
+        "
+      />
+      <!-- gif -->
+      <!-- <img
+        class="ally-pokemon-portrait"
+        v-bind:src="
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/back/' +
+          allyActivePkmn.pokemon_id +
+          '.gif'
+        "
+      /> -->
+      <div class="shadow ally-stat-window mr-3">
+        <div>{{ allyActivePkmn.pokemon_name }}</div>
+        <div>HP: {{ allyPkmnHP }}/{{ allyActivePkmn.stats.hp }}</div>
+      </div>
+    </div>
+
+    <!-- foe setup -->
+    <div class="foe-bar d-flex align-items-center justify-content-between">
+      <div class="shadow foe-stat-window ml-3">
+        <div>
+          {{
+            foeActivePkmnName.charAt(0).toUpperCase() +
+            foeActivePkmnName.slice(1)
+          }}
+        </div>
+        <div>HP: {{ foePkmnHP }}/{{ foeActivePkmn.stats[0].base_stat }}</div>
+      </div>
+      <img
+        class="foe-pokemon-portrait"
+        v-bind:src="foeActivePkmn && foeActivePkmn.sprites.front_default"
+      />
+    </div>
 
     <!-- select action -->
     <div v-if="battleState == 'p1_select'" class="buttons-div">
@@ -27,7 +57,12 @@
     <!-- select move -->
     <div v-if="battleState == 'p1_moves'" class="buttons-div">
       <SelectButtons
+        v-if="allyPkmnMP < 10"
         :message="allyActivePkmnMove[0] && allyActivePkmnMove[0].attack"
+      />
+      <SelectButtons
+        v-else
+        :message="allyActivePkmnMove[3] && allyActivePkmnMove[3].attack"
       />
       <SelectButtons
         :message="allyActivePkmnMove[1] && allyActivePkmnMove[1].move1"
@@ -35,15 +70,7 @@
       <SelectButtons
         :message="allyActivePkmnMove[2] && allyActivePkmnMove[2].move2"
       />
-      <SelectButtons
-        v-if="allyPkmnMP < 10"
-        message="Back"
-        @click.native="backFunction"
-      />
-      <SelectButtons
-        v-else
-        :message="allyActivePkmnMove[3] && allyActivePkmnMove[3].ultimate"
-      />
+      <SelectButtons message="Back" @click.native="backFunction" />
     </div>
   </div>
 </template>
@@ -119,7 +146,6 @@ export default {
     },
     selectMove() {
       this.battleState = "p1_moves";
-      this.battleMessage = "Which move will you like to use?";
     },
     backFunction() {
       this.battleState = "p1_select";
@@ -130,11 +156,11 @@ export default {
   },
   watch: {
     battleState: function () {
-      //   if (this.battleState == "battle_start") {
-      //     setTimeout(() => (this.battleState = "p1_select"), 3000);
-      //   }
       if (this.battleState == "p1_select") {
         this.battleMessage = "What will you like to do?";
+      }
+      if (this.battleState == "p1_moves") {
+        this.battleMessage = "Which move will you like to use?";
       }
     },
   },
@@ -176,17 +202,56 @@ export default {
   margin: auto;
 }
 
-.ally-pokemon-portrait {
+.ally-bar {
   position: absolute !important;
-  bottom: 10%;
-  left: 12%;
-  height: 20%;
+  bottom: 3%;
+  width: 100%;
+  height: 45%;
+}
+
+.ally-pokemon-portrait {
+  height: 100%;
+  padding-left: 10%;
+}
+
+.ally-stat-window {
+  height: 50%;
+  width: 40%;
+  border: 3px solid black !important;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  color: black;
+  background-color: lightyellow;
+}
+
+.foe-bar {
+  position: absolute !important;
+  bottom: 40%;
+  width: 100%;
+  height: 45%;
 }
 
 .foe-pokemon-portrait {
-  position: absolute !important;
-  bottom: 30%;
-  right: 10%;
-  height: 40%;
+  height: 100%;
+  padding-right: 10%;
+}
+
+.foe-stat-window {
+  margin-bottom: 5%;
+  height: 50%;
+  width: 40%;
+  border: 3px solid black !important;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  color: black;
+  background-color: lightyellow;
 }
 </style>

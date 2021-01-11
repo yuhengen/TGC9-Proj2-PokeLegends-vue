@@ -31,9 +31,10 @@ The primary purpose of this website is to allow players to play the Pokémon Leg
 ## Current Features
 ```
 - Sign up for an account
-- Login to the account and update settings
+- Login to the account
 - Play the game on browser with a PC or Android/Apple phones, designed with Vue
 - Conduct random and gym battles in the game
+- Theme music playing in the game, switching when necessary
 - Access to a Pokédex to view the entire list of Pokémon
 - Auto save and load the game to and from MongoDB database
 - Ease of navigation with Bootstrap Navbar
@@ -41,20 +42,18 @@ The primary purpose of this website is to allow players to play the Pokémon Leg
 ```
 ## Features to Implement in Future
 ```
-- Adding music to the game and website
 - Add function to prompt user confirmation on whether they want to navigate away from the game window
 - Adding loading screen to pages that require load time
-- Social Medial signup/Login
-- Claiming of codes to redeem in-game rewards
+- Add function to allow users to update profile
 - Privacy Policy page (When necessary)
 ```
 
 # Developing the Site Structure (STRUCTURE)
 ### Website
-The Pokémon Legends website has a navigation bar and footer on every page, allowing users to access every available page with ease.
+The Pokémon Legends website has a navigation bar and footer on every page, allowing users to access most available page with ease.
 
 ### Game
-The Pokémon Legends game has a navigation bar at the menu of the game, allowing players to access most of the functions with ease. All required data that the players need to see or know can be easily accessed.
+The Pokémon Legends game has navigation buttons at the main menu screen of the game, allowing players to access most of the game functions with ease. All the personal game data that the players need to access can be seen in the game
 
 ## Sitemap
 
@@ -77,9 +76,10 @@ The wireframes of the project will be available soon...
 
 # Designing the Graphics User Interface (SURFACE)
 ## Colors
-After some research, considerations and a short survey, the main colors I decide to use for the website are those that are similar to a Pokéball, and the neutral colors that can blend in most situations.
+After some research and considerations, the main colors I decide to use for the website are those that are similar to a Pokéball, and the neutral colors that can blend in most situations.
 ```
 - Black/Grey for background, buttons and windows due to it being able to blend in most situations
+- Red + White combination to match colors for a Pokéball
 - White for texts to contrast the dark colors
 ```
 

@@ -158,7 +158,7 @@ export default {
         this.form.username.length < 4 ||
         this.form.username.length > 12
       ) {
-        this.userErrorMsg = "* Username must be between 4 and 12 characters";
+        this.userErrorMsg = "* Username must be between 4 and 10 characters";
         this.userError = true;
       } else if (checkUser !== undefined) {
         this.userErrorMsg = "* Username already exists";
