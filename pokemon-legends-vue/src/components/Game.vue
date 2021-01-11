@@ -54,7 +54,7 @@
         "
         class="mr-5"
       >
-        ESC to leave fullscreen
+        ESC to exit fullscreen
       </div>
     </button>
   </div>

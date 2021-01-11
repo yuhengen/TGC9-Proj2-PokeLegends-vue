@@ -105,7 +105,7 @@
         <SelectButtons message="Pokémon" @click.native="comingSoon" />
         <SelectButtons message="Bag" @click.native="comingSoon" />
         <!-- <SelectButtons message="Shop" @click.native="comingSoon" /> -->
-        <SelectButtons message="+100 Poké$" @click.native="add100Pkdl" />
+        <SelectButtons message="+1000 Poké$" @click.native="add100Pkdl" />
       </div>
     </div>
   </div>
@@ -169,13 +169,13 @@ export default {
       alert("Coming Soon!");
     },
     add100Pkdl: async function () {
-      console.log(this.$store.state.userData);
-      this.$store.state.userData.pokedollar += 100;
+      this.$store.state.userData.pokedollar += 1000;
       await axios.patch(
         "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
           this.$store.state.username,
         this.$store.state.userData
       );
+      alert("Added 1000 Pokédollar to " + this.$store.state.username)
     },
   },
 };

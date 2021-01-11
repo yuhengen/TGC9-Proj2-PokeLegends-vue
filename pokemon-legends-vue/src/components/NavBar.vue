@@ -40,7 +40,7 @@
               </template>
               <span>{{ $store.state.username }}</span>
               <div class="dropdown-divider"></div>
-              <b-dropdown-item href="#">Settings</b-dropdown-item>
+              <!-- <b-dropdown-item href="#">Settings</b-dropdown-item> -->
               <b-dropdown-item
                 @click="
                   logoutAccount();

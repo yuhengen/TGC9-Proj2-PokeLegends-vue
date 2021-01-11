@@ -16,7 +16,7 @@ export default {
 
 <style scoped>
 .btn-design {
-  padding-top: 20px;
+  padding-top: 22px;
   border: 3px solid white !important;
   width: 22%;
   font-size:0.9rem;

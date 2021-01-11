@@ -102,7 +102,7 @@ export default {
     let pkmnmoveset = pkmnmove.find(
       (pm) => pm.pokemon_id == this.allyActivePkmn.pokemon_id
     );
-    if (pkmnmoveset == undefined) {
+    if (pkmnmoveset !== undefined) {
       this.allyActivePkmnMove = pkmnmoveset.moveset;
     } else {
       let pkmnmoveset = pkmnmove.find((pm) => pm.pokemon_id == 0);
