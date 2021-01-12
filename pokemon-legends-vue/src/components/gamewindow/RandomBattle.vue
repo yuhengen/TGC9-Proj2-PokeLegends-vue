@@ -24,7 +24,17 @@
       /> -->
     <div v-if="showStat == true" class="shadow ally-stat-window mr-3">
       <div>{{ ally.ActivePkmn.pokemon_name }}</div>
-      <div>HP: {{ ally.PkmnHP }}/{{ ally.ActivePkmn.stats.hp }}</div>
+      <div
+        class="hp-display d-flex justify-content-center align-items-center mt-2"
+      >
+        HP<b-progress
+          :value="ally.PkmnHP"
+          :max="ally.ActivePkmn.stats.hp"
+          variant="success"
+          class="hp-bar ml-1"
+        ></b-progress>
+      </div>
+      <div>{{ ally.PkmnHP }}/{{ ally.ActivePkmn.stats.hp }}</div>
     </div>
 
     <!-- foe setup -->
@@ -35,7 +45,17 @@
           foe.ActivePkmnName.slice(1)
         }}
       </div>
-      <div>HP: {{ foe.PkmnHP }}/{{ foe.ActivePkmn.stats[0].base_stat }}</div>
+      <div
+        class="hp-display d-flex justify-content-center align-items-center mt-2"
+      >
+        HP<b-progress
+          :value="foe.PkmnHP"
+          :max="foe.ActivePkmn.stats[0].base_stat"
+          variant="success"
+          class="hp-bar ml-1"
+        ></b-progress>
+      </div>
+      <div>{{ foe.PkmnHP }}/{{ foe.ActivePkmn.stats[0].base_stat }}</div>
     </div>
     <img
       class="foe-pokemon-portrait"
@@ -100,6 +120,10 @@ export default {
       },
       battleState: "",
       battleMessage: "",
+      pokemon1: {
+        name: "",
+      },
+      pokemon2: "",
       showStat: false,
     };
   },
@@ -199,14 +223,42 @@ export default {
         this.battleMessage = "Await opponent selection...";
         let moveID = Math.floor(Math.random() * 2);
         this.foe.SelMove = this.foe.ActivePkmnMove[moveID];
-        // this.battleState = "battle_phase";
+
+        let dmgCalc =
+          parseInt(this.foe.ActivePkmn.stats[1].base_stat) *
+            1.5 *
+            (parseInt(this.foe.SelMove.power) / 100) +
+          Math.floor(Math.random() * 3);
+        this.foe.Dmg = parseInt(dmgCalc);
+        console.log(this.foe.SelMove.power, this.foe.SelMove.move);
+
+        setTimeout(() => (this.battleState = "battle_phase"), 1000);
+      }
+      if (this.battleState == "battle_phase") {
+        // if (
+        //   parseInt(this.ally.ActivePkmn.stats.speed) >=
+        //   parseInt(this.foe.ActivePkmn.stats[5].base_stat)
+        // ) {
+        this.battleMessage =
+          this.ally.ActivePkmn.pokemon_name +
+          " uses " +
+          this.ally.SelMove +
+          "!";
+        if (this.ally.Dmg <= this.foe.PkmnHP) {
+          this.foe.PkmnHP = this.foe.PkmnHP - this.ally.Dmg;
+        } else {
+          this.foe.PkmnHP = 0;
+        }
+
         setTimeout(
-          () => (this.battleState = "battle_phase"),
+          () =>
+            (this.battleMessage =
+              this.foe.ActivePkmnName + " took " + this.ally.Dmg + "!"),
           2000
         );
+        setTimeout(() => (this.battleState = "p1_select"), 2000);
+        // }
       }
-    //   if (this.battleState == "battle_phase") {
-    //   }
     },
   },
 };
@@ -293,5 +345,16 @@ export default {
   font-size: 1rem;
   color: black;
   background-color: lightyellow;
+}
+
+.hp-display {
+  width: 75%;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+}
+
+.hp-bar {
+  width: 85%;
 }
 </style>
