@@ -40,10 +40,7 @@
     <!-- foe setup -->
     <div v-if="showStat == true" class="shadow foe-stat-window ml-3">
       <div>
-        {{
-          foe.ActivePkmnName.charAt(0).toUpperCase() +
-          foe.ActivePkmnName.slice(1)
-        }}
+        {{ foe.ActivePkmnName }}
       </div>
       <div
         class="hp-display d-flex justify-content-center align-items-center mt-2"
@@ -144,11 +141,10 @@ export default {
     );
 
     this.foe.ActivePkmn = response2.data;
-    this.foe.ActivePkmnName = this.foe.ActivePkmn.name;
-    this.battleMessage = `Encountered ${
-      this.foe.ActivePkmnName.charAt(0).toUpperCase() +
-      this.foe.ActivePkmnName.slice(1)
-    }!`;
+    this.foe.ActivePkmnName =
+      this.foe.ActivePkmn.name.charAt(0).toUpperCase() +
+      this.foe.ActivePkmn.name.slice(1);
+    this.battleMessage = `Encountered ${this.foe.ActivePkmnName}!`;
 
     let response = await axios.get(
       "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/movesets"
@@ -239,24 +235,14 @@ export default {
         //   parseInt(this.ally.ActivePkmn.stats.speed) >=
         //   parseInt(this.foe.ActivePkmn.stats[5].base_stat)
         // ) {
-        this.battleMessage =
-          this.ally.ActivePkmn.pokemon_name +
-          " uses " +
-          this.ally.SelMove +
-          "!";
         if (this.ally.Dmg <= this.foe.PkmnHP) {
           this.foe.PkmnHP = this.foe.PkmnHP - this.ally.Dmg;
         } else {
           this.foe.PkmnHP = 0;
         }
-
-        setTimeout(
-          () =>
-            (this.battleMessage =
-              this.foe.ActivePkmnName + " took " + this.ally.Dmg + "!"),
-          2000
-        );
-        setTimeout(() => (this.battleState = "p1_select"), 2000);
+        this.battleMessage = `${this.ally.ActivePkmn.pokemon_name} uses ${this.ally.SelMove}!
+        ${this.foe.ActivePkmnName} took ${this.ally.Dmg} damage!`;
+        setTimeout(() => (this.battleState = "p1_select"), 4000);
         // }
       }
     },
