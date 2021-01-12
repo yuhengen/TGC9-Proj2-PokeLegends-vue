@@ -23,9 +23,11 @@
         "
       /> -->
     <div v-if="showStat == true" class="shadow ally-stat-window mr-3">
-      <div>{{ ally.ActivePkmn.pokemon_name }}</div>
+      <div class="d-flex">
+        <p>{{ ally.ActivePkmn.pokemon_name }} (Lv {{ ally.ActivePkmn.lvl }})</p>
+      </div>
       <div
-        class="hp-display d-flex justify-content-center align-items-center mt-2"
+        class="hp-display d-flex justify-content-center align-items-center"
       >
         HP<b-progress
           :value="ally.PkmnHP"
@@ -40,10 +42,10 @@
     <!-- foe setup -->
     <div v-if="showStat == true" class="shadow foe-stat-window ml-3">
       <div>
-        {{ foe.ActivePkmnName }}
+        <p>{{ foe.ActivePkmnName }} (Lv 1)</p>
       </div>
       <div
-        class="hp-display d-flex justify-content-center align-items-center mt-2"
+        class="hp-display d-flex justify-content-center align-items-center"
       >
         HP<b-progress
           :value="foe.PkmnHP"
@@ -115,12 +117,10 @@ export default {
         SelMove: "",
         Dmg: 0,
       },
+      allyTurn: ()=>{},
+      foeTurn: ()=>{},
       battleState: "",
       battleMessage: "",
-      pokemon1: {
-        name: "",
-      },
-      pokemon2: "",
       showStat: false,
     };
   },
@@ -218,32 +218,48 @@ export default {
       if (this.battleState == "p2_moves") {
         this.battleMessage = "Await opponent selection...";
         let moveID = Math.floor(Math.random() * 2);
-        this.foe.SelMove = this.foe.ActivePkmnMove[moveID];
+        this.foe.SelMove = this.foe.ActivePkmnMove[moveID].move;
 
         let dmgCalc =
           parseInt(this.foe.ActivePkmn.stats[1].base_stat) *
             1.5 *
-            (parseInt(this.foe.SelMove.power) / 100) +
+            (parseInt(this.foe.ActivePkmnMove[moveID].power) / 100) +
           Math.floor(Math.random() * 3);
         this.foe.Dmg = parseInt(dmgCalc);
-        console.log(this.foe.SelMove.power, this.foe.SelMove.move);
 
         setTimeout(() => (this.battleState = "battle_phase"), 1000);
       }
       if (this.battleState == "battle_phase") {
-        // if (
-        //   parseInt(this.ally.ActivePkmn.stats.speed) >=
-        //   parseInt(this.foe.ActivePkmn.stats[5].base_stat)
-        // ) {
-        if (this.ally.Dmg <= this.foe.PkmnHP) {
-          this.foe.PkmnHP = this.foe.PkmnHP - this.ally.Dmg;
-        } else {
-          this.foe.PkmnHP = 0;
-        }
-        this.battleMessage = `${this.ally.ActivePkmn.pokemon_name} uses ${this.ally.SelMove}!
+          this.allyTurn = () => {
+              if (this.ally.Dmg <= this.foe.PkmnHP) {
+            this.foe.PkmnHP = this.foe.PkmnHP - this.ally.Dmg;
+          } else {
+            this.foe.PkmnHP = 0;
+          }
+          this.battleMessage = `${this.ally.ActivePkmn.pokemon_name} uses ${this.ally.SelMove}!
         ${this.foe.ActivePkmnName} took ${this.ally.Dmg} damage!`;
-        setTimeout(() => (this.battleState = "p1_select"), 4000);
-        // }
+          setTimeout(() => (this.battleState = "p1_select"), 4000);
+          }
+
+            this.foeTurn = () => {
+                if (this.foe.Dmg <= this.ally.PkmnHP) {
+            this.ally.PkmnHP = this.ally.PkmnHP - this.foe.Dmg;
+          } else {
+            this.ally.PkmnHP = 0;
+          }
+          this.battleMessage = `${this.foe.ActivePkmnName} uses ${this.foe.SelMove}!
+        ${this.ally.ActivePkmn.pokemon_name} took ${this.foe.Dmg} damage!`;
+          setTimeout(() => (this.battleState = "p1_select"), 4000);
+            }
+
+        if (
+          parseInt(this.ally.ActivePkmn.stats.speed) >=
+          parseInt(this.foe.ActivePkmn.stats[5].base_stat)
+        ) {
+          this.allyTurn()
+        } else {
+          this.foeTurn()
+        }
       }
     },
   },
