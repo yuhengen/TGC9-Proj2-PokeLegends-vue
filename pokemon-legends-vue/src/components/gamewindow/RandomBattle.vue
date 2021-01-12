@@ -275,8 +275,39 @@ export default {
       if (this.battleState == "battle_end") {
         this.showStat = false;
         this.battleState = "";
-        this.battleMessage = "Battle Ended!";
-        setTimeout(() => (this.$store.state.gameState = "game_menu"), 3000);
+
+        if (this.ally.PkmnHP <= 0) {
+          this.battleMessage =
+            "You have lost the battle... Lost 1000 Pokédollar!";
+          this.$store.state.userData.pokedollar -= 1000;
+          setTimeout(() => (this.$store.state.gameState = "game_menu"), 3000);
+            console.log(
+              this.$store.state.userData.bag[0].item_name,
+              this.$store.state.userData.pokedollar
+            );
+        } else {
+          this.battleMessage =
+            "You have won the battle! Obtained 500 Pokédollar and a Rare Candy!";
+          this.$store.state.userData.pokedollar += 500;
+
+          let checkRC = this.$store.state.userData.bag.find(
+            (rc) => rc.item_id === 2
+          );
+
+          if (checkRC == undefined) {
+            //   rarecandy = {
+            //       item_name: "Rare Candy",
+            //       item_count: 1,
+            //       item_id: 2,
+            //   }
+            console.log(
+              checkRC,
+              this.$store.state.userData.bag[0].item_name,
+              this.$store.state.userData.pokedollar
+            );
+          }
+          setTimeout(() => (this.$store.state.gameState = "game_menu"), 3000);
+        }
       }
     },
   },
