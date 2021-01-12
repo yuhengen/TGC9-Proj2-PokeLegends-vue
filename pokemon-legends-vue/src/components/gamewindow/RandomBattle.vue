@@ -254,18 +254,20 @@ export default {
           parseInt(this.foe.ActivePkmn.stats[5].base_stat)
         ) {
           this.allyTurn();
-          if (this.foe.PkmnHP !== 0) {
+          if (this.foe.PkmnHP > 0) {
             setTimeout(() => this.foeTurn(), 3000);
             setTimeout(() => (this.battleState = "p1_select"), 6000);
           } else {
+            console.log("Battle Ended!");
             setTimeout(() => (this.battleState = "battle_end"), 3000);
           }
         } else {
           this.foeTurn();
-          if (this.ally.PkmnHP !== 0) {
+          if (this.ally.PkmnHP > 0) {
             setTimeout(() => this.allyTurn(), 3000);
             setTimeout(() => (this.battleState = "p1_select"), 6000);
           } else {
+            console.log("Battle Ended!");
             setTimeout(() => (this.battleState = "battle_end"), 3000);
           }
         }
