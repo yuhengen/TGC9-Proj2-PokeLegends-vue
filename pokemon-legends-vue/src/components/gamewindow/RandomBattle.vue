@@ -203,7 +203,7 @@ export default {
     },
   },
   watch: {
-    battleState: function () {
+    battleState: async function () {
       if (this.battleState == "p1_select") {
         this.showStat = true;
         this.battleMessage = "What will you like to do?";
@@ -213,7 +213,7 @@ export default {
       }
       if (this.battleState == "p2_moves") {
         this.battleMessage = "Await opponent selection...";
-        let moveID = Math.floor(Math.random() * 2);
+        let moveID = Math.floor(Math.random() * 3);
         this.foe.SelMove = this.foe.ActivePkmnMove[moveID].move;
 
         let dmgCalc =
@@ -273,7 +273,7 @@ export default {
           if (this.foe.PkmnHP > 0) {
             setTimeout(() => this.foeTurn(), 3000);
 
-            setTimeout(() => checkAllyHP(), 3500);
+            setTimeout(() => checkAllyHP(), 3300);
           } else {
             setTimeout(() => (this.battleState = "battle_end"), 3000);
           }
@@ -282,7 +282,7 @@ export default {
           if (this.ally.PkmnHP > 0) {
             setTimeout(() => this.allyTurn(), 3000);
 
-            setTimeout(() => checkFoeHP(), 3500);
+            setTimeout(() => checkFoeHP(), 3300);
           } else {
             setTimeout(() => (this.battleState = "battle_end"), 3000);
           }
@@ -293,36 +293,50 @@ export default {
         this.battleState = "";
 
         if (this.ally.PkmnHP <= 0) {
+          this.$store.state.userData.pokedollar -= 1000;
+          await axios.patch(
+            "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
+              this.$store.state.username,
+            this.$store.state.userData
+          );
           this.battleMessage =
             "You have lost the battle... Lost 1000 Pokédollar!";
-          this.$store.state.userData.pokedollar -= 1000;
           setTimeout(() => (this.$store.state.gameState = "game_menu"), 3000);
-          console.log(
-            this.$store.state.userData.bag[0].item_name,
-            this.$store.state.userData.pokedollar
-          );
         } else {
           this.battleMessage =
             "You have won the battle! Obtained 500 Pokédollar and a Rare Candy!";
           this.$store.state.userData.pokedollar += 500;
 
           let checkRC = this.$store.state.userData.bag.find(
-            (rc) => rc.item_id === 2
+            (rc) => rc.item_id === 50
           );
 
           if (checkRC == undefined) {
-            //   rarecandy = {
-            //       item_name: "Rare Candy",
-            //       item_count: 1,
-            //       item_id: 2,
-            //   }
-            console.log(
-              checkRC,
-              this.$store.state.userData.bag[0].item_name,
-              this.$store.state.userData.pokedollar
+            let rarecandy = {
+              item_name: "Rare Candy",
+              item_count: 1,
+              item_id: 50,
+            };
+            this.$store.state.userData.bag.push(rarecandy);
+
+            await axios.patch(
+              "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
+                this.$store.state.username,
+              this.$store.state.userData
+            );
+          } else {
+            let rcID = this.$store.state.userData.bag.findIndex(
+              (rc) => rc.item_id === 50
+            );
+            this.$store.state.userData.bag[rcID].item_count += 1;
+
+            await axios.patch(
+              "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
+                this.$store.state.username,
+              this.$store.state.userData
             );
           }
-          setTimeout(() => (this.$store.state.gameState = "game_menu"), 3000);
+          setTimeout(() => (this.$store.state.gameState = "game_menu"), 4000);
         }
       }
     },
