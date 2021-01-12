@@ -1,6 +1,6 @@
 <template>
   <div id="battle-window">
-    <div class="top-message-div bg-dark shadow p-1">
+    <div class="top-message-div bg-dark shadow p-2">
       {{ battleMessage }}
     </div>
 
@@ -248,6 +248,22 @@ export default {
           }
         };
 
+        const checkAllyHP = () => {
+          if (this.ally.PkmnHP > 0) {
+            setTimeout(() => (this.battleState = "p1_select"), 3000);
+          } else {
+            setTimeout(() => (this.battleState = "battle_end"), 3000);
+          }
+        };
+
+        const checkFoeHP = () => {
+          if (this.foe.PkmnHP > 0) {
+            setTimeout(() => (this.battleState = "p1_select"), 3000);
+          } else {
+            setTimeout(() => (this.battleState = "battle_end"), 3000);
+          }
+        };
+
         // battle phase execution
         if (
           parseInt(this.ally.ActivePkmn.stats.speed) >=
@@ -256,18 +272,18 @@ export default {
           this.allyTurn();
           if (this.foe.PkmnHP > 0) {
             setTimeout(() => this.foeTurn(), 3000);
-            setTimeout(() => (this.battleState = "p1_select"), 6000);
+
+            setTimeout(() => checkAllyHP(), 3500);
           } else {
-            console.log("Battle Ended!");
             setTimeout(() => (this.battleState = "battle_end"), 3000);
           }
         } else {
           this.foeTurn();
           if (this.ally.PkmnHP > 0) {
             setTimeout(() => this.allyTurn(), 3000);
-            setTimeout(() => (this.battleState = "p1_select"), 6000);
+
+            setTimeout(() => checkFoeHP(), 3500);
           } else {
-            console.log("Battle Ended!");
             setTimeout(() => (this.battleState = "battle_end"), 3000);
           }
         }
@@ -281,10 +297,10 @@ export default {
             "You have lost the battle... Lost 1000 Pokédollar!";
           this.$store.state.userData.pokedollar -= 1000;
           setTimeout(() => (this.$store.state.gameState = "game_menu"), 3000);
-            console.log(
-              this.$store.state.userData.bag[0].item_name,
-              this.$store.state.userData.pokedollar
-            );
+          console.log(
+            this.$store.state.userData.bag[0].item_name,
+            this.$store.state.userData.pokedollar
+          );
         } else {
           this.battleMessage =
             "You have won the battle! Obtained 500 Pokédollar and a Rare Candy!";
