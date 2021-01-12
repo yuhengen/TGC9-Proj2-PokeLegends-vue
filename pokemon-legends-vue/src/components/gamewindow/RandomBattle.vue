@@ -1,6 +1,6 @@
 <template>
   <div id="battle-window">
-    <div class="top-message-div bg-dark shadow">
+    <div class="top-message-div bg-dark shadow p-1">
       {{ battleMessage }}
     </div>
 
@@ -9,7 +9,7 @@
       class="ally-pokemon-portrait"
       v-bind:src="
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/back/' +
-        allyActivePkmn.pokemon_id +
+        ally.ActivePkmn.pokemon_id +
         '.png'
       "
     />
@@ -18,27 +18,28 @@
         class="ally-pokemon-portrait"
         v-bind:src="
           'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/back/' +
-          allyActivePkmn.pokemon_id +
+          ally.ActivePkmn.pokemon_id +
           '.gif'
         "
       /> -->
     <div v-if="showStat == true" class="shadow ally-stat-window mr-3">
-      <div>{{ allyActivePkmn.pokemon_name }}</div>
-      <div>HP: {{ allyPkmnHP }}/{{ allyActivePkmn.stats.hp }}</div>
+      <div>{{ ally.ActivePkmn.pokemon_name }}</div>
+      <div>HP: {{ ally.PkmnHP }}/{{ ally.ActivePkmn.stats.hp }}</div>
     </div>
 
     <!-- foe setup -->
     <div v-if="showStat == true" class="shadow foe-stat-window ml-3">
       <div>
         {{
-          foeActivePkmnName.charAt(0).toUpperCase() + foeActivePkmnName.slice(1)
+          foe.ActivePkmnName.charAt(0).toUpperCase() +
+          foe.ActivePkmnName.slice(1)
         }}
       </div>
-      <div>HP: {{ foePkmnHP }}/{{ foeActivePkmn.stats[0].base_stat }}</div>
+      <div>HP: {{ foe.PkmnHP }}/{{ foe.ActivePkmn.stats[0].base_stat }}</div>
     </div>
     <img
       class="foe-pokemon-portrait"
-      v-bind:src="foeActivePkmn && foeActivePkmn.sprites.front_default"
+      v-bind:src="foe.ActivePkmn && foe.ActivePkmn.sprites.front_default"
     />
 
     <!-- select action -->
@@ -52,22 +53,22 @@
     <!-- select move -->
     <div v-if="battleState == 'p1_moves'" class="buttons-div">
       <SelectButtons
-        v-if="allyPkmnMP < 10"
-        :message="allyActivePkmnMove[0] && allyActivePkmnMove[0].move"
-        @click.native="moveSelect(allyActivePkmnMove[0])"
+        v-if="ally.PkmnMP < 10"
+        :message="ally.ActivePkmnMove[0] && ally.ActivePkmnMove[0].move"
+        @click.native="moveSelect(ally.ActivePkmnMove[0])"
       />
       <SelectButtons
         v-else
-        :message="allyActivePkmnMove[3] && allyActivePkmnMove[3].move"
-        @click.native="moveSelect(allyActivePkmnMove[3])"
+        :message="ally.ActivePkmnMove[3] && ally.ActivePkmnMove[3].move"
+        @click.native="moveSelect(ally.ActivePkmnMove[3])"
       />
       <SelectButtons
-        :message="allyActivePkmnMove[1] && allyActivePkmnMove[1].move"
-        @click.native="moveSelect(allyActivePkmnMove[1])"
+        :message="ally.ActivePkmnMove[1] && ally.ActivePkmnMove[1].move"
+        @click.native="moveSelect(ally.ActivePkmnMove[1])"
       />
       <SelectButtons
-        :message="allyActivePkmnMove[2] && allyActivePkmnMove[2].move"
-        @click.native="moveSelect(allyActivePkmnMove[2])"
+        :message="ally.ActivePkmnMove[2] && ally.ActivePkmnMove[2].move"
+        @click.native="moveSelect(ally.ActivePkmnMove[2])"
       />
       <SelectButtons message="Back" @click.native="backFunction" />
     </div>
@@ -80,18 +81,23 @@ import SelectButtons from "./SelectButtons";
 export default {
   data: function () {
     return {
-      allyActivePkmn: "",
-      allyActivePkmnMove: [],
-      allyPkmnHP: 0,
-      allyPkmnMP: 0,
-      allySelMove: "",
-      allyDmg: 0,
-      foeActivePkmn: "",
-      foeActivePkmnName: "",
-      foePkmnHP: 0,
-      foePkmnMP: 0,
-      foeSelMove: "",
-      foeDmg: 0,
+      ally: {
+        ActivePkmn: "",
+        ActivePkmnMove: [],
+        PkmnHP: 0,
+        PkmnMP: 0,
+        SelMove: "",
+        Dmg: 0,
+      },
+      foe: {
+        ActivePkmnName: "",
+        ActivePkmn: "",
+        ActivePkmnMove: [],
+        PkmnHP: 0,
+        PkmnMP: 0,
+        SelMove: "",
+        Dmg: 0,
+      },
       battleState: "",
       battleMessage: "",
       showStat: false,
@@ -105,7 +111,7 @@ export default {
   created: async function () {
     this.battleState = "battle_start";
     // ally pokemon
-    this.allyActivePkmn = this.$store.state.userData.party_pokemon[0];
+    this.ally.ActivePkmn = this.$store.state.userData.party_pokemon[0];
 
     // foe pokemon
     let randomEnemyID = Math.floor(Math.random() * 150) + 1;
@@ -113,60 +119,71 @@ export default {
       "https://pokeapi.co/api/v2/pokemon/" + randomEnemyID
     );
 
-    this.foeActivePkmn = response2.data;
-    this.foeActivePkmnName = this.foeActivePkmn.name;
+    this.foe.ActivePkmn = response2.data;
+    this.foe.ActivePkmnName = this.foe.ActivePkmn.name;
     this.battleMessage = `Encountered ${
-      this.foeActivePkmnName.charAt(0).toUpperCase() +
-      this.foeActivePkmnName.slice(1)
+      this.foe.ActivePkmnName.charAt(0).toUpperCase() +
+      this.foe.ActivePkmnName.slice(1)
     }!`;
 
-    this.foePkmnHP = this.foeActivePkmn.stats[0].base_stat;
-    this.foePkmnMP = 0;
-
-    setTimeout(() => (this.battleState = "p1_select"), 3000);
-
-    // ally pokemon move
     let response = await axios.get(
       "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/movesets"
     );
     let pkmnmove = response.data;
+    // foe pokemon move
+    let foepkmnmoveset = pkmnmove.find(
+      (pm) => pm.pokemon_id == this.foe.ActivePkmn.id
+    );
+    if (foepkmnmoveset !== undefined) {
+      this.foe.ActivePkmnMove = foepkmnmoveset.moveset;
+    } else {
+      let foepkmnmoveset = pkmnmove.find((pm) => pm.pokemon_id == 0);
+      this.foe.ActivePkmnMove = foepkmnmoveset.moveset;
+    }
+
+    this.foe.PkmnHP = this.foe.ActivePkmn.stats[0].base_stat;
+    this.foe.PkmnMP = 0;
+
+    setTimeout(() => (this.battleState = "p1_select"), 3000);
+
+    // ally pokemon move
     let pkmnmoveset = pkmnmove.find(
-      (pm) => pm.pokemon_id == this.allyActivePkmn.pokemon_id
+      (pm) => pm.pokemon_id == this.ally.ActivePkmn.pokemon_id
     );
     if (pkmnmoveset !== undefined) {
-      this.allyActivePkmnMove = pkmnmoveset.moveset;
+      this.ally.ActivePkmnMove = pkmnmoveset.moveset;
     } else {
       let pkmnmoveset = pkmnmove.find((pm) => pm.pokemon_id == 0);
-      this.allyActivePkmnMove = pkmnmoveset.moveset;
+      this.ally.ActivePkmnMove = pkmnmoveset.moveset;
     }
-    this.allyPkmnHP = this.allyActivePkmn.stats.hp;
-    this.allyPkmnMP = 0;
+    this.ally.PkmnHP = this.ally.ActivePkmn.stats.hp;
+    this.ally.PkmnMP = 0;
   },
   methods: {
+    selectMove() {
+      this.battleState = "p1_moves";
+    },
+    moveSelect(moves) {
+      this.ally.SelMove = moves.move;
+      let dmgCalc =
+        parseInt(this.ally.ActivePkmn.stats.atk) *
+          1.5 *
+          (parseInt(moves.power) / 100) +
+        Math.floor(Math.random() * 3);
+      this.ally.Dmg = parseInt(dmgCalc);
+      this.battleState = "p2_moves";
+    },
+    backFunction() {
+      this.battleState = "p1_select";
+    },
     runFromBattle() {
       this.showStat = false;
       this.battleState = "";
       this.battleMessage = "Got away safely!";
       setTimeout(() => (this.$store.state.gameState = "game_menu"), 2000);
     },
-    selectMove() {
-      this.battleState = "p1_moves";
-    },
-    backFunction() {
-      this.battleState = "p1_select";
-    },
     comingSoon() {
       alert("Coming Soon!");
-    },
-    moveSelect(moves) {
-      this.allySelMove = moves.move;
-      let dmgCalc =
-        parseInt(this.allyActivePkmn.stats.atk) *
-          1.5 *
-          (parseInt(moves.power) / 100) +
-        Math.floor(Math.random() * 3);
-      this.allyDmg = parseInt(dmgCalc);
-      console.log(this.allyDmg)
     },
   },
   watch: {
@@ -178,6 +195,18 @@ export default {
       if (this.battleState == "p1_moves") {
         this.battleMessage = "Which move will you like to use?";
       }
+      if (this.battleState == "p2_moves") {
+        this.battleMessage = "Await opponent selection...";
+        let moveID = Math.floor(Math.random() * 2);
+        this.foe.SelMove = this.foe.ActivePkmnMove[moveID];
+        // this.battleState = "battle_phase";
+        setTimeout(
+          () => (this.battleState = "battle_phase"),
+          2000
+        );
+      }
+    //   if (this.battleState == "battle_phase") {
+    //   }
     },
   },
 };

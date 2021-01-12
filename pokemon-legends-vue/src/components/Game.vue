@@ -10,15 +10,21 @@
         />
         <div v-if="$store.state.loginState == false">
           <h2 class="pleaseLogin">Please login to play the game!</h2>
-          <h1 class="legendsText">Legends</h1>
+          <img
+            src="https://vignette.wikia.nocookie.net/bondlegends/images/0/00/Pkmn_Legends_Reboot.png/revision/latest/scale-to-width-down/340?cb=20150827225946"
+            class="title-logo m-2"
+          />
         </div>
         <div v-else>
           <div
             v-if="$store.state.gameState == 'logged_in'"
             v-bind:style="{ height: heightSize }"
           >
-            <h1 class="legendsText">Legends</h1>
             <StartGame />
+            <img
+              src="https://vignette.wikia.nocookie.net/bondlegends/images/0/00/Pkmn_Legends_Reboot.png/revision/latest/scale-to-width-down/340?cb=20150827225946"
+              class="title-logo m-2"
+            />
           </div>
           <div
             v-if="$store.state.gameState == 'game_menu'"
@@ -46,13 +52,13 @@
       @click="toggle"
       class="btn btn-dark btn-block fullscreen-btn d-flex justify-content-between"
     >
-      <div class="ml-5">Play in Fullscreen</div>
+      <div class="ml-3">Play in Fullscreen</div>
       <div
         style="
           color: black;
           text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
         "
-        class="mr-5"
+        class="mr-3"
       >
         ESC to exit fullscreen
       </div>
@@ -97,15 +103,15 @@ export default {
       } else {
         this.heightSize = "650px";
       }
-    }
+    },
   },
 };
 </script>
 
 <style>
 #gameWindow {
-  /* background-image: url("https://i.pinimg.com/originals/b5/c2/b4/b5c2b47b1c4cc051995d68991e855e76.jpg"); */
-  background-image: url("https://i.imgur.com/JDvCBHC.gif");
+  background-image: url("https://i.makeagif.com/media/5-15-2018/iCYfPA.gif");
+  /* background-image: url("https://i.imgur.com/JDvCBHC.gif"); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -131,18 +137,9 @@ export default {
   background-color: rgba(52, 58, 64, 1);
 }
 
-.legendsText {
-  font-family: pokemonsolid;
-  font-size: 130px;
-  color: #f3f0ad;
-  position: absolute !important;
-  bottom: 23%;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  text-align: center;
-  text-shadow: -5px 0 black, 0 5px black, 5px 0 black, 0 -5px black;
+.title-logo {
+  margin: auto;
+  width: 45%;
 }
 
 .fullscreen-btn {

@@ -22,7 +22,7 @@ export default {
   bottom: 1%;
   margin-left: auto;
   margin-right: auto;
-  left: 3%;
+  left: 0;
   right: 0;
   text-align: center;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
