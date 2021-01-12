@@ -26,9 +26,7 @@
       <div class="d-flex">
         <p>{{ ally.ActivePkmn.pokemon_name }} (Lv {{ ally.ActivePkmn.lvl }})</p>
       </div>
-      <div
-        class="hp-display d-flex justify-content-center align-items-center"
-      >
+      <div class="hp-display d-flex justify-content-center align-items-center">
         HP<b-progress
           :value="ally.PkmnHP"
           :max="ally.ActivePkmn.stats.hp"
@@ -44,9 +42,7 @@
       <div>
         <p>{{ foe.ActivePkmnName }} (Lv 1)</p>
       </div>
-      <div
-        class="hp-display d-flex justify-content-center align-items-center"
-      >
+      <div class="hp-display d-flex justify-content-center align-items-center">
         HP<b-progress
           :value="foe.PkmnHP"
           :max="foe.ActivePkmn.stats[0].base_stat"
@@ -117,8 +113,8 @@ export default {
         SelMove: "",
         Dmg: 0,
       },
-      allyTurn: ()=>{},
-      foeTurn: ()=>{},
+      allyTurn: () => {},
+      foeTurn: () => {},
       battleState: "",
       battleMessage: "",
       showStat: false,
@@ -230,36 +226,55 @@ export default {
         setTimeout(() => (this.battleState = "battle_phase"), 1000);
       }
       if (this.battleState == "battle_phase") {
-          this.allyTurn = () => {
-              if (this.ally.Dmg <= this.foe.PkmnHP) {
+        //   ally execution function
+        this.allyTurn = () => {
+          this.battleMessage = `${this.ally.ActivePkmn.pokemon_name} uses ${this.ally.SelMove}!
+        ${this.foe.ActivePkmnName} took ${this.ally.Dmg} damage!`;
+          if (this.ally.Dmg <= this.foe.PkmnHP) {
             this.foe.PkmnHP = this.foe.PkmnHP - this.ally.Dmg;
           } else {
             this.foe.PkmnHP = 0;
           }
-          this.battleMessage = `${this.ally.ActivePkmn.pokemon_name} uses ${this.ally.SelMove}!
-        ${this.foe.ActivePkmnName} took ${this.ally.Dmg} damage!`;
-          setTimeout(() => (this.battleState = "p1_select"), 4000);
-          }
+        };
 
-            this.foeTurn = () => {
-                if (this.foe.Dmg <= this.ally.PkmnHP) {
+        // foe execution function
+        this.foeTurn = () => {
+          this.battleMessage = `${this.foe.ActivePkmnName} uses ${this.foe.SelMove}!
+        ${this.ally.ActivePkmn.pokemon_name} took ${this.foe.Dmg} damage!`;
+          if (this.foe.Dmg <= this.ally.PkmnHP) {
             this.ally.PkmnHP = this.ally.PkmnHP - this.foe.Dmg;
           } else {
             this.ally.PkmnHP = 0;
           }
-          this.battleMessage = `${this.foe.ActivePkmnName} uses ${this.foe.SelMove}!
-        ${this.ally.ActivePkmn.pokemon_name} took ${this.foe.Dmg} damage!`;
-          setTimeout(() => (this.battleState = "p1_select"), 4000);
-            }
+        };
 
+        // battle phase execution
         if (
           parseInt(this.ally.ActivePkmn.stats.speed) >=
           parseInt(this.foe.ActivePkmn.stats[5].base_stat)
         ) {
-          this.allyTurn()
+          this.allyTurn();
+          if (this.foe.PkmnHP !== 0) {
+            setTimeout(() => this.foeTurn(), 3000);
+            setTimeout(() => (this.battleState = "p1_select"), 6000);
+          } else {
+            setTimeout(() => (this.battleState = "battle_end"), 3000);
+          }
         } else {
-          this.foeTurn()
+          this.foeTurn();
+          if (this.ally.PkmnHP !== 0) {
+            setTimeout(() => this.allyTurn(), 3000);
+            setTimeout(() => (this.battleState = "p1_select"), 6000);
+          } else {
+            setTimeout(() => (this.battleState = "battle_end"), 3000);
+          }
         }
+      }
+      if (this.battleState == "battle_end") {
+        this.showStat = false;
+        this.battleState = "";
+        this.battleMessage = "Battle Ended!";
+        setTimeout(() => (this.$store.state.gameState = "game_menu"), 3000);
       }
     },
   },
