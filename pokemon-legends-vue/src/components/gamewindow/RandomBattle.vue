@@ -103,6 +103,7 @@ export default {
         PkmnMP: 0,
         SelMove: "",
         Dmg: 0,
+        availablePkmn: 0,
       },
       foe: {
         ActivePkmnName: "",
@@ -123,57 +124,9 @@ export default {
   components: {
     SelectButtons,
   },
-  //   created: function () {
-  //   },
   created: async function () {
     this.battleState = "battle_start";
-    // ally pokemon
-    this.ally.ActivePkmn = this.$store.state.userData.party_pokemon[0];
-
-    // foe pokemon
-    let randomEnemyID = Math.floor(Math.random() * 150) + 1;
-    let response2 = await axios.get(
-      "https://pokeapi.co/api/v2/pokemon/" + randomEnemyID
-    );
-
-    this.foe.ActivePkmn = response2.data;
-    this.foe.ActivePkmnName =
-      this.foe.ActivePkmn.name.charAt(0).toUpperCase() +
-      this.foe.ActivePkmn.name.slice(1);
-    this.battleMessage = `Encountered ${this.foe.ActivePkmnName}!`;
-
-    let response = await axios.get(
-      "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/movesets"
-    );
-    let pkmnmove = response.data;
-    // foe pokemon move
-    let foepkmnmoveset = pkmnmove.find(
-      (pm) => pm.pokemon_id == this.foe.ActivePkmn.id
-    );
-    if (foepkmnmoveset !== undefined) {
-      this.foe.ActivePkmnMove = foepkmnmoveset.moveset;
-    } else {
-      let foepkmnmoveset = pkmnmove.find((pm) => pm.pokemon_id == 0);
-      this.foe.ActivePkmnMove = foepkmnmoveset.moveset;
-    }
-
-    this.foe.PkmnHP = this.foe.ActivePkmn.stats[0].base_stat;
-    this.foe.PkmnMP = 0;
-
-    setTimeout(() => (this.battleState = "p1_select"), 3000);
-
-    // ally pokemon move
-    let pkmnmoveset = pkmnmove.find(
-      (pm) => pm.pokemon_id == this.ally.ActivePkmn.pokemon_id
-    );
-    if (pkmnmoveset !== undefined) {
-      this.ally.ActivePkmnMove = pkmnmoveset.moveset;
-    } else {
-      let pkmnmoveset = pkmnmove.find((pm) => pm.pokemon_id == 0);
-      this.ally.ActivePkmnMove = pkmnmoveset.moveset;
-    }
-    this.ally.PkmnHP = this.ally.ActivePkmn.stats.hp;
-    this.ally.PkmnMP = 0;
+    this.ally.availablePkmn = this.$store.state.userData.party_pokemon.length;
   },
   methods: {
     selectMove() {
@@ -183,10 +136,16 @@ export default {
       this.ally.SelMove = moves.move;
       let dmgCalc =
         parseInt(this.ally.ActivePkmn.stats.atk) *
-          1.5 *
+          3.5 *
           (parseInt(moves.power) / 100) +
-        Math.floor(Math.random() * 3);
-      this.ally.Dmg = parseInt(dmgCalc);
+        Math.floor(Math.random() * 3) -
+        parseInt(this.foe.ActivePkmn.stats[2].base_stat * 0.6);
+
+      if (dmgCalc <= 0) {
+        this.ally.Dmg = 1;
+      } else {
+        this.ally.Dmg = parseInt(dmgCalc);
+      }
       this.battleState = "p2_moves";
     },
     backFunction() {
@@ -204,13 +163,69 @@ export default {
   },
   watch: {
     battleState: async function () {
+      // SETUP POKEMON
+      if (this.battleState == "battle_start") {
+        // ally pokemon
+        this.ally.ActivePkmn = this.$store.state.userData.party_pokemon[0];
+
+        // foe pokemon
+        let randomEnemyID = Math.floor(Math.random() * 150) + 1;
+        let response2 = await axios.get(
+          "https://pokeapi.co/api/v2/pokemon/" + randomEnemyID
+        );
+
+        this.foe.ActivePkmn = response2.data;
+        this.foe.ActivePkmnName =
+          this.foe.ActivePkmn.name.charAt(0).toUpperCase() +
+          this.foe.ActivePkmn.name.slice(1);
+        this.battleMessage = `Encountered ${this.foe.ActivePkmnName}!`;
+
+        let response = await axios.get(
+          "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/movesets"
+        );
+        let pkmnmove = response.data;
+        // foe pokemon move
+        let foepkmnmoveset = pkmnmove.find(
+          (pm) => pm.pokemon_id == this.foe.ActivePkmn.id
+        );
+        if (foepkmnmoveset !== undefined) {
+          this.foe.ActivePkmnMove = foepkmnmoveset.moveset;
+        } else {
+          let foepkmnmoveset = pkmnmove.find((pm) => pm.pokemon_id == 0);
+          this.foe.ActivePkmnMove = foepkmnmoveset.moveset;
+        }
+
+        this.foe.PkmnHP = this.foe.ActivePkmn.stats[0].base_stat;
+        this.foe.PkmnMP = 0;
+
+        // ally pokemon move
+        let pkmnmoveset = pkmnmove.find(
+          (pm) => pm.pokemon_id == this.ally.ActivePkmn.pokemon_id
+        );
+        if (pkmnmoveset !== undefined) {
+          this.ally.ActivePkmnMove = pkmnmoveset.moveset;
+        } else {
+          let pkmnmoveset = pkmnmove.find((pm) => pm.pokemon_id == 0);
+          this.ally.ActivePkmnMove = pkmnmoveset.moveset;
+        }
+        this.ally.PkmnHP = this.ally.ActivePkmn.stats.hp;
+        this.ally.PkmnMP = 0;
+
+        setTimeout(() => (this.battleState = "p1_select"), 3000);
+      }
+
+      //   P1 SELECT ACTION
       if (this.battleState == "p1_select") {
         this.showStat = true;
         this.battleMessage = "What will you like to do?";
       }
+
+      //   P1 SELECT MOVES
       if (this.battleState == "p1_moves") {
         this.battleMessage = "Which move will you like to use?";
       }
+
+      // BOT SELECTS MOVES
       if (this.battleState == "p2_moves") {
         this.battleMessage = "Await opponent selection...";
         let moveID = Math.floor(Math.random() * 3);
@@ -218,13 +233,20 @@ export default {
 
         let dmgCalc =
           parseInt(this.foe.ActivePkmn.stats[1].base_stat) *
-            1.5 *
+            3.5 *
             (parseInt(this.foe.ActivePkmnMove[moveID].power) / 100) +
-          Math.floor(Math.random() * 3);
-        this.foe.Dmg = parseInt(dmgCalc);
+          Math.floor(Math.random() * 3) -
+          parseInt(this.ally.ActivePkmn.stats.def * 0.6);
+        if (dmgCalc <= 0) {
+          this.foe.Dmg = 1;
+        } else {
+          this.foe.Dmg = parseInt(dmgCalc);
+        }
 
         setTimeout(() => (this.battleState = "battle_phase"), 1000);
       }
+
+      // BATTLE PHASE, EXCHANGE BLOWS DEPENDING ON WHO IS FASTER
       if (this.battleState == "battle_phase") {
         //   ally execution function
         this.allyTurn = () => {
@@ -252,7 +274,10 @@ export default {
           if (this.ally.PkmnHP > 0) {
             setTimeout(() => (this.battleState = "p1_select"), 3000);
           } else {
-            setTimeout(() => (this.battleState = "battle_end"), 3000);
+            this.ally.availablePkmn -= 1;
+            if (this.ally.availablePkmn <= 0) {
+              setTimeout(() => (this.battleState = "battle_end"), 3000);
+            }
           }
         };
 
@@ -284,16 +309,25 @@ export default {
 
             setTimeout(() => checkFoeHP(), 3300);
           } else {
-            setTimeout(() => (this.battleState = "battle_end"), 3000);
+            this.ally.availablePkmn -= 1;
+            if (this.ally.availablePkmn <= 0) {
+              setTimeout(() => (this.battleState = "battle_end"), 3000);
+            }
           }
         }
       }
+
+      // BATTLE END IF ANY POKEMON HP REACHES 0
       if (this.battleState == "battle_end") {
         this.showStat = false;
         this.battleState = "";
 
         if (this.ally.PkmnHP <= 0) {
-          this.$store.state.userData.pokedollar -= 1000;
+          if (this.$store.state.userData.pokedollar > 1000) {
+            this.$store.state.userData.pokedollar -= 1000;
+          } else {
+            this.$store.state.userData.pokedollar = 0;
+          }
           await axios.patch(
             "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
               this.$store.state.username,
