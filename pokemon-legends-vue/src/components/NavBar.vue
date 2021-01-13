@@ -4,7 +4,7 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <div class="center-navbar">
         <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav class="margin-right">
+          <b-navbar-nav class="margin-right-more">
             <b-nav-item class="margin-right" @click="stopBGM"
               ><router-link to="/">Home</router-link></b-nav-item
             >
@@ -15,7 +15,7 @@
 
           <!-- Right aligned nav items -->
           <b-navbar-nav
-            class="margin-left"
+            class="margin-left-more"
             v-if="$store.state.loginState == false"
           >
             <b-nav-item class="margin-left" v-b-modal.loginModal
@@ -25,7 +25,7 @@
               ><router-link to="/game">Play</router-link></b-nav-item
             >
           </b-navbar-nav>
-          <b-navbar-nav class="margin-left" v-else>
+          <b-navbar-nav class="margin-left-more" v-else>
             <b-nav-item-dropdown right class="margin-left">
               <!-- Using 'button-content' slot -->
               <template #button-content>
@@ -258,11 +258,19 @@ export default {
   }
 
   .margin-right {
-    margin-right: 35px;
+    margin-right: 25px;
   }
 
   .margin-left {
-    margin-left: 35px;
+    margin-left: 25px;
+  }
+
+  .margin-right-more {
+    margin-right: 85px;
+  }
+
+  .margin-left-more {
+    margin-left: 85px;
   }
 
   #brand-logo {
