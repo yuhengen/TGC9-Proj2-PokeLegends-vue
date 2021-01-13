@@ -1,39 +1,32 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="dark">
-      <div class="mx-auto">
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <div class="center-navbar">
         <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav>
-            <b-nav-item class="mr-4" @click="stopBGM"
+          <b-navbar-nav class="margin-right">
+            <b-nav-item class="margin-right" @click="stopBGM"
               ><router-link to="/">Home</router-link></b-nav-item
             >
-            <b-nav-item class="ml-4 mr-4" @click="stopBGM"
+            <b-nav-item class="margin-left margin-right" @click="stopBGM"
               ><router-link to="/pokedex">Pokédex</router-link></b-nav-item
             >
           </b-navbar-nav>
 
-          <b-navbar-brand class="ml-4 mr-4">
-            <router-link to="/game">
-              <img
-                src="https://i.pinimg.com/originals/50/e1/db/50e1db4684e6f697f93590950eb832f6.png"
-                class="brand-logo"
-              />
-            </router-link>
-          </b-navbar-brand>
-
           <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto" v-if="$store.state.loginState == false">
-            <b-nav-item class="ml-4 mr-4"
+          <b-navbar-nav
+            class="margin-left"
+            v-if="$store.state.loginState == false"
+          >
+            <b-nav-item class="margin-left" v-b-modal.loginModal
+              >Login</b-nav-item
+            >
+            <b-nav-item class="margin-left margin-right"
               ><router-link to="/game">Play</router-link></b-nav-item
             >
-            <b-nav-item class="ml-4" v-b-modal.loginModal>Login</b-nav-item>
           </b-navbar-nav>
-          <b-navbar-nav class="ml-auto" v-else>
-            <b-nav-item class="ml-4 mr-4"
-              ><router-link to="/game">Play</router-link></b-nav-item
-            >
-            <b-nav-item-dropdown right class="ml-4">
+          <b-navbar-nav class="margin-left" v-else>
+            <b-nav-item-dropdown right class="margin-left">
               <!-- Using 'button-content' slot -->
               <template #button-content>
                 <em>Profile</em>
@@ -49,6 +42,10 @@
                 >Log Out</b-dropdown-item
               >
             </b-nav-item-dropdown>
+
+            <b-nav-item class="margin-left margin-right"
+              ><router-link to="/game">Play</router-link></b-nav-item
+            >
           </b-navbar-nav>
         </b-collapse>
       </div>
@@ -97,6 +94,17 @@
       </b-modal>
     </div>
     <!-- End Login Model -->
+
+    <div id="brand-logo">
+      <router-link to="/game">
+        <div class="brand-logo"></div>
+        <!-- <img
+          src="https://i.pinimg.com/originals/50/e1/db/50e1db4684e6f697f93590950eb832f6.png"
+          class="brand-logo"
+          style="position: relative; left: -50%"
+        /> -->
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -182,8 +190,10 @@ export default {
       this.$store.state.userData = {};
     },
     stopBGM() {
-      this.$store.state.bgm.pause();
-      this.$store.state.bgmName = "";
+      if (this.$store.state.bgm !== null) {
+        this.$store.state.bgm.pause();
+        this.$store.state.bgmName = "";
+      }
     },
   },
 };
@@ -191,8 +201,11 @@ export default {
 
 <style>
 .navbar {
-  height: 70px;
   z-index: 10;
+}
+
+.navbar-toggler-icon {
+  background-image: url("https://i.pinimg.com/originals/50/e1/db/50e1db4684e6f697f93590950eb832f6.png") !important;
 }
 
 .navbar a,
@@ -201,14 +214,8 @@ export default {
   font-family: pokemonsolid;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   font-size: 30px;
-  text-align: center;
   padding-bottom: 20px !important;
-}
-
-.navbar-brand {
-  font-family: pokemonsolid;
-  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
-  font-size: 40px !important;
+  text-align: center;
 }
 
 .nav-item {
@@ -217,16 +224,6 @@ export default {
 
 .nav-item:hover {
   text-decoration: underline;
-}
-
-.navbar-brand {
-  width: 8vw;
-  margin-top: 36px !important;
-  text-align: center;
-}
-
-.brand-logo {
-  height: 90px;
 }
 
 .dropdown-item,
@@ -253,5 +250,37 @@ export default {
 
 .modalBtns {
   width: 140px;
+}
+
+@media only screen and (min-width: 991px) {
+  .center-navbar {
+    margin: auto;
+  }
+
+  .margin-right {
+    margin-right: 35px;
+  }
+
+  .margin-left {
+    margin-left: 35px;
+  }
+
+  #brand-logo {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 11;
+  }
+
+  .brand-logo {
+    position: relative;
+    left: -50%;
+    height: 90px;
+    width: 90px;
+    background-image: url("https://i.pinimg.com/originals/50/e1/db/50e1db4684e6f697f93590950eb832f6.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
 </style>
