@@ -132,7 +132,7 @@ export default {
   methods: {
     registerAccount: async function () {
       let response = await axios.get(
-        "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata"
+        "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/userdata"
       );
       let users = response.data;
 
@@ -205,7 +205,7 @@ export default {
         !this.genderErrorMsg
       ) {
         await axios.post(
-          "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata",
+          "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/userdata",
           {
             username: this.form.username,
             email: this.form.email,

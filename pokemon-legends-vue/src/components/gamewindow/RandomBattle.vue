@@ -181,7 +181,7 @@ export default {
         this.battleMessage = `Encountered ${this.foe.ActivePkmnName}!`;
 
         let response = await axios.get(
-          "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/movesets"
+          "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/movesets"
         );
         let pkmnmove = response.data;
         // foe pokemon move
@@ -329,7 +329,7 @@ export default {
             this.$store.state.userData.pokedollar = 0;
           }
           await axios.patch(
-            "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
+            "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/userdata/" +
               this.$store.state.username,
             this.$store.state.userData
           );
@@ -354,7 +354,7 @@ export default {
             this.$store.state.userData.bag.push(rarecandy);
 
             await axios.patch(
-              "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
+              "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/userdata/" +
                 this.$store.state.username,
               this.$store.state.userData
             );
@@ -365,7 +365,7 @@ export default {
             this.$store.state.userData.bag[rcID].item_count += 1;
 
             await axios.patch(
-              "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
+              "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/userdata/" +
                 this.$store.state.username,
               this.$store.state.userData
             );

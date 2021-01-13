@@ -136,7 +136,7 @@ export default {
       this.invalidPW = "";
 
       let response = await axios.get(
-        "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata"
+        "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/userdata"
       );
       let users = response.data;
 
@@ -152,7 +152,7 @@ export default {
             this.$store.state.loginState = true;
 
             let response = await axios.get(
-              "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
+              "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/userdata/" +
                 this.$store.state.username
             );
             this.$store.state.userData = response.data;

@@ -171,7 +171,7 @@ export default {
     add100Pkdl: async function () {
       this.$store.state.userData.pokedollar += 1000;
       await axios.patch(
-        "https://3000-f3eac718-8094-4909-ae3d-71ff4f3b9110.ws-us03.gitpod.io/userdata/" +
+        "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/userdata/" +
           this.$store.state.username,
         this.$store.state.userData
       );
