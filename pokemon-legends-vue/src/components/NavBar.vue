@@ -22,7 +22,7 @@
               >Login</b-nav-item
             >
             <b-nav-item class="margin-left margin-right"
-              ><router-link to="/game">Play</router-link></b-nav-item
+              ><router-link to="/register">Register</router-link></b-nav-item
             >
           </b-navbar-nav>
           <b-navbar-nav class="margin-left-more" v-else>
@@ -165,6 +165,8 @@ export default {
             this.$nextTick(() => {
               this.$bvModal.hide("loginModal");
             });
+
+            this.$router.push("game");
           } else {
             this.invalidPW = "Incorrect password";
           }
@@ -249,7 +251,6 @@ export default {
 }
 
 @media only screen and (min-width: 991px) {
-
   .margin-right {
     margin-right: 25px;
   }
