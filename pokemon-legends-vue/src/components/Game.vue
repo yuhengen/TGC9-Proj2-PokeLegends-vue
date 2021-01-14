@@ -44,6 +44,12 @@
           >
             <PokedexDisplay />
           </div>
+          <div
+            v-else-if="$store.state.gameState == 'open_pokemon'"
+            v-bind:style="{ height: heightSize }"
+          >
+            <Pokemon />
+          </div>
         </div>
       </div>
     </fullscreen>
@@ -70,8 +76,9 @@
 <script>
 import StartGame from "./gamewindow/StartGame";
 import GameMenu from "./gamewindow/GameMenu";
-import RandomBattle from "./gamewindow/RandomBattle.vue";
-import PokedexDisplay from "./gamewindow/PokedexDisplay.vue";
+import RandomBattle from "./gamewindow/RandomBattle";
+import PokedexDisplay from "./gamewindow/PokedexDisplay";
+import Pokemon from "./gamewindow/Pokemon";
 
 export default {
   components: {
@@ -79,6 +86,7 @@ export default {
     GameMenu,
     RandomBattle,
     PokedexDisplay,
+    Pokemon,
   },
   data: function () {
     return {

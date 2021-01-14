@@ -143,11 +143,6 @@ export default {
           parseInt(this.ally.ActivePkmn.stats.atk)) /
           parseInt(this.foe.ActivePkmn.stats[2].base_stat) /
           50 + 2 + Math.floor(Math.random() * 3);
-      // (parseInt(this.ally.ActivePkmn.stats.atk) -
-      //   parseInt(this.foe.ActivePkmn.stats[2].base_stat * 0.8)) *
-      //   3 *
-      //   (parseInt(moves.power) / 100) +
-      // Math.floor(Math.random() * 3);
 
       if (dmgCalc <= 0) {
         this.ally.Dmg = 1;
@@ -245,11 +240,6 @@ export default {
             parseInt(this.foe.ActivePkmn.stats[1].base_stat)) /
             parseInt(this.ally.ActivePkmn.stats.def) /
             50 + 2 + Math.floor(Math.random() * 3);
-        //   (parseInt(this.foe.ActivePkmn.stats[1].base_stat) -
-        //     parseInt(this.ally.ActivePkmn.stats.def * 0.8)) *
-        //     3 *
-        //     (parseInt(this.foe.ActivePkmnMove[moveID].power) / 100) +
-        //   Math.floor(Math.random() * 3);
         if (dmgCalc <= 0) {
           this.foe.Dmg = 1;
         } else {

@@ -2,10 +2,10 @@
   <div id="game-menu">
     <div
       v-if="$store.state.userData.tutorial == 0"
-      style="height: 100%; width: 100%;"
+      style="height: 100%; width: 100%"
       class="d-flex align-items-center justify-content-center"
     >
-      <Tutorial/>
+      <Tutorial />
     </div>
     <div v-else>
       <!-- User info window -->
@@ -106,7 +106,7 @@
       <!-- bottom buttons -->
       <div class="buttons-div">
         <SelectButtons message="Pokédex" @click.native="openPokedex" />
-        <SelectButtons message="Pokémon" @click.native="comingSoon" />
+        <SelectButtons message="Pokémon" @click.native="openPokemon" />
         <SelectButtons message="Bag" @click.native="comingSoon" />
         <!-- <SelectButtons message="Shop" @click.native="comingSoon" /> -->
         <SelectButtons message="+1000 Poké$" @click.native="add100Pkdl" />
@@ -170,6 +170,9 @@ export default {
     },
     openPokedex: function () {
       this.$store.state.gameState = "open_pokedex";
+    },
+    openPokemon: function () {
+      this.$store.state.gameState = "open_pokemon";
     },
     comingSoon() {
       alert("Coming Soon!");
