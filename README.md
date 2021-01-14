@@ -2,7 +2,7 @@
 Welcome to Pokémon Legends! Here, you will get to experience a simple Pokemon game, with references to the official Pokémon game battles and some of their systems, with a tint of retro! All feedbacks regarding the game for improvements are welcome!
 
 ## Context
-Pokémon Legends is a game project done during my education with Trent Global College, where I will utilize what I learnt during my bootcamp about Vue, Express and MongoDB to develop a reactive frontend frameworks and RESTful API.
+Pokémon Legends is a game project done during my education with Trent Global College, where I will utilize what I learnt during my bootcamp about Vue, Express and MongoDB to develop a reactive frontend frameworks game, website and RESTful API.
 
 # Demo
 The demo of the site is available [here](https://yuhengen.github.io/TGC9-Proj2-PokeLegends-vue)!
@@ -14,7 +14,7 @@ Backend codes can be found at [TGC9-Proj2-PokéLegends-api](https://github.com/y
 
 # UI/UX
 # Identifying the Users (STRATEGY)
-The primary purpose of this website is to allow players to play the Pokémon Legends game on both PC and mobile. This is a simple simulation of the official Pokémon game series on Nintendo consoles. This game mainly targets Pokémon fans and gamers in general.
+The primary purpose of this website is to allow players to play the Pokémon Legends game on both PC and mobile (In the future). This is a simple simulation of the official Pokémon game series on Nintendo consoles, mainly targeting Pokémon fans and gamers in general.
 
 ## Owner Stories
 ```
@@ -33,9 +33,9 @@ The primary purpose of this website is to allow players to play the Pokémon Leg
 ```
 - Sign up for an account
 - Login to the account
-- Play the game on browser with a PC or Android/Apple phones, designed with Vue
+- Play the game on browser with a PC or Android/Apple phones (In the future), designed with Vue
 - Conduct random and gym battles in the game
-- Theme music playing in the game, switching when necessary
+- Theme music playing in the game, switching to other theme background music when necessary
 - Access to a Pokédex to view the entire list of Pokémon
 - Auto save and load the game to and from MongoDB database
 - Ease of navigation with Bootstrap Navbar

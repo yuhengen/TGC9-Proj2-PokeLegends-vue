@@ -5,12 +5,13 @@
   >
     <div
       id="pokemon-list"
-      class="d-flex flex-column flex-wrap justify-content-center align-items-center"
+      class="d-flex flex-column flex-wrap justify-content-center align-items-center rounded-left shadow border border-dark border-right-0"
     >
       <div
         v-for="(pokemon, i) in $store.state.userData.party_pokemon"
         :key="i"
-        class="pokemon-bar d-flex align-items-center justify-content-around shadow"
+        class="pokemon-bar d-flex align-items-center justify-content-around shadow mt-1 mb-1"
+        @click="displayPkmnInfo(pokemon)"
       >
         <img
           style="height: 80%"
@@ -23,12 +24,21 @@
         <span>Lv.{{ pokemon.lvl }} {{ pokemon.pokemon_name }}</span>
       </div>
     </div>
-    <div id="pokemon-info"></div>
+    <div
+      id="pokemon-info"
+      class="rounded-right shadow border border-dark border-left-0"
+    ></div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    displayPkmnInfo(pokemon) {
+      console.log(pokemon);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -58,6 +68,6 @@ export default {};
 #pokemon-info {
   width: 48%;
   height: 90%;
-  background-color: blue;
+  background-color: rgba(252, 252, 252, 0.8);
 }
 </style>
