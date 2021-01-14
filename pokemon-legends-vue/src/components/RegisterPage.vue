@@ -211,7 +211,7 @@ export default {
             email: this.form.email,
             password: this.form.password,
             gender: this.form.gender,
-            pokedollar: 0,
+            pokedollar: 1000,
             party_pokemon: [],
             store_pokemon: [],
             pokedex: [],
@@ -225,6 +225,16 @@ export default {
         this.form.password = "";
         this.cfmPassword = "";
         this.form.gender = false;
+
+        this.userError = false;
+        this.userErrorMsg = "";
+        this.emailError = false;
+        this.emailErrorMsg = "";
+        this.pwError = false;
+        this.pwErrorMsg = "";
+        this.genderError = false;
+        this.genderErrorMsg = "";
+
         alert("New account has been registered!");
       }
     },
