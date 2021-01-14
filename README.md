@@ -6,6 +6,7 @@ Pokémon Legends is a game project done during my education with Trent Global Co
 
 # Demo
 The demo of the site is available [here](https://yuhengen.github.io/TGC9-Proj2-PokeLegends-vue)!
+*NOTE: The game is currently not optimized for mobile and is thus not mobile responsive.
 
 # Note
 This repository only contains the frontend codes for the Pokémon Legends project.
@@ -38,12 +39,13 @@ The primary purpose of this website is to allow players to play the Pokémon Leg
 - Access to a Pokédex to view the entire list of Pokémon
 - Auto save and load the game to and from MongoDB database
 - Ease of navigation with Bootstrap Navbar
-- Mobile responsiveness
+- Mobile responsiveness (Website)
 ```
 ## Features to Implement in Future
 ```
-- Add function to prompt user confirmation on whether they want to navigate away from the game window
 - Adding loading screen to pages that require load time
+- Add function to prompt user confirmation on whether they want to navigate away from the game window
+- Mobile responsiveness (Game)
 - Add function to allow users to update profile
 - Privacy Policy page (When necessary)
 ```
