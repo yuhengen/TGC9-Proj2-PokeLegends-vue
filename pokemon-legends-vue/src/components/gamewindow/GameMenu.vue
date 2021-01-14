@@ -1,7 +1,65 @@
 <template>
   <div id="game-menu">
-    <div v-if="$store.state.userData.tutorial == 0">
-      <h1>Begin Tutorial</h1>
+    <div
+      v-if="$store.state.userData.tutorial == 0"
+      style="height: 100%; width: 100%"
+      class="d-flex align-items-center justify-content-center"
+    >
+      <div
+        id="starter-select"
+        class="d-flex flex-column align-items-center justify-content-center"
+      >
+        <div>
+          <h2>Select Your Starter</h2>
+        </div>
+        <div class="d-flex flex-wrap justify-content-around">
+          <!-- Bulbasaur -->
+          <b-card
+            title="Bulbasaur"
+            img-src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+            img-alt="Pokemon Image"
+            img-top
+            style="
+              width: 30%;
+              position: relative;
+              background-color: rgba(52, 58, 64, 0);
+            "
+            class="mt-3"
+          >
+            <b-button href="#" variant="success">Select</b-button>
+          </b-card>
+          <!-- Charmander -->
+          <b-card
+            title="Charmander"
+            img-src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"
+            img-alt="Pokemon Image"
+            img-top
+            style="
+              width: 30%;
+              position: relative;
+              background-color: rgba(52, 58, 64, 0);
+            "
+            class="mt-3"
+          >
+            <b-button href="#" variant="success">Select</b-button>
+          </b-card>
+          <!-- Squirtle -->
+          <b-card
+            title="Squirtle"
+            img-src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png"
+            img-alt="Pokemon Image"
+            img-top
+            style="
+              width: 30%;
+              position: relative;
+              background-color: rgba(52, 58, 64, 0);
+            "
+            class="mt-3"
+          >
+            <b-button href="#" variant="success">Select</b-button>
+          </b-card>
+        </div>
+      </div>
     </div>
     <div v-else>
       <!-- User info window -->
@@ -175,7 +233,7 @@ export default {
           this.$store.state.username,
         this.$store.state.userData
       );
-      alert("Added 1000 Pokédollar to " + this.$store.state.username)
+      alert("Added 1000 Pokédollar to " + this.$store.state.username);
     },
   },
 };
@@ -190,6 +248,13 @@ export default {
   height: 100%;
   text-align: center;
   position: relative;
+}
+
+#starter-select {
+  height: 90%;
+  width: 100%;
+  background-color: rgba(52, 58, 64, 0.9);
+  color: white;
 }
 
 #user-info {

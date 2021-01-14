@@ -127,6 +127,7 @@ export default {
   },
   created: async function () {
     this.battleState = "battle_start";
+    this.$store.state.battleType = "random";
     this.ally.availablePkmn = this.$store.state.userData.party_pokemon.length;
   },
   methods: {
@@ -322,6 +323,7 @@ export default {
       if (this.battleState == "battle_end") {
         this.showStat = false;
         this.battleState = "";
+        this.$store.state.battleType = "";
 
         if (this.ally.PkmnHP <= 0) {
           if (this.$store.state.userData.pokedollar > 1000) {
