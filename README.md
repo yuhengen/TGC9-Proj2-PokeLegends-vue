@@ -5,7 +5,7 @@ Welcome to Pokémon Legends! Here, you will get to experience a simple Pokemon g
 Pokémon Legends is a game project done during my education with Trent Global College, where I will utilize what I learnt during my bootcamp about Vue, Express and MongoDB to develop a reactive frontend frameworks and RESTful API.
 
 # Demo
-The demo of the site will be available soon...
+The demo of the site is available [here](https://yuhengen.github.io/TGC9-Proj2-PokeLegends-vue)!
 
 # Note
 This repository only contains the frontend codes for the Pokémon Legends project.

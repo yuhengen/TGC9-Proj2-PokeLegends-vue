@@ -52,13 +52,12 @@
       @click="toggle"
       class="btn btn-dark btn-block fullscreen-btn d-flex justify-content-between"
     >
-      <div class="ml-3">Play in Fullscreen</div>
+      <div class="ml-2">Play in Fullscreen</div>
       <div
-        style="
-          color: black;
+        style="color: black;
           text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-        "
-        class="mr-3"
+          text-align: right;"
+        class="mr-2"
       >
         ESC to exit fullscreen
       </div>

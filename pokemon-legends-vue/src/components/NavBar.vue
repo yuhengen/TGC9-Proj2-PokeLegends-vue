@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="dark">
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <div class="center-navbar">
+      <div class="mx-auto">
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="margin-right-more">
             <b-nav-item class="margin-right" @click="stopBGM"
@@ -95,14 +95,10 @@
     </div>
     <!-- End Login Model -->
 
+    <!-- brand logo -->
     <div id="brand-logo">
       <router-link to="/game">
         <div class="brand-logo"></div>
-        <!-- <img
-          src="https://i.pinimg.com/originals/50/e1/db/50e1db4684e6f697f93590950eb832f6.png"
-          class="brand-logo"
-          style="position: relative; left: -50%"
-        /> -->
       </router-link>
     </div>
   </div>
@@ -253,9 +249,6 @@ export default {
 }
 
 @media only screen and (min-width: 991px) {
-  .center-navbar {
-    margin: auto;
-  }
 
   .margin-right {
     margin-right: 25px;

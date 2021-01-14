@@ -23,3 +23,6 @@ git remote add origin https://github.com/yuhengen/TGC9-Proj2-PokeLegends-vue.git
 git push --set-upstream origin gh-pages
 
 cd -
+
+# Command to run above
+# ./deploy.sh
