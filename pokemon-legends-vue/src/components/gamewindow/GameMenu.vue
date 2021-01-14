@@ -2,10 +2,10 @@
   <div id="game-menu">
     <div
       v-if="$store.state.userData.tutorial == 0"
-      style="height: 100%; width: 100%"
+      style="height: 100%; width: 100%;"
       class="d-flex align-items-center justify-content-center"
     >
-      <Tutorial />
+      <Tutorial/>
     </div>
     <div v-else>
       <!-- User info window -->
@@ -118,7 +118,7 @@
 <script>
 import axios from "axios";
 import SelectButtons from "./SelectButtons";
-import Tutorial from "./Tutorial";
+import Tutorial from "./tutorial/Tutorial";
 
 export default {
   data: function () {

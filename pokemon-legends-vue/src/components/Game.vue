@@ -27,19 +27,19 @@
             />
           </div>
           <div
-            v-if="$store.state.gameState == 'game_menu'"
+            v-else-if="$store.state.gameState == 'game_menu'"
             v-bind:style="{ height: heightSize }"
           >
             <GameMenu />
           </div>
           <div
-            v-if="$store.state.gameState == 'battle_start'"
+            v-else-if="$store.state.gameState == 'battle_start'"
             v-bind:style="{ height: heightSize }"
           >
             <RandomBattle />
           </div>
           <div
-            v-if="$store.state.gameState == 'open_pokedex'"
+            v-else-if="$store.state.gameState == 'open_pokedex'"
             v-bind:style="{ height: heightSize }"
           >
             <PokedexDisplay />
@@ -54,9 +54,11 @@
     >
       <div class="ml-2">Play in Fullscreen</div>
       <div
-        style="color: black;
+        style="
+          color: black;
           text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-          text-align: right;"
+          text-align: right;
+        "
         class="mr-2"
       >
         ESC to exit fullscreen
