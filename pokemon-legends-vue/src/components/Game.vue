@@ -167,7 +167,7 @@ export default {
   height: 8%;
   z-index: 20;
   border: 3px solid black !important;
-  border-radius:10px;
+  border-radius:5px;
 }
 
 .exit-fullscreen-btn:hover {

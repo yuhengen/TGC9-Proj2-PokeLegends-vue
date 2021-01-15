@@ -5,23 +5,38 @@
   >
     <div
       id="pokemon-list"
-      class="d-flex flex-column flex-wrap justify-content-center align-items-center rounded-left shadow border border-dark border-right-0"
+      class="d-flex flex-column flex-wrap justify-content-between align-items-center rounded-left shadow border border-dark border-right-0"
     >
+      <!-- header -->
       <div
-        v-for="(pokemon, i) in $store.state.userData.party_pokemon"
-        :key="i"
-        class="pokemon-bar d-flex align-items-center justify-content-around shadow mt-1 mb-1"
-        @click="displayPkmnInfo(pokemon)"
+        class="d-flex flex-column justify-content-center align-items-center mt-3"
       >
-        <img
-          style="height: 80%"
-          :src="
-            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/' +
-            pokemon.pokemon_id +
-            '.gif'
-          "
-        />
-        <span>Lv.{{ pokemon.lvl }} {{ pokemon.pokemon_name }}</span>
+        <h4>Party Pokémon</h4>
+      </div>
+      <!-- list of pokemon -->
+        <div
+          v-for="(pokemon, i) in $store.state.userData.party_pokemon"
+          :key="i"
+          class="pokemon-bar d-flex align-items-center justify-content-around shadow mt-1 mb-1"
+          @click="displayPkmnInfo(pokemon)"
+        >
+          <img
+            style="height: 80%"
+            :src="
+              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/' +
+              pokemon.pokemon_id +
+              '.gif'
+            "
+          />
+          <span>Lv.{{ pokemon.lvl }} {{ pokemon.pokemon_name }}</span>
+        </div>
+      <!-- buttons -->
+      <div
+        class="d-flex justify-content-around align-items-center mb-3"
+        style="width: 100%"
+      >
+        <SelectButtons message="Use Rare Candy" @click.native="useRareCandy" />
+        <SelectButtons message="Release" @click.native="releasePokemon" />
       </div>
     </div>
 
@@ -91,15 +106,25 @@
 </template>
 
 <script>
+import SelectButtons from "./SelectButtons";
 export default {
   data: function () {
     return {
       pokemonData: this.$store.state.userData.party_pokemon[0],
     };
   },
+  components: {
+    SelectButtons,
+  },
   methods: {
     displayPkmnInfo(pokemon) {
       this.pokemonData = pokemon;
+    },
+    useRareCandy() {
+      console.log(this.pokemonData);
+    },
+    releasePokemon() {
+      alert("Coming soon...");
     },
     closePokedex: function () {
       this.$store.state.gameState = "game_menu";
@@ -129,11 +154,11 @@ export default {
   background-color: lightblue;
   color: black;
   border-radius: 10px;
-  border: 2px black solid;
+  border: 3px black solid;
 }
 
 .pokemon-bar:hover {
-  border: 2px white solid;
+  border: 3px white solid;
 }
 
 #pokemon-info {
@@ -148,6 +173,11 @@ export default {
   padding: 5px;
   margin: 5px;
   border-radius: 5px;
+}
+
+.btn-design {
+  height: 60px;
+  width: 40% !important;
 }
 
 .cancelBtn {
