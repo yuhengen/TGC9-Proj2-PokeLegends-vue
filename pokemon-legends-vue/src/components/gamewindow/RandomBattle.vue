@@ -167,6 +167,7 @@ export default {
 
       this.showStat = false;
       this.battleState = "";
+      this.$store.state.battleType = "";
       this.$store.state.inBattle = false;
       this.battleMessage = "Got away safely!";
       setTimeout(() => (this.$store.state.gameState = "game_menu"), 2000);
