@@ -155,6 +155,13 @@ export default {
       this.battleState = "p1_select";
     },
     runFromBattle() {
+      this.$store.state.bgm.pause();
+      let runBGM = new Audio("bgm/run.mp3");
+      this.$store.state.bgm = runBGM;
+      this.$store.state.bgmName = "runBGM";
+      this.$store.state.bgm.volume = 0.5;
+      this.$store.state.bgm.play();
+
       this.showStat = false;
       this.battleState = "";
       this.battleMessage = "Got away safely!";

@@ -120,11 +120,9 @@ export default {
 <style>
 #gameWindow {
   background-image: url("https://i.makeagif.com/media/5-15-2018/iCYfPA.gif");
-  /* background-image: url("https://i.imgur.com/JDvCBHC.gif"); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* background-size: 99%; */
   background-color: black;
   text-align: center;
   position: relative;
@@ -169,6 +167,7 @@ export default {
   height: 8%;
   z-index: 20;
   border: 3px solid black !important;
+  border-radius:10px;
 }
 
 .exit-fullscreen-btn:hover {

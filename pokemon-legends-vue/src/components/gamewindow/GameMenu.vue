@@ -169,9 +169,25 @@ export default {
       this.$store.state.gameState = "battle_start";
     },
     openPokedex: function () {
+      this.$store.state.bgm.pause();
+      let menuBGM = new Audio("bgm/menu.mp3");
+      this.$store.state.bgm = menuBGM;
+      this.$store.state.bgmName = "menuBGM";
+      this.$store.state.bgm.volume = 0.5;
+      this.$store.state.bgm.loop = true;
+      this.$store.state.bgm.play();
+      
       this.$store.state.gameState = "open_pokedex";
     },
     openPokemon: function () {
+      this.$store.state.bgm.pause();
+      let menuBGM = new Audio("bgm/menu.mp3");
+      this.$store.state.bgm = menuBGM;
+      this.$store.state.bgmName = "menuBGM";
+      this.$store.state.bgm.volume = 0.5;
+      this.$store.state.bgm.loop = true;
+      this.$store.state.bgm.play();
+
       this.$store.state.gameState = "open_pokemon";
     },
     comingSoon() {

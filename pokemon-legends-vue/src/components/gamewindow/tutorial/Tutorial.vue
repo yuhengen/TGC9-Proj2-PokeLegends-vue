@@ -12,10 +12,10 @@
     <div
       v-else
       id="starter-select"
-      class="d-flex flex-column align-items-center justify-content-center p-3"
+      class="d-flex flex-column align-items-center justify-content-center p-5"
     >
       <div>
-        <h2>Select Your Starter</h2>
+        <h3>Select Your Starter</h3>
       </div>
       <div class="d-flex flex-wrap justify-content-around">
         <b-card
@@ -30,7 +30,7 @@
           img-alt="Pokemon Image"
           img-top
           style="
-            width: 30%;
+            width: 25%;
             position: relative;
             background-color: rgba(52, 58, 64, 0);
           "
@@ -100,7 +100,17 @@ export default {
         speed: pokemondata.stats[5].base_stat,
       };
 
+      let newPokedexEntry = {
+        pokemon_id: 0,
+        pokemon_name: "",
+      };
+
+      newPokedexEntry.pokemon_id = parseInt(pokemondata.id);
+      newPokedexEntry.pokemon_name =
+        pokemondata.name.charAt(0).toUpperCase() + pokemondata.name.slice(1);
+
       this.$store.state.userData.party_pokemon.push(newPokemon);
+      this.$store.state.userData.pokedex.push(newPokedexEntry);
       this.$store.state.userData.tutorial += 1;
 
       await axios.patch(
@@ -122,22 +132,29 @@ export default {
       }
       if (this.introTextID == 1) {
         this.introText =
-          "People affectionately refer to me as the Pokémon Professor. This world is inhabited far and wide by creatures called Pokémon!";
+          "People affectionately refer to me as the Pokémon Professor.";
       }
       if (this.introTextID == 2) {
         this.introText =
-          "For some people, Pokémon are pets. Other use them for battling. As for myself… I study Pokémon as a profession.";
+          "This world is inhabited far and wide by creatures called Pokémon!";
       }
       if (this.introTextID == 3) {
+        this.introText =
+          "For some people, Pokémon are pets. Others use them for battling.";
+      }
+      if (this.introTextID == 4) {
+        this.introText = "As for myself… I study Pokémon as a profession.";
+      }
+      if (this.introTextID == 5) {
         this.introText =
           this.$store.state.userData.username +
           ", your very own Pokémon legend is about to unfold!";
       }
-      if (this.introTextID == 4) {
+      if (this.introTextID == 6) {
         this.introText =
           "A world of dreams and adventures with Pokémon awaits! Let's go!";
       }
-      if (this.introTextID == 5) {
+      if (this.introTextID == 7) {
         this.introduction = true;
       }
     },
@@ -168,25 +185,24 @@ export default {
   position: absolute !important;
   bottom: 0;
   width: 100%;
-  height: 25%;
+  height: 22%;
   margin: auto;
   border: 3px solid white !important;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1rem;
+  font-size: 0.9rem;
   border-radius: 7px;
 }
 
 #starter-select {
-  height: 90%;
   width: 100%;
   background-color: rgba(52, 58, 64, 0.9);
   color: white;
 }
 
 .card-title {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   text-align: center;
 }
 </style>

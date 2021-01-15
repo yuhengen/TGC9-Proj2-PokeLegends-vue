@@ -118,4 +118,5 @@ Big appreciation to the Pokémon series, w3schools, Stackoverflow forums, Bootst
 ### Music
 - theme-music.mp3 - [POKÉMON Omega Ruby/Alpha Sapphire Title Theme](https://www.youtube.com/watch?v=hkoXy3jRpww)
 - town.mp3 - [POKÉMON Omega Ruby/Alpha Sapphire Littleroot Town Theme](https://www.youtube.com/watch?v=zRGCzCn5azI)
+- menu.mp3 - [POKÉMON Sword & Shield Pokémon Center Theme](https://www.youtube.com/watch?v=i6yQhdtTM2o)
 - random-battle.mp3 - [POKÉMON Omega Ruby/Alpha Sapphire Battle! Zinnia Theme](https://www.youtube.com/watch?v=GIn8_Q27WFY)
