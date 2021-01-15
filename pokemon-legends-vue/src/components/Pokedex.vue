@@ -141,6 +141,7 @@ h1 {
   width: 80px;
   padding: 5px;
   margin: 5px;
+  border-radius:5px;
 }
 
 .info-align {

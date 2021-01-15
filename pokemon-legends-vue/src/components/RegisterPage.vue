@@ -237,6 +237,8 @@ export default {
         this.genderErrorMsg = "";
 
         alert("New account has been registered!");
+
+        this.$router.push("game");
       }
     },
   },
