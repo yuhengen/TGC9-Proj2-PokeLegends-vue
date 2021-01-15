@@ -111,22 +111,74 @@
             class="d-flex flex-column justify-content-around align-items-center"
             style="width: 48%"
           >
-            <div class="btn-dark move-info">
+            <!-- move 1 -->
+            <div
+              v-if="showMove0 == false"
+              class="btn-dark move-info"
+              @click="toggleMove0(pokemonMoves[0])"
+            >
               {{ pokemonMoves && pokemonMoves[0].move }}
             </div>
-            <div class="btn-dark move-info">
+            <div
+              v-else
+              class="btn-dark move-info d-flex flex-column"
+              @click="toggleMove0(pokemonMoves[0])"
+            >
+              <span>Power: {{ pokemonMoves && pokemonMoves[0].power }}</span>
+              <span>Type: {{ pokemonMoves && pokemonMoves[0].type }}</span>
+            </div>
+            <!-- move 2 -->
+            <div
+              v-if="showMove1 == false"
+              class="btn-dark move-info"
+              @click="toggleMove1(pokemonMoves[1])"
+            >
               {{ pokemonMoves && pokemonMoves[1].move }}
+            </div>
+            <div
+              v-else
+              class="btn-dark move-info d-flex flex-column"
+              @click="toggleMove1(pokemonMoves[1])"
+            >
+              <span>Power: {{ pokemonMoves && pokemonMoves[1].power }}</span>
+              <span>Type: {{ pokemonMoves && pokemonMoves[1].type }}</span>
             </div>
           </div>
           <div
             class="d-flex flex-column justify-content-around align-items-center"
             style="width: 48%"
           >
-            <div class="btn-dark move-info">
+            <!-- move 3 -->
+            <div
+              v-if="showMove2 == false"
+              class="btn-dark move-info"
+              @click="toggleMove2(pokemonMoves[2])"
+            >
               {{ pokemonMoves && pokemonMoves[2].move }}
             </div>
-            <div class="btn-dark move-info">
+            <div
+              v-else
+              class="btn-dark move-info d-flex flex-column"
+              @click="toggleMove2(pokemonMoves[2])"
+            >
+              <span>Power: {{ pokemonMoves && pokemonMoves[2].power }}</span>
+              <span>Type: {{ pokemonMoves && pokemonMoves[2].type }}</span>
+            </div>
+            <!-- move 4 -->
+            <div
+              v-if="showMove3 == false"
+              class="btn-dark move-info"
+              @click="toggleMove3(pokemonMoves[3])"
+            >
               {{ pokemonMoves && pokemonMoves[3].move }}
+            </div>
+            <div
+              v-else
+              class="btn-dark move-info d-flex flex-column"
+              @click="toggleMove3(pokemonMoves[3])"
+            >
+              <span>Power: {{ pokemonMoves && pokemonMoves[3].power }}</span>
+              <span>Type: {{ pokemonMoves && pokemonMoves[3].type }}</span>
             </div>
           </div>
         </div>
@@ -149,10 +201,10 @@ export default {
     return {
       pokemonData: this.$store.state.userData.party_pokemon[0],
       pokemonMoves: [],
-      pokeMovesTable: [
-        ["", ""],
-        ["", ""],
-      ],
+      showMove0: false,
+      showMove1: false,
+      showMove2: false,
+      showMove3: false,
     };
   },
   components: {
@@ -193,6 +245,31 @@ export default {
         let pkmnmoveset = pkmnmove.find((pm) => pm.pokemon_id == 0);
         this.pokemonMoves = pkmnmoveset.moveset;
       }
+
+      this.showMove0 = false;
+      this.showMove1 = false;
+      this.showMove2 = false;
+      this.showMove3 = false;
+    },
+    toggleMove0() {
+      this.showMove0 == false
+        ? (this.showMove0 = true)
+        : (this.showMove0 = false);
+    },
+    toggleMove1() {
+      this.showMove1 == false
+        ? (this.showMove1 = true)
+        : (this.showMove1 = false);
+    },
+    toggleMove2() {
+      this.showMove2 == false
+        ? (this.showMove2 = true)
+        : (this.showMove2 = false);
+    },
+    toggleMove3() {
+      this.showMove3 == false
+        ? (this.showMove3 = true)
+        : (this.showMove3 = false);
     },
     useRareCandy() {
       console.log(this.pokemonData);
