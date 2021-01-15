@@ -133,6 +133,7 @@ export default {
   },
   created: function () {
     this.toggleInfo = false;
+    this.$store.state.inBattle = false;
 
     let townBGM = new Audio("bgm/town.mp3");
     if (this.$store.state.bgmName == "") {
@@ -176,7 +177,7 @@ export default {
       this.$store.state.bgm.volume = 0.5;
       this.$store.state.bgm.loop = true;
       this.$store.state.bgm.play();
-      
+
       this.$store.state.gameState = "open_pokedex";
     },
     openPokemon: function () {

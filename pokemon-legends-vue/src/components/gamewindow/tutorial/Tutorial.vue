@@ -109,6 +109,13 @@ export default {
       newPokedexEntry.pokemon_name =
         pokemondata.name.charAt(0).toUpperCase() + pokemondata.name.slice(1);
 
+      let rarecandy = {
+        item_name: "Rare Candy",
+        item_count: 3,
+        item_id: 50,
+      };
+      this.$store.state.userData.bag.push(rarecandy);
+
       this.$store.state.userData.party_pokemon.push(newPokemon);
       this.$store.state.userData.pokedex.push(newPokedexEntry);
       this.$store.state.userData.tutorial += 1;
@@ -151,10 +158,13 @@ export default {
           ", your very own Pokémon legend is about to unfold!";
       }
       if (this.introTextID == 6) {
-        this.introText =
-          "A world of dreams and adventures with Pokémon awaits! Let's go!";
+        this.introText = "A world of dreams and adventures with Pokémon awaits";
       }
       if (this.introTextID == 7) {
+        this.introText =
+          "Here is 1000 Pokédollar and 3 Rare Candy for you! Let's go!";
+      }
+      if (this.introTextID == 8) {
         this.introduction = true;
       }
     },

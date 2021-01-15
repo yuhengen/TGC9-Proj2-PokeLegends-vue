@@ -167,6 +167,7 @@ export default {
 
       this.showStat = false;
       this.battleState = "";
+      this.$store.state.inBattle = false;
       this.battleMessage = "Got away safely!";
       setTimeout(() => (this.$store.state.gameState = "game_menu"), 2000);
     },
@@ -355,7 +356,7 @@ export default {
           setTimeout(() => (this.$store.state.gameState = "game_menu"), 3000);
         } else {
           this.battleMessage =
-            "You have won the battle! Obtained 500 Pokédollar and a Rare Candy!";
+            "You won the battle! Obtained 500 Pokédollar and a Rare Candy!";
           this.$store.state.userData.pokedollar += 500;
 
           let checkRC = this.$store.state.userData.bag.find(

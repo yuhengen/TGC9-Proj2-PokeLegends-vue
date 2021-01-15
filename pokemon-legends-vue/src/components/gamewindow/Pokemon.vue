@@ -292,11 +292,15 @@ export default {
         (rc) => rc.item_id === 50
       );
 
+      let rcID = this.$store.state.userData.bag.findIndex(
+        (rc) => rc.item_id === 50
+      );
+
       this.toggleMessage = true;
       this.toggleYesNo = true;
       if (checkRC !== undefined) {
         if (pokemon.lvl < 50) {
-          this.rcMessage = `Use Rare Candy on ${pokemon.pokemon_name} to level up once?`;
+          this.rcMessage = `Use Rare Candy on ${pokemon.pokemon_name} to level up once? Own: (${this.$store.userData.bag[rcID].item_count})`;
         } else {
           this.toggleYesNo = false;
           this.rcMessage = `${pokemon.pokemon_name} is at max level!`;
@@ -314,6 +318,7 @@ export default {
       let rcID = this.$store.state.userData.bag.findIndex(
         (rc) => rc.item_id === 50
       );
+
       this.$store.state.userData.bag[rcID].item_count -= 1;
       if (this.$store.state.userData.bag[rcID].item_count == 0) {
         this.$store.state.userData.bag.splice(rcID, 1);
