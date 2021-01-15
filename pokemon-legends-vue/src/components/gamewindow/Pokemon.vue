@@ -18,11 +18,19 @@
         {{ rcMessage }}
       </div>
       <div
+        v-if="toggleYesNo == true"
         class="d-flex justify-content-around align-items-around mt-3"
         style="width: 100%"
       >
         <SelectButtons message="Yes" @click.native="useRC" />
         <SelectButtons message="No" @click.native="dontUseRC" />
+      </div>
+      <div
+        v-else
+        class="d-flex justify-content-around align-items-around mt-3"
+        style="width: 100%"
+      >
+        <SelectButtons message="Cancel" @click.native="dontUseRC" />
       </div>
     </div>
     <div
@@ -229,6 +237,7 @@ export default {
       pokemonData: this.$store.state.userData.party_pokemon[0],
       pokemonMoves: [],
       toggleMessage: false,
+      toggleYesNo: false,
       rcMessage: "",
       showMove0: false,
       showMove1: false,
@@ -284,16 +293,55 @@ export default {
       );
 
       this.toggleMessage = true;
+      this.toggleYesNo = true;
       if (checkRC !== undefined) {
-        this.rcMessage = `Use Rare Candy on ${pokemon.pokemon_name} to level up once?`;
+        if (pokemon.lvl < 50) {
+          this.rcMessage = `Use Rare Candy on ${pokemon.pokemon_name} to level up once?`;
+        } else {
+          this.toggleYesNo = false;
+          this.rcMessage = `${pokemon.pokemon_name} is at max level!`;
+        }
       } else {
+        this.toggleYesNo = false;
         this.rcMessage = "You don't have any Rare Candy!";
       }
     },
-    useRC() {
+    useRC: async function () {
       this.toggleMessage = false;
+      this.toggleYesNo = false;
       this.rcMessage = "";
-      alert("Used Rare Candy!");
+
+      let rcID = this.$store.state.userData.bag.findIndex(
+        (rc) => rc.item_id === 50
+      );
+      this.$store.state.userData.bag[rcID].item_count -= 1;
+      if (this.$store.state.userData.bag[rcID].item_count == 0) {
+        this.$store.state.userData.bag.splice(rcID, 1);
+      }
+
+      let pkmnID = this.$store.state.userData.party_pokemon.findIndex(
+        (pkmn) => pkmn.pokemon_id == this.pokemonData.pokemon_id
+      );
+
+      this.$store.state.userData.party_pokemon[pkmnID].lvl += 1;
+      this.$store.state.userData.party_pokemon[pkmnID].stats.hp +=
+        Math.floor(Math.random() * 4) + 2;
+      this.$store.state.userData.party_pokemon[pkmnID].stats.atk +=
+        Math.floor(Math.random() * 3) + 2;
+      this.$store.state.userData.party_pokemon[pkmnID].stats.def +=
+        Math.floor(Math.random() * 3) + 2;
+      this.$store.state.userData.party_pokemon[pkmnID].stats.spatk +=
+        Math.floor(Math.random() * 3) + 2;
+      this.$store.state.userData.party_pokemon[pkmnID].stats.spdef +=
+        Math.floor(Math.random() * 3) + 2;
+      this.$store.state.userData.party_pokemon[pkmnID].stats.speed +=
+        Math.floor(Math.random() * 3) + 2;
+
+      await axios.patch(
+        "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/userdata/" +
+          this.$store.state.username,
+        this.$store.state.userData
+      );
     },
     dontUseRC() {
       this.toggleMessage = false;

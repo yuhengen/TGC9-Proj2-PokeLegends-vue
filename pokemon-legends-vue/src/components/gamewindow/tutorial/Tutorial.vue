@@ -95,8 +95,8 @@ export default {
         hp: pokemondata.stats[0].base_stat,
         atk: pokemondata.stats[1].base_stat,
         def: pokemondata.stats[2].base_stat,
-        "sp-atk": pokemondata.stats[3].base_stat,
-        "sp-def": pokemondata.stats[4].base_stat,
+        spatk: pokemondata.stats[3].base_stat,
+        spdef: pokemondata.stats[4].base_stat,
         speed: pokemondata.stats[5].base_stat,
       };
 
