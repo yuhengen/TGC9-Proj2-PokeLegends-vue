@@ -129,6 +129,7 @@ export default {
   created: async function () {
     this.battleState = "battle_start";
     this.$store.state.battleType = "random";
+    this.$store.state.inBattle = true;
     this.ally.availablePkmn = this.$store.state.userData.party_pokemon.length;
   },
   methods: {
@@ -142,7 +143,9 @@ export default {
           parseInt(moves.power * 2) *
           parseInt(this.ally.ActivePkmn.stats.atk)) /
           parseInt(this.foe.ActivePkmn.stats[2].base_stat) /
-          50 + 2 + Math.floor(Math.random() * 3);
+          50 +
+        2 +
+        Math.floor(Math.random() * 3);
 
       if (dmgCalc <= 0) {
         this.ally.Dmg = 1;
@@ -246,7 +249,9 @@ export default {
             parseInt(this.foe.ActivePkmnMove[moveID].power * 2) *
             parseInt(this.foe.ActivePkmn.stats[1].base_stat)) /
             parseInt(this.ally.ActivePkmn.stats.def) /
-            50 + 2 + Math.floor(Math.random() * 3);
+            50 +
+          2 +
+          Math.floor(Math.random() * 3);
         if (dmgCalc <= 0) {
           this.foe.Dmg = 1;
         } else {
@@ -332,6 +337,7 @@ export default {
         this.showStat = false;
         this.battleState = "";
         this.$store.state.battleType = "";
+        this.$store.state.inBattle = false;
 
         if (this.ally.PkmnHP <= 0) {
           if (this.$store.state.userData.pokedollar > 1000) {

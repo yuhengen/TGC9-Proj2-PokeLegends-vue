@@ -4,6 +4,28 @@
     class="d-flex justify-content-center align-items-center"
   >
     <div
+      v-if="toggleMessage == true"
+      class="d-flex flex-column justify-content-center align-items-center"
+      style="
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(52, 58, 64, 0.8);
+        z-index: 4;
+      "
+    >
+      <div class="rcMessage bg-dark shadow p-3 mb-3">
+        {{ rcMessage }}
+      </div>
+      <div
+        class="d-flex justify-content-around align-items-around mt-3"
+        style="width: 100%"
+      >
+        <SelectButtons message="Yes" @click.native="useRC" />
+        <SelectButtons message="No" @click.native="dontUseRC" />
+      </div>
+    </div>
+    <div
       id="pokemon-list"
       class="d-flex flex-column flex-wrap justify-content-between align-items-center rounded-left shadow border border-dark border-right-0"
     >
@@ -35,7 +57,12 @@
         class="d-flex justify-content-around align-items-center mb-3"
         style="width: 100%"
       >
-        <SelectButtons message="Use R.Candy" @click.native="useRareCandy" />
+        <SelectButtons
+          v-if="!this.$store.state.inBattle"
+          message="Use R.Candy"
+          @click.native="useRareCandy(pokemonData)"
+        />
+        <SelectButtons v-else message="Use Potion" @click.native="usePotion" />
         <SelectButtons message="Switch" @click.native="switchPosition" />
         <SelectButtons message="Release" @click.native="releasePokemon" />
       </div>
@@ -52,7 +79,7 @@
       >
         <!-- pokemon info title -->
         <div class="d-flex justify-content-center align-items-center mt-3">
-          <h3>Pokémon Info</h3>
+          <h4>Pokémon Info</h4>
         </div>
         <!-- pokemon name and type -->
         <div>
@@ -117,15 +144,15 @@
               class="btn-dark move-info"
               @click="toggleMove0(pokemonMoves[0])"
             >
-              {{ pokemonMoves && pokemonMoves[0].move }}
+              {{ pokemonMoves[0] && pokemonMoves[0].move }}
             </div>
             <div
               v-else
               class="btn-dark move-info d-flex flex-column"
               @click="toggleMove0(pokemonMoves[0])"
             >
-              <span>Power: {{ pokemonMoves && pokemonMoves[0].power }}</span>
-              <span>Type: {{ pokemonMoves && pokemonMoves[0].type }}</span>
+              <span>Power: {{ pokemonMoves[0].power }}</span>
+              <span>Type: {{ pokemonMoves[0].type }}</span>
             </div>
             <!-- move 2 -->
             <div
@@ -133,15 +160,15 @@
               class="btn-dark move-info"
               @click="toggleMove1(pokemonMoves[1])"
             >
-              {{ pokemonMoves && pokemonMoves[1].move }}
+              {{ pokemonMoves[1] && pokemonMoves[1].move }}
             </div>
             <div
               v-else
               class="btn-dark move-info d-flex flex-column"
               @click="toggleMove1(pokemonMoves[1])"
             >
-              <span>Power: {{ pokemonMoves && pokemonMoves[1].power }}</span>
-              <span>Type: {{ pokemonMoves && pokemonMoves[1].type }}</span>
+              <span>Power: {{ pokemonMoves[1].power }}</span>
+              <span>Type: {{ pokemonMoves[1].type }}</span>
             </div>
           </div>
           <div
@@ -154,15 +181,15 @@
               class="btn-dark move-info"
               @click="toggleMove2(pokemonMoves[2])"
             >
-              {{ pokemonMoves && pokemonMoves[2].move }}
+              {{ pokemonMoves[2] && pokemonMoves[2].move }}
             </div>
             <div
               v-else
               class="btn-dark move-info d-flex flex-column"
               @click="toggleMove2(pokemonMoves[2])"
             >
-              <span>Power: {{ pokemonMoves && pokemonMoves[2].power }}</span>
-              <span>Type: {{ pokemonMoves && pokemonMoves[2].type }}</span>
+              <span>Power: {{ pokemonMoves[2].power }}</span>
+              <span>Type: {{ pokemonMoves[2].type }}</span>
             </div>
             <!-- move 4 -->
             <div
@@ -170,15 +197,15 @@
               class="btn-dark move-info"
               @click="toggleMove3(pokemonMoves[3])"
             >
-              {{ pokemonMoves && pokemonMoves[3].move }}
+              {{ pokemonMoves[3] && pokemonMoves[3].move }}
             </div>
             <div
               v-else
               class="btn-dark move-info d-flex flex-column"
               @click="toggleMove3(pokemonMoves[3])"
             >
-              <span>Power: {{ pokemonMoves && pokemonMoves[3].power }}</span>
-              <span>Type: {{ pokemonMoves && pokemonMoves[3].type }}</span>
+              <span>Power: {{ pokemonMoves[3].power }}</span>
+              <span>Type: {{ pokemonMoves[3].type }}</span>
             </div>
           </div>
         </div>
@@ -201,6 +228,8 @@ export default {
     return {
       pokemonData: this.$store.state.userData.party_pokemon[0],
       pokemonMoves: [],
+      toggleMessage: false,
+      rcMessage: "",
       showMove0: false,
       showMove1: false,
       showMove2: false,
@@ -225,8 +254,6 @@ export default {
       let pkmnmoveset = pkmnmove.find((pm) => pm.pokemon_id == 0);
       this.pokemonMoves = pkmnmoveset.moveset;
     }
-
-    console.log(this.pokemonMoves);
   },
   methods: {
     displayPkmnInfo: async function (pokemon) {
@@ -251,6 +278,36 @@ export default {
       this.showMove2 = false;
       this.showMove3 = false;
     },
+    useRareCandy(pokemon) {
+      let checkRC = this.$store.state.userData.bag.find(
+        (rc) => rc.item_id === 50
+      );
+
+      this.toggleMessage = true;
+      if (checkRC !== undefined) {
+        this.rcMessage = `Use Rare Candy on ${pokemon.pokemon_name} to level up once?`;
+      } else {
+        this.rcMessage = "You don't have any Rare Candy!";
+      }
+    },
+    useRC() {
+      this.toggleMessage = false;
+      this.rcMessage = "";
+      alert("Used Rare Candy!");
+    },
+    dontUseRC() {
+      this.toggleMessage = false;
+      this.rcMessage = "";
+    },
+    usePotion() {
+      alert("Coming soon...");
+    },
+    releasePokemon() {
+      alert("Coming soon...");
+    },
+    switchPosition() {
+      alert("Coming soon...");
+    },
     toggleMove0() {
       this.showMove0 == false
         ? (this.showMove0 = true)
@@ -270,15 +327,6 @@ export default {
       this.showMove3 == false
         ? (this.showMove3 = true)
         : (this.showMove3 = false);
-    },
-    useRareCandy() {
-      console.log(this.pokemonData);
-    },
-    releasePokemon() {
-      alert("Coming soon...");
-    },
-    switchPosition() {
-      alert("Coming soon...");
     },
     closePokedex: function () {
       this.$store.state.gameState = "game_menu";
@@ -312,6 +360,7 @@ export default {
 }
 
 .pokemon-bar:hover {
+  cursor: pointer;
   border: 3px white solid;
 }
 
@@ -361,5 +410,17 @@ export default {
 
 .cancelBtn:hover {
   cursor: pointer;
+}
+
+.rcMessage {
+  width: 100%;
+  height: 15%;
+  border: 3px solid white !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  border-radius: 7px;
+  z-index: 5;
 }
 </style>

@@ -10,6 +10,7 @@ const store = new Vuex.Store({
         loginState: false,
         gameState: "",
         battleType: "",
+        inBattle: false,
         bgm: null,
         bgmName: "",
         userData: {}
