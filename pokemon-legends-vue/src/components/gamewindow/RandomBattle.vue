@@ -134,9 +134,11 @@ export default {
   },
   methods: {
     selectMove() {
+      this.$store.state.selectSFX.play();
       this.battleState = "p1_moves";
     },
     moveSelect(moves) {
+      this.$store.state.selectSFX.play();
       this.ally.SelMove = moves.move;
       let dmgCalc =
         (((2 * this.ally.ActivePkmn.lvl) / 5 + 2) *
@@ -155,14 +157,16 @@ export default {
       this.battleState = "p2_moves";
     },
     backFunction() {
+      this.$store.state.selectSFX.play();
       this.battleState = "p1_select";
     },
     runFromBattle() {
+      this.$store.state.selectSFX.play();
       this.$store.state.bgm.pause();
       let runSFX = new Audio("sfx/run.mp3");
       this.$store.state.bgm = runSFX;
       this.$store.state.bgmName = "runBGM";
-    //   this.$store.state.bgm.volume = 0.5;
+      //   this.$store.state.bgm.volume = 0.5;
       this.$store.state.bgm.play();
 
       this.showStat = false;
@@ -173,6 +177,7 @@ export default {
       setTimeout(() => (this.$store.state.gameState = "game_menu"), 2000);
     },
     comingSoon() {
+      this.$store.state.selectSFX.play();
       alert("Coming Soon!");
     },
   },
@@ -267,6 +272,7 @@ export default {
       if (this.battleState == "battle_phase") {
         //   ally execution function
         this.allyTurn = () => {
+          this.$store.state.attackSFX.play();
           this.battleMessage = `${this.ally.ActivePkmn.pokemon_name} uses ${this.ally.SelMove}!
         ${this.foe.ActivePkmnName} took ${this.ally.Dmg} damage!`;
           if (this.ally.Dmg <= this.foe.PkmnHP) {
@@ -278,6 +284,7 @@ export default {
 
         // foe execution function
         this.foeTurn = () => {
+          this.$store.state.attackSFX.play();
           this.battleMessage = `${this.foe.ActivePkmnName} uses ${this.foe.SelMove}!
         ${this.ally.ActivePkmn.pokemon_name} took ${this.foe.Dmg} damage!`;
           if (this.foe.Dmg <= this.ally.PkmnHP) {

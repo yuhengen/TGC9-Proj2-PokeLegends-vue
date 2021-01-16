@@ -14,7 +14,8 @@ const store = new Vuex.Store({
         bgm: null,
         bgmName: "",
         userData: {},
-        selectSFX: new Audio("sfx/select1.mp3")
+        selectSFX: new Audio("sfx/select1.mp3"),
+        attackSFX: new Audio("sfx/attack.mp3"),
     },
     plugins: [createPersistedState()]
 });
