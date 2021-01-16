@@ -63,7 +63,14 @@ export default {
   },
   created: function () {
     this.introTextID = 0;
-    console.log(this.introTextID, this.introText);
+
+    this.$store.state.bgm.pause();
+    let introBGM = new Audio("bgm/intro.mp3");
+    this.$store.state.bgm = introBGM;
+    this.$store.state.bgmName = "introBGM";
+    //   this.$store.state.bgm.volume = 0.5;
+    this.$store.state.bgm.loop = true;
+    this.$store.state.bgm.play();
   },
   methods: {
     selectStarter: async function (index) {
@@ -132,7 +139,6 @@ export default {
   },
   watch: {
     introTextID: function () {
-      666;
       if (this.introTextID == 0) {
         this.introText =
           "Hello, there! Glad to meet you! Welcome to the world of Pokémon! My name is Oak.";
@@ -158,7 +164,7 @@ export default {
           ", your very own Pokémon legend is about to unfold!";
       }
       if (this.introTextID == 6) {
-        this.introText = "A world of dreams and adventures with Pokémon awaits";
+        this.introText = "A world of dreams and adventures with Pokémon awaits.";
       }
       if (this.introTextID == 7) {
         this.introText =
@@ -166,6 +172,14 @@ export default {
       }
       if (this.introTextID == 8) {
         this.introduction = true;
+
+        this.$store.state.bgm.pause();
+        let townBGM = new Audio("bgm/town.mp3");
+        this.$store.state.bgm = townBGM;
+        this.$store.state.bgmName = "townBGM";
+        //   this.$store.state.bgm.volume = 0.5;
+        this.$store.state.bgm.loop = true;
+        this.$store.state.bgm.play();
       }
     },
   },
@@ -201,7 +215,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   border-radius: 7px;
 }
 

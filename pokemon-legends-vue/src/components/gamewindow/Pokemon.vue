@@ -300,7 +300,7 @@ export default {
       this.toggleYesNo = true;
       if (checkRC !== undefined) {
         if (pokemon.lvl < 50) {
-          this.rcMessage = `Use Rare Candy on ${pokemon.pokemon_name} to level up once? Own: (${this.$store.userData.bag[rcID].item_count})`;
+          this.rcMessage = `Use Rare Candy on ${pokemon.pokemon_name} to level up once? Own: (${this.$store.state.userData.bag[rcID].item_count})`;
         } else {
           this.toggleYesNo = false;
           this.rcMessage = `${pokemon.pokemon_name} is at max level!`;

@@ -146,10 +146,11 @@ export default {
       this.$store.state.bgm.pause();
       this.$store.state.bgmName = "townBGM";
       this.$store.state.bgm = townBGM;
+      this.$store.state.bgm.loop = true;
       this.$store.state.bgm.play();
     }
 
-    this.$store.state.bgm.volume = 0.5;
+    // this.$store.state.bgm.volume = 0.5;
     this.$store.state.bgm.loop = true;
   },
   methods: {
@@ -163,7 +164,7 @@ export default {
       let rbattleBGM = new Audio("bgm/random-battle.mp3");
       this.$store.state.bgm = rbattleBGM;
       this.$store.state.bgmName = "battleBGM";
-      this.$store.state.bgm.volume = 0.5;
+      //   this.$store.state.bgm.volume = 0.5;
       this.$store.state.bgm.loop = true;
       this.$store.state.bgm.play();
 
@@ -174,7 +175,7 @@ export default {
       let menuBGM = new Audio("bgm/menu.mp3");
       this.$store.state.bgm = menuBGM;
       this.$store.state.bgmName = "menuBGM";
-      this.$store.state.bgm.volume = 0.5;
+      //   this.$store.state.bgm.volume = 0.5;
       this.$store.state.bgm.loop = true;
       this.$store.state.bgm.play();
 
@@ -185,7 +186,7 @@ export default {
       let menuBGM = new Audio("bgm/menu.mp3");
       this.$store.state.bgm = menuBGM;
       this.$store.state.bgmName = "menuBGM";
-      this.$store.state.bgm.volume = 0.5;
+      //   this.$store.state.bgm.volume = 0.5;
       this.$store.state.bgm.loop = true;
       this.$store.state.bgm.play();
 

@@ -184,7 +184,7 @@ export default {
         this.ally.ActivePkmn = this.$store.state.userData.party_pokemon[0];
 
         // foe pokemon
-        let randomEnemyID = Math.floor(Math.random() * 150) + 1;
+        let randomEnemyID = Math.floor(Math.random() * 110) + 1;
         let response2 = await axios.get(
           "https://pokeapi.co/api/v2/pokemon/" + randomEnemyID
         );
