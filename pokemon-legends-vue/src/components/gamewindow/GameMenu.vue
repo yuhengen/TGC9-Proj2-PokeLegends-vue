@@ -10,12 +10,14 @@
 
     <div v-else>
       <!-- User info window -->
+      <!-- if false -->
       <img
         v-if="!toggleInfo"
         src="https://i.pinimg.com/originals/50/e1/db/50e1db4684e6f697f93590950eb832f6.png"
         class="user-info-icon"
         @click="toggleInfoWin"
       />
+      <!-- if true -->
       <img
         v-else
         src="https://icon-library.com/images/pokeball-icon-png/pokeball-icon-png-2.jpg"
@@ -113,16 +115,11 @@
         <SelectButtons message="+1000 Poké$" @click.native="add100Pkdl" />
       </div>
     </div>
+
+    <!-- select battle type -->
     <div
       v-if="selectBattle == 'selectBattleType'"
-      class="d-flex align-items-center justify-content-around flex-column"
-      style="
-        position: absolute;
-        background-color: rgba(52, 58, 64, 0.9);
-        height: 100%;
-        width: 100%;
-        z-index: 10;
-      "
+      class="d-flex align-items-center justify-content-around flex-column select-battle-window"
     >
       <div class="mt-3">
         <h3
@@ -145,9 +142,57 @@
         class="d-flex justify-content-center mb-3"
         style="width: 100%; height: 40%"
       >
-        <div class="gym-banner battle-banner">
+        <div class="gym-banner battle-banner" @click="selectGymLeader">
           <h2 class="battle-banner-text">Gym Battle</h2>
         </div>
+      </div>
+
+      <img
+        src="https://image.flaticon.com/icons/png/512/458/458594.png"
+        @click="closeBattleT"
+        class="cancelBtn"
+      />
+    </div>
+
+    <!-- select gym leader to battle -->
+    <div
+      v-else-if="selectBattle == 'selectGymLeader'"
+      class="d-flex align-items-center justify-content-around flex-column select-battle-window"
+    >
+      <div>
+        <h3
+          style="
+            text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+          "
+        >
+          Select Gym Leader
+        </h3>
+        <span>Gym leaders are tough, you have been warned!</span>
+      </div>
+
+      <div
+        class="d-flex flex-wrap justify-content-center align-items-center"
+        style="width: 70%; height: 70%"
+      >
+        <b-card
+          v-for="(gymleader, i) in gymleaders"
+          v-bind:key="i"
+          :title="gymleader.name"
+          :img-src="gymleader.imageurl"
+          img-alt="Gym Leader Image"
+          img-top
+          style="
+            width:20%;
+            position: relative;
+            background-color: rgba(52, 58, 64, 0);
+          "
+          class="m-1"
+        >
+        </b-card>
+      </div>
+
+      <div>
+        <button class="btn btn-danger" @click="selectBattleT">Back</button>
       </div>
 
       <img
@@ -167,6 +212,44 @@ import Tutorial from "./tutorial/Tutorial";
 export default {
   data: function () {
     return {
+      gymleaders: [
+        { name: "Brock", imageurl: "https://tinyurl.com/brock-icon1" },
+        {
+          name: "?",
+          imageurl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/600px-Icon-round-Question_mark.svg.png",
+        },
+        {
+          name: "?",
+          imageurl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/600px-Icon-round-Question_mark.svg.png",
+        },
+        {
+          name: "?",
+          imageurl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/600px-Icon-round-Question_mark.svg.png",
+        },
+        {
+          name: "?",
+          imageurl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/600px-Icon-round-Question_mark.svg.png",
+        },
+        {
+          name: "?",
+          imageurl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/600px-Icon-round-Question_mark.svg.png",
+        },
+        {
+          name: "?",
+          imageurl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/600px-Icon-round-Question_mark.svg.png",
+        },
+        {
+          name: "?",
+          imageurl:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/600px-Icon-round-Question_mark.svg.png",
+        },
+      ],
       pokemonData: "",
       toggleInfo: false,
       selectBattle: "",
@@ -224,6 +307,10 @@ export default {
       this.$store.state.bgm.play();
 
       this.$store.state.gameState = "battle_start";
+    },
+    selectGymLeader() {
+      this.$store.state.selectSFX.play();
+      this.selectBattle = "selectGymLeader";
     },
     openPokedex: function () {
       this.$store.state.selectSFX.play();
@@ -328,7 +415,7 @@ h5 {
   left: 6%;
   height: 90%;
   cursor: pointer;
-  z-index:3;
+  z-index: 3;
 }
 
 .battle-button-div {
@@ -338,6 +425,14 @@ h5 {
   left: 0;
   right: 0;
   bottom: 20%;
+}
+
+.select-battle-window {
+  position: absolute;
+  background-color: rgba(52, 58, 64, 0.9);
+  height: 100%;
+  width: 100%;
+  z-index: 10;
 }
 
 .wild-banner {
@@ -367,6 +462,22 @@ h5 {
 .battle-banner-text {
   margin-top: 3%;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.card-img-top {
+    height: 11vw;
+    object-fit: cover;
+    border: 2px white solid;
+}
+
+.card-img-top:hover{
+    cursor:pointer;
+    border: 2px red solid;
 }
 
 .cancelBtn {
@@ -426,6 +537,6 @@ h5 {
   justify-content: space-around;
   width: 100%;
   margin: auto;
-  z-index:4;
+  z-index: 4;
 }
 </style>
