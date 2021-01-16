@@ -10,6 +10,7 @@
 export default {
   methods: {
     gameStart: function () {
+      this.$store.state.selectSFX.play();
       this.$store.state.gameState = "game_menu";
     },
   },

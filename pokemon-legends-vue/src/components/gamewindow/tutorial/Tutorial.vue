@@ -134,6 +134,7 @@ export default {
       );
     },
     scrollText() {
+      this.$store.state.selectSFX.play();
       this.introTextID += 1;
     },
   },
@@ -164,7 +165,8 @@ export default {
           ", your very own Pokémon legend is about to unfold!";
       }
       if (this.introTextID == 6) {
-        this.introText = "A world of dreams and adventures with Pokémon awaits.";
+        this.introText =
+          "A world of dreams and adventures with Pokémon awaits.";
       }
       if (this.introTextID == 7) {
         this.introText =

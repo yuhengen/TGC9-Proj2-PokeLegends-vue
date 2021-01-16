@@ -266,6 +266,7 @@ export default {
   },
   methods: {
     displayPkmnInfo: async function (pokemon) {
+      this.$store.state.selectSFX.play();
       this.pokemonData = pokemon;
       let response = await axios.get(
         "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/movesets"
@@ -288,6 +289,7 @@ export default {
       this.showMove3 = false;
     },
     useRareCandy(pokemon) {
+      this.$store.state.selectSFX.play();
       let checkRC = this.$store.state.userData.bag.find(
         (rc) => rc.item_id === 50
       );
@@ -311,6 +313,7 @@ export default {
       }
     },
     useRC: async function () {
+      this.$store.state.selectSFX.play();
       this.toggleMessage = false;
       this.toggleYesNo = false;
       this.rcMessage = "";
@@ -349,39 +352,48 @@ export default {
       );
     },
     dontUseRC() {
+      this.$store.state.selectSFX.play();
       this.toggleMessage = false;
       this.rcMessage = "";
     },
     usePotion() {
+      this.$store.state.selectSFX.play();
       alert("Coming soon...");
     },
     releasePokemon() {
+      this.$store.state.selectSFX.play();
       alert("Coming soon...");
     },
     switchPosition() {
+      this.$store.state.selectSFX.play();
       alert("Coming soon...");
     },
     toggleMove0() {
+      this.$store.state.selectSFX.play();
       this.showMove0 == false
         ? (this.showMove0 = true)
         : (this.showMove0 = false);
     },
     toggleMove1() {
+      this.$store.state.selectSFX.play();
       this.showMove1 == false
         ? (this.showMove1 = true)
         : (this.showMove1 = false);
     },
     toggleMove2() {
+      this.$store.state.selectSFX.play();
       this.showMove2 == false
         ? (this.showMove2 = true)
         : (this.showMove2 = false);
     },
     toggleMove3() {
+      this.$store.state.selectSFX.play();
       this.showMove3 == false
         ? (this.showMove3 = true)
         : (this.showMove3 = false);
     },
     closePokedex: function () {
+      this.$store.state.selectSFX.play();
       this.$store.state.gameState = "game_menu";
     },
   },

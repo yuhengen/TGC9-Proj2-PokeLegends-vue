@@ -155,11 +155,13 @@ export default {
   },
   methods: {
     toggleInfoWin() {
+      this.$store.state.selectSFX.play();
       this.toggleInfo == false
         ? (this.toggleInfo = true)
         : (this.toggleInfo = false);
     },
     enterRBattle: function () {
+      this.$store.state.selectSFX.play();
       this.$store.state.bgm.pause();
       let rbattleBGM = new Audio("bgm/random-battle.mp3");
       this.$store.state.bgm = rbattleBGM;
@@ -171,6 +173,7 @@ export default {
       this.$store.state.gameState = "battle_start";
     },
     openPokedex: function () {
+      this.$store.state.selectSFX.play();
       this.$store.state.bgm.pause();
       let menuBGM = new Audio("bgm/menu.mp3");
       this.$store.state.bgm = menuBGM;
@@ -182,6 +185,7 @@ export default {
       this.$store.state.gameState = "open_pokedex";
     },
     openPokemon: function () {
+      this.$store.state.selectSFX.play();
       this.$store.state.bgm.pause();
       let menuBGM = new Audio("bgm/menu.mp3");
       this.$store.state.bgm = menuBGM;
@@ -193,9 +197,11 @@ export default {
       this.$store.state.gameState = "open_pokemon";
     },
     comingSoon() {
+      this.$store.state.selectSFX.play();
       alert("Coming Soon!");
     },
     add100Pkdl: async function () {
+      this.$store.state.selectSFX.play();
       this.$store.state.userData.pokedollar += 1000;
       await axios.patch(
         "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/userdata/" +

@@ -159,10 +159,10 @@ export default {
     },
     runFromBattle() {
       this.$store.state.bgm.pause();
-      let runBGM = new Audio("bgm/run.mp3");
-      this.$store.state.bgm = runBGM;
+      let runSFX = new Audio("sfx/run.mp3");
+      this.$store.state.bgm = runSFX;
       this.$store.state.bgmName = "runBGM";
-      this.$store.state.bgm.volume = 0.5;
+    //   this.$store.state.bgm.volume = 0.5;
       this.$store.state.bgm.play();
 
       this.showStat = false;
