@@ -458,7 +458,7 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  border: black solid 2px;
+  border: white solid 2px;
 }
 
 .move-info:hover {

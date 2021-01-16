@@ -7,6 +7,7 @@
     >
       <Tutorial />
     </div>
+
     <div v-else>
       <!-- User info window -->
       <img
@@ -27,7 +28,7 @@
         id="user-info"
         class="d-flex flex-column justify-content-around pl-5 pr-5 pt-2 shadow"
       >
-        <h3>User Info</h3>
+        <h3 class="user-info">User Info</h3>
         <div class="d-flex justify-content-between">
           <h5>Name:</h5>
           <h5>{{ $store.state.userData.username }}</h5>
@@ -100,7 +101,7 @@
           src="https://www.logolynx.com/images/logolynx/0c/0c8c0f527e118c62eefd0d7ef727e040.png"
           class="battle-button"
         />
-        <h1 class="battle-text" @click="enterRBattle">Battle</h1>
+        <h1 class="battle-text" @click="selectBattleT">Battle</h1>
       </div>
 
       <!-- bottom buttons -->
@@ -111,6 +112,49 @@
         <!-- <SelectButtons message="Shop" @click.native="comingSoon" /> -->
         <SelectButtons message="+1000 Poké$" @click.native="add100Pkdl" />
       </div>
+    </div>
+    <div
+      v-if="selectBattle == 'selectBattleType'"
+      class="d-flex align-items-center justify-content-around flex-column"
+      style="
+        position: absolute;
+        background-color: rgba(52, 58, 64, 0.9);
+        height: 100%;
+        width: 100%;
+        z-index: 10;
+      "
+    >
+      <div class="mt-3">
+        <h3
+          style="
+            text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+          "
+        >
+          Select Battle
+        </h3>
+      </div>
+      <div
+        class="d-flex justify-content-center"
+        style="width: 100%; height: 40%"
+      >
+        <div class="wild-banner battle-banner" @click="enterRBattle">
+          <h2 class="battle-banner-text">Random Wild Battle</h2>
+        </div>
+      </div>
+      <div
+        class="d-flex justify-content-center mb-3"
+        style="width: 100%; height: 40%"
+      >
+        <div class="gym-banner battle-banner">
+          <h2 class="battle-banner-text">Gym Battle</h2>
+        </div>
+      </div>
+
+      <img
+        src="https://image.flaticon.com/icons/png/512/458/458594.png"
+        @click="closeBattleT"
+        class="cancelBtn"
+      />
     </div>
   </div>
 </template>
@@ -125,6 +169,7 @@ export default {
     return {
       pokemonData: "",
       toggleInfo: false,
+      selectBattle: "",
     };
   },
   components: {
@@ -159,6 +204,14 @@ export default {
       this.toggleInfo == false
         ? (this.toggleInfo = true)
         : (this.toggleInfo = false);
+    },
+    selectBattleT() {
+      this.$store.state.selectSFX.play();
+      this.selectBattle = "selectBattleType";
+    },
+    closeBattleT() {
+      this.$store.state.selectSFX.play();
+      this.selectBattle = "";
     },
     enterRBattle: function () {
       this.$store.state.selectSFX.play();
@@ -246,7 +299,7 @@ export default {
   z-index: 5;
 }
 
-h3 {
+.user-info {
   margin-left: auto;
   margin-right: auto;
   left: 0;
@@ -275,6 +328,7 @@ h5 {
   left: 6%;
   height: 90%;
   cursor: pointer;
+  z-index:3;
 }
 
 .battle-button-div {
@@ -284,6 +338,46 @@ h5 {
   left: 0;
   right: 0;
   bottom: 20%;
+}
+
+.wild-banner {
+  background-image: url("https://i.pinimg.com/originals/0f/2a/c0/0f2ac01ac666c8a1ec02f763afaa1016.jpg");
+  background-position: center !important;
+}
+
+.gym-banner {
+  background-image: url("https://i.imgur.com/w847zWv.png");
+}
+
+.battle-banner {
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 70%;
+  border-radius: 10px;
+  border: white solid 3px;
+}
+
+.battle-banner:hover {
+  border: red solid 3px;
+  cursor: pointer;
+}
+
+.battle-banner-text {
+  margin-top: 3%;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.cancelBtn {
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  height: 10%;
+}
+
+.cancelBtn:hover {
+  cursor: pointer;
 }
 
 .battle-button {
@@ -332,5 +426,6 @@ h5 {
   justify-content: space-around;
   width: 100%;
   margin: auto;
+  z-index:4;
 }
 </style>

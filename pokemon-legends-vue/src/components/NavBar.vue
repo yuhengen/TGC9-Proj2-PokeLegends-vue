@@ -73,6 +73,7 @@
             <b-form-input
               id="password-input"
               v-model="password"
+              type="password"
               required
             ></b-form-input>
             <span class="errorMsg">{{ invalidPW }}</span>
