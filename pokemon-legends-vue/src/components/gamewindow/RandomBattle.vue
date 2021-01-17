@@ -518,4 +518,38 @@ export default {
 .hp-bar {
   width: 85%;
 }
+
+@media only screen and (max-height: 375px) {
+  .top-message-div {
+    font-size: 0.7rem;
+  }
+  .buttons-div {
+    height: 20%;
+  }
+
+  .ally-stat-window {
+    bottom: 23%;
+  }
+
+  .foe-stat-window {
+    bottom: 60%;
+  }
+
+  .ally-stat-window,
+  .foe-stat-window {
+    font-size: 0.9rem;
+    height: 23%;
+  }
+
+  .ally-pokemon-portrait {
+    bottom: 15%;
+  }
+
+  .foe-pokemon-portrait {
+    bottom: 42%;
+  }
+  .hp-bar {
+    width: 80%;
+  }
+}
 </style>

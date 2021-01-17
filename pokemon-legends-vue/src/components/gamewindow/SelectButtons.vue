@@ -27,4 +27,11 @@ export default {
   border: 3px solid red !important;
   cursor: pointer;
 }
+
+@media only screen and (max-height: 375px) {
+  .btn-design {
+    height: 70px;
+    font-size: 0.7rem;
+  }
+}
 </style>
