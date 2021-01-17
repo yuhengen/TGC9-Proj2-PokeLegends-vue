@@ -582,5 +582,19 @@ h5 {
   .user-info-icon {
     width: 60px;
   }
+  #user-info {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .user-info {
+    font-size: 0.9rem;
+  }
+
+  h5 {
+    font-size: 0.7rem;
+  }
+  .party-pokemon-sprite {
+    height: 120%;
+  }
 }
 </style>
