@@ -200,7 +200,7 @@ export default {
 
 <style>
 .navbar {
-  z-index: 10;
+  z-index: 20;
 }
 
 .navbar-toggler-icon {
@@ -272,7 +272,7 @@ export default {
     position: absolute;
     top: 0;
     left: 50%;
-    z-index: 11;
+    z-index: 21;
   }
 
   .brand-logo {

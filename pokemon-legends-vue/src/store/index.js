@@ -11,6 +11,7 @@ const store = new Vuex.Store({
         gameState: "",
         battleType: "",
         inBattle: false,
+        gymleader: "",
         bgm: null,
         bgmName: "",
         userData: {},

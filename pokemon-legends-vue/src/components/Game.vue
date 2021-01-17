@@ -39,6 +39,12 @@
             <RandomBattle />
           </div>
           <div
+            v-else-if="$store.state.gameState == 'gym_battle'"
+            v-bind:style="{ height: heightSize }"
+          >
+            <GymBattle />
+          </div>
+          <div
             v-else-if="$store.state.gameState == 'open_pokedex'"
             v-bind:style="{ height: heightSize }"
           >
@@ -76,15 +82,17 @@
 <script>
 import StartGame from "./gamewindow/StartGame";
 import GameMenu from "./gamewindow/GameMenu";
-import RandomBattle from "./gamewindow/RandomBattle";
 import PokedexDisplay from "./gamewindow/PokedexDisplay";
 import Pokemon from "./gamewindow/Pokemon";
+import RandomBattle from "./gamewindow/RandomBattle";
+import GymBattle from "./gamewindow/GymBattle";
 
 export default {
   components: {
     StartGame,
     GameMenu,
     RandomBattle,
+    GymBattle,
     PokedexDisplay,
     Pokemon,
   },
@@ -167,7 +175,7 @@ export default {
   height: 8%;
   z-index: 20;
   border: 3px solid black !important;
-  border-radius:5px;
+  border-radius: 5px;
 }
 
 .exit-fullscreen-btn:hover {

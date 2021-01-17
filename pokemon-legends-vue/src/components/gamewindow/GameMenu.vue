@@ -182,11 +182,12 @@
           img-alt="Gym Leader Image"
           img-top
           style="
-            width:20%;
+            width: 20%;
             position: relative;
             background-color: rgba(52, 58, 64, 0);
           "
           class="m-1"
+          @click="selectGymBattle(gymleader)"
         >
         </b-card>
       </div>
@@ -311,6 +312,32 @@ export default {
     selectGymLeader() {
       this.$store.state.selectSFX.play();
       this.selectBattle = "selectGymLeader";
+    },
+    selectGymBattle: async function (gymleader) {
+      this.$store.state.selectSFX.play();
+
+      let response = await axios.get(
+        "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/gymleaders"
+      );
+      let gymleaderData = response.data;
+      let gymLeaderName = gymleaderData.find(
+        (gl) => gl.gymleader_name == gymleader.name
+      );
+      if (gymLeaderName !== undefined) {
+        this.$store.state.gymLeader = gymleader.name;
+
+        this.$store.state.bgm.pause();
+        let gymbattleBGM = new Audio("bgm/gymbattle.mp3");
+        this.$store.state.bgm = gymbattleBGM;
+        this.$store.state.bgmName = "gymbattleBGM";
+        //   this.$store.state.bgm.volume = 0.5;
+        this.$store.state.bgm.loop = true;
+        this.$store.state.bgm.play();
+
+        this.$store.state.gameState = "gym_battle";
+      } else {
+          alert("Coming soon...")
+      }
     },
     openPokedex: function () {
       this.$store.state.selectSFX.play();
@@ -470,14 +497,14 @@ h5 {
 }
 
 .card-img-top {
-    height: 11vw;
-    object-fit: cover;
-    border: 2px white solid;
+  height: 11vw;
+  object-fit: cover;
+  border: 2px white solid;
 }
 
-.card-img-top:hover{
-    cursor:pointer;
-    border: 2px red solid;
+.card-img-top:hover {
+  cursor: pointer;
+  border: 2px red solid;
 }
 
 .cancelBtn {

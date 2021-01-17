@@ -122,5 +122,6 @@ Big appreciation to the Pokémon series, w3schools, Stackoverflow forums, Bootst
 - town.mp3 - [POKÉMON Omega Ruby/Alpha Sapphire Littleroot Town Theme](https://www.youtube.com/watch?v=zRGCzCn5azI)
 - menu.mp3 - [POKÉMON Sword & Shield Pokémon Center Theme](https://www.youtube.com/watch?v=i6yQhdtTM2o)
 - random-battle.mp3 - [POKÉMON Omega Ruby/Alpha Sapphire Battle! Zinnia Theme](https://www.youtube.com/watch?v=GIn8_Q27WFY)
+- gymbattle.mp3 - [Pokemon HeartGold/SoulSilver - Battle! Kanto Gym Leader Music (HQ)](https://www.youtube.com/watch?v=T4SYTwP76qM)
 - attack.mp3 - [Pokémon Red/Blue/Yellow - Cut - Sound Effect](https://www.youtube.com/watch?v=2uhCrgM169A)
 - run.mp3 - [Pokémon Red/Blue/Yellow - Level Up - Sound Effect](https://www.youtube.com/watch?v=OGXUoqSYscc)
