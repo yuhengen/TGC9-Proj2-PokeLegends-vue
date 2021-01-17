@@ -1,12 +1,15 @@
 # Pokémon Legends
-Welcome to Pokémon Legends! Here, you will get to experience a simple Pokemon game, with references to the official Pokémon game battles and some of their systems, with a tint of retro! All feedbacks regarding the game for improvements are welcome!
+Welcome to Pokémon Legends! Here, you will get to experience a simple Pokémon game, with references to the official Pokémon game battles and some of their systems, with a tint of retro! All feedbacks regarding the game for improvements are welcome!
 
 ## Context
-Pokémon Legends is a game project done during my education with Trent Global College, where I will utilize what I learnt during my bootcamp about Vue, Express and MongoDB to develop a reactive frontend frameworks game, website and RESTful API.
+Pokémon Legends is a game project done during my education with Trent Global College. In this project, I will be utilising and demonstrating what I learnt during my bootcamp about Vue, Express and MongoDB to develop a reactive frontend frameworks game, website and RESTful API.
+
+My goal is to create a simple, yet attractive and interactive single page application website, together with a mini game using my knowledge with Vue JS. I want to ensure that my visitors will enjoy their time here with us!
 
 # Demo
 The demo of the site is available [here](https://yuhengen.github.io/TGC9-Proj2-PokeLegends-vue)!
-*NOTE: The game is currently not optimized for mobile and is thus not mobile responsive.
+
+*NOTE: The game is currently not optimized for mobile in portrait mode and is thus not fully mobile responsive.
 
 # Note
 This repository only contains the frontend codes for the Pokémon Legends project.
@@ -66,7 +69,7 @@ The sitemap of the project will be available soon...
 ---
 
 # Developing Page Structure and Organize Interactions (SKELETON)
-Most important features of Pokémon Legends are featured first. We want our players to play our game and at the same time know more about Pokémon Legends, so the PLAY button is the first thing they see upon entering the site with more information regarding the game.
+Most important features of Pokémon Legends are featured first. We want our players to play our game and at the same time know more about Pokémon Legends, so the PLAY button is the first thing they see upon entering the site with more information regarding the game on the same page.
 
 ## Wireframes
 
@@ -82,14 +85,36 @@ After some research and considerations, the main colors I decide to use for the 
 ```
 - Black/Grey for background, buttons and windows due to it being able to blend in most situations
 - Red + White combination to match colors for a Pokéball
-- White for texts to contrast the dark colors
+- White mainly used for texts to contrast the dark colors which are used as background
 ```
 
 ## Fonts
-The fonts mainly used on the website is Sans Serif, the default font family, which is often used to convey modernity or minimalism.
-Secondary fonts used are [Pokémon Font](https://www.dafont.com/pokemon.font) for the navigation bar, and the [Nintendo Pixel Font](https://www.fontspace.com/press-start-2p-font-f11591) for the game to bring forth a retro look.
+The font mainly used on the website is Sans Serif, the default font family, which is often used to convey modernity or minimalism.
+Secondary fonts used are [Pokémon Font](https://www.dafont.com/Pokémon.font) for the navigation bar, and the [Nintendo Pixel Font](https://www.fontspace.com/press-start-2p-font-f11591) as main font for the game to bring forth a retro look.
 
 # Testing
+## Navigation bar
+- ✅ [Home](https://yuhengen.github.io/TGC9-Proj2-PokeLegends-vue/) routes to the Home page, Home.vue component
+- ✅ [Pokédex](https://8080-c1affde1-a811-46d2-9345-b1ed65ca2518.ws-us03.gitpod.io/#/Pokédex) routes to the Pokédex page, Pokédex.vue component
+- ✅ [Pokeball Icon](https://yuhengen.github.io/TGC9-Proj2-PokeLegends-vue/) routes to the page to play Pokémon Legends game, Game.vue component
+### Before Login
+- ✅ Login opens the Login modal
+- ✅ [Register](https://8080-c1affde1-a811-46d2-9345-b1ed65ca2518.ws-us03.gitpod.io/#/register) routes to the Registration page, RegisterPage.vue component
+### After Login
+- ✅ Profile opens a dropdown to allow logging out
+- ✅ [Play](https://8080-c1affde1-a811-46d2-9345-b1ed65ca2518.ws-us03.gitpod.io/#/game) routes to the page to play Pokémon Legends game, Game.vue component
+
+## Home
+- ✅ [Play Pokémon Legends Now](https://8080-c1affde1-a811-46d2-9345-b1ed65ca2518.ws-us03.gitpod.io/#/game) routes to the page to play Pokémon Legends game, Game.vue component
+
+## Pokédex
+- ✅ Clicking/tapping on any of the Pokémon displayed in the Pokédex to see more information about them
+
+## Login
+- ✅ Keying in a registered account username will allow users to login and retrieve data from their previous save. Contains form validation to ensure form is properly filed up
+
+## Register
+- ✅ Keying in the necessary information will allow the registration of a new unique account. Contains form validation to ensure form is properly filed up
 
 # Technologies
 - VueJS and CSS for structuring and styling the website
@@ -102,14 +127,28 @@ Secondary fonts used are [Pokémon Font](https://www.dafont.com/pokemon.font) fo
 - GIMP for image editing
 - Responsive Web Design Checker to check how it looks like on other devices
 
+# Deployment
+## Steps taken to deploy the project to Github pages (Credits to Paul Chor for a detailed and simple guide)
+```
+1. Login to my Gitpod to access the code
+2. Update publicPath folder in vue.config.json
+3. Create the deployment script: deploy.sh
+4. Change the file permissions of deploy.sh and perform the deployment to Github pages
+5. Login to GitHub and click on my repository
+6. Select the TGC9-Proj2-PokeLegends-vue repository
+7. Navigate to the Setting (Gear icon)
+8. Scroll down to the GitHub Pages section and ensure that our live site is reading from the gh-pages branch
+9. View and test the site at: https://yuhengen.github.io/TGC9-Proj2-PokeLegends-vue/
+```
+
 # Credits
 ## Acknowledgement
 This project would not have been possible without my main lecturer, Paul Chor, for the skills and knowledge imparted to me, and teaching assistant, Shun, for the guidance during the building of the project during the bootcamp in Trent Global College.
 Big appreciation to the Pokémon series, w3schools, Stackoverflow forums, Bootstrap documentation, PokéAPI and its documentation.
 
-- [POKÉMON](https://www.pokemon.com/sg/) for the series and the assets
+- [POKÉMON](https://www.Pokémon.com/sg/) for the series and the assets
 - [Pokémon API](https://pokeapi.co/)
-- [Pokémon Font](https://www.dafont.com/pokemon.font)
+- [Pokémon Font](https://www.dafont.com/Pokémon.font)
 - [Nintendo Pixel Font](https://www.fontspace.com/press-start-2p-font-f11591)
 - [Vue Fullscreen](http://mirari.cc/vue-fullscreen/) for granting fullscreen to the game window
 - [Vuex-PersistedState](https://www.npmjs.com/package/vuex-persistedstate) for simple inter-component state control
@@ -122,6 +161,6 @@ Big appreciation to the Pokémon series, w3schools, Stackoverflow forums, Bootst
 - town.mp3 - [POKÉMON Omega Ruby/Alpha Sapphire Littleroot Town Theme](https://www.youtube.com/watch?v=zRGCzCn5azI)
 - menu.mp3 - [POKÉMON Sword & Shield Pokémon Center Theme](https://www.youtube.com/watch?v=i6yQhdtTM2o)
 - random-battle.mp3 - [POKÉMON Omega Ruby/Alpha Sapphire Battle! Zinnia Theme](https://www.youtube.com/watch?v=GIn8_Q27WFY)
-- gymbattle.mp3 - [Pokemon HeartGold/SoulSilver - Battle! Kanto Gym Leader Music (HQ)](https://www.youtube.com/watch?v=T4SYTwP76qM)
+- gymbattle.mp3 - [Pokémon HeartGold/SoulSilver - Battle! Kanto Gym Leader Music (HQ)](https://www.youtube.com/watch?v=T4SYTwP76qM)
 - attack.mp3 - [Pokémon Red/Blue/Yellow - Cut - Sound Effect](https://www.youtube.com/watch?v=2uhCrgM169A)
 - run.mp3 - [Pokémon Red/Blue/Yellow - Level Up - Sound Effect](https://www.youtube.com/watch?v=OGXUoqSYscc)
