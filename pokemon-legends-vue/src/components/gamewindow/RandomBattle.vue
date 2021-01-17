@@ -298,9 +298,14 @@ export default {
           if (this.ally.PkmnHP > 0) {
             setTimeout(() => (this.battleState = "p1_select"), 3000);
           } else {
+            setTimeout(
+              () =>
+                (this.battleMessage = `${this.ally.ActivePkmn.pokemon_name} fainted!`),
+              2000
+            );
             this.ally.availablePkmn -= 1;
             if (this.ally.availablePkmn <= 0) {
-              setTimeout(() => (this.battleState = "battle_end"), 3000);
+              setTimeout(() => (this.battleState = "battle_end"), 5000);
             }
           }
         };
@@ -309,7 +314,12 @@ export default {
           if (this.foe.PkmnHP > 0) {
             setTimeout(() => (this.battleState = "p1_select"), 3000);
           } else {
-            setTimeout(() => (this.battleState = "battle_end"), 3000);
+            setTimeout(
+              () =>
+                (this.battleMessage = `${this.foe.ActivePkmnName} fainted!`),
+              2000
+            );
+            setTimeout(() => (this.battleState = "battle_end"), 5000);
           }
         };
 
@@ -324,7 +334,12 @@ export default {
 
             setTimeout(() => checkAllyHP(), 3300);
           } else {
-            setTimeout(() => (this.battleState = "battle_end"), 3000);
+            setTimeout(
+              () =>
+                (this.battleMessage = `${this.foe.ActivePkmnName} fainted!`),
+              2000
+            );
+            setTimeout(() => (this.battleState = "battle_end"), 5000);
           }
         } else {
           this.foeTurn();
@@ -333,9 +348,14 @@ export default {
 
             setTimeout(() => checkFoeHP(), 3300);
           } else {
+            setTimeout(
+              () =>
+                (this.battleMessage = `${this.ally.ActivePkmn.pokemon_name} fainted!`),
+              2000
+            );
             this.ally.availablePkmn -= 1;
             if (this.ally.availablePkmn <= 0) {
-              setTimeout(() => (this.battleState = "battle_end"), 3000);
+              setTimeout(() => (this.battleState = "battle_end"), 5000);
             }
           }
         }
@@ -361,10 +381,11 @@ export default {
           );
           this.battleMessage =
             "You have lost the battle... Lost 1000 Pokédollar!";
-          setTimeout(() => (this.$store.state.gameState = "game_menu"), 3000);
+          setTimeout(() => (this.$store.state.gameState = "game_menu"), 4000);
         } else {
           this.battleMessage =
-            "You won the battle! Obtained 500 Pokédollar and a Rare Candy!";
+            "You won the battle! Obtained 500 Pokédollar and 1 Rare Candy!";
+
           this.$store.state.userData.pokedollar += 500;
 
           let checkRC = this.$store.state.userData.bag.find(

@@ -40,17 +40,17 @@
     <!-- foe setup -->
     <div v-if="showStat == true" class="shadow foe-stat-window ml-3">
       <div>
-        <p>{{ foe.ActivePkmnName }} (Lv 1)</p>
+        <p>{{ foe.ActivePkmnName }} (Lv {{ foe.ActivePkmn.lvl }})</p>
       </div>
       <div class="hp-display d-flex justify-content-center align-items-center">
         HP<b-progress
           :value="foe.PkmnHP"
-          :max="foe.ActivePkmn.stats.hp"
+          :max="foe.hp"
           variant="success"
           class="hp-bar ml-1"
         ></b-progress>
       </div>
-      <div>{{ foe.PkmnHP }}/{{ foe.ActivePkmn.stats.hp }}</div>
+      <div>{{ foe.PkmnHP }}/{{ foe.hp }}</div>
     </div>
     <img
       v-if="gymleaderPortrait == true"
@@ -61,7 +61,7 @@
       v-else
       class="foe-pokemon-portrait"
       v-bind:src="
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/front/' +
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
         foe.ActivePkmn.pokemon_id +
         '.png'
       "
@@ -124,6 +124,11 @@ export default {
         ActivePkmnMove: [],
         PkmnHP: 0,
         PkmnMP: 0,
+        atk: 0,
+        def: 0,
+        spatk: 0,
+        spdef: 0,
+        speed: 0,
         SelMove: "",
         Dmg: 0,
         availablePkmn: 0,
@@ -157,7 +162,7 @@ export default {
         (((2 * this.ally.ActivePkmn.lvl) / 5 + 2) *
           parseInt(moves.power * 2) *
           parseInt(this.ally.ActivePkmn.stats.atk)) /
-          parseInt(this.foe.ActivePkmn.stats.def) /
+          parseInt(this.foe.def) /
           50 +
         2 +
         Math.floor(Math.random() * 3);
@@ -207,6 +212,12 @@ export default {
         this.foe.ActivePkmnName = this.foe.ActivePkmn.pokemon_name;
         this.battleMessage = `${this.$store.state.gymLeader.gymleader_name} wants to battle!`;
 
+        setTimeout(
+          () =>
+            (this.battleMessage = `${this.$store.state.gymLeader.gymleader_name} sends out ${this.foe.ActivePkmn.pokemon_name}!`),
+          3000
+        );
+
         let response = await axios.get(
           "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/movesets"
         );
@@ -222,7 +233,14 @@ export default {
           this.foe.ActivePkmnMove = foepkmnmoveset.moveset;
         }
 
-        this.foe.PkmnHP = this.foe.ActivePkmn.stats.hp;
+        let foeleveldiff = this.foe.ActivePkmn.lvl - 1;
+        this.foe.hp = this.foe.ActivePkmn.stats.hp + 3 * foeleveldiff;
+        this.foe.atk = this.foe.ActivePkmn.stats.atk + 2 * foeleveldiff;
+        this.foe.def = this.foe.ActivePkmn.stats.def + 2 * foeleveldiff;
+        this.foe.spatk = this.foe.ActivePkmn.stats.spatk + 2 * foeleveldiff;
+        this.foe.spdef = this.foe.ActivePkmn.stats.spdef + 2 * foeleveldiff;
+        this.foe.speed = this.foe.ActivePkmn.stats.speed + 2 * foeleveldiff;
+        this.foe.PkmnHP = this.foe.hp;
         this.foe.PkmnMP = 0;
 
         // ally pokemon move
@@ -238,7 +256,9 @@ export default {
         this.ally.PkmnHP = this.ally.ActivePkmn.stats.hp;
         this.ally.PkmnMP = 0;
 
-        setTimeout(() => (this.battleState = "p1_select"), 3000);
+        setTimeout(() => (this.gymleaderPortrait = false), 5000);
+
+        setTimeout(() => (this.battleState = "p1_select"), 6000);
       }
 
       //   P1 SELECT ACTION
@@ -259,9 +279,9 @@ export default {
         this.foe.SelMove = this.foe.ActivePkmnMove[moveID].move;
 
         let dmgCalc =
-          (((2 * this.foe.PkmnLvl) / 5 + 2) *
+          (((2 * this.foe.ActivePkmn.lvl) / 5 + 2) *
             parseInt(this.foe.ActivePkmnMove[moveID].power * 2) *
-            parseInt(this.foe.ActivePkmn.stats[1].base_stat)) /
+            parseInt(this.foe.atk)) /
             parseInt(this.ally.ActivePkmn.stats.def) /
             50 +
           2 +
@@ -305,9 +325,14 @@ export default {
           if (this.ally.PkmnHP > 0) {
             setTimeout(() => (this.battleState = "p1_select"), 3000);
           } else {
+            setTimeout(
+              () =>
+                (this.battleMessage = `${this.ally.ActivePkmn.pokemon_name} fainted!`),
+              2000
+            );
             this.ally.availablePkmn -= 1;
             if (this.ally.availablePkmn <= 0) {
-              setTimeout(() => (this.battleState = "battle_end"), 3000);
+              setTimeout(() => (this.battleState = "battle_end"), 5000);
             }
           }
         };
@@ -316,14 +341,18 @@ export default {
           if (this.foe.PkmnHP > 0) {
             setTimeout(() => (this.battleState = "p1_select"), 3000);
           } else {
-            setTimeout(() => (this.battleState = "battle_end"), 3000);
+            setTimeout(
+              () =>
+                (this.battleMessage = `${this.foe.ActivePkmnName} fainted!`),
+              2000
+            );
+            setTimeout(() => (this.battleState = "battle_end"), 5000);
           }
         };
 
         // battle phase execution
         if (
-          parseInt(this.ally.ActivePkmn.stats.speed) >=
-          parseInt(this.foe.ActivePkmn.stats[5].base_stat)
+          parseInt(this.ally.ActivePkmn.stats.speed) >= parseInt(this.foe.speed)
         ) {
           this.allyTurn();
           if (this.foe.PkmnHP > 0) {
@@ -331,7 +360,12 @@ export default {
 
             setTimeout(() => checkAllyHP(), 3300);
           } else {
-            setTimeout(() => (this.battleState = "battle_end"), 3000);
+            setTimeout(
+              () =>
+                (this.battleMessage = `${this.foe.ActivePkmnName} fainted!`),
+              2000
+            );
+            setTimeout(() => (this.battleState = "battle_end"), 5000);
           }
         } else {
           this.foeTurn();
@@ -340,9 +374,14 @@ export default {
 
             setTimeout(() => checkFoeHP(), 3300);
           } else {
+            setTimeout(
+              () =>
+                (this.battleMessage = `${this.ally.ActivePkmn.pokemon_name} fainted!`),
+              2000
+            );
             this.ally.availablePkmn -= 1;
             if (this.ally.availablePkmn <= 0) {
-              setTimeout(() => (this.battleState = "battle_end"), 3000);
+              setTimeout(() => (this.battleState = "battle_end"), 5000);
             }
           }
         }
@@ -366,13 +405,27 @@ export default {
               this.$store.state.username,
             this.$store.state.userData
           );
+          this.gymleaderPortrait = true;
           this.battleMessage =
-            "You have lost the battle... Lost 1000 Pokédollar!";
-          setTimeout(() => (this.$store.state.gameState = "game_menu"), 3000);
+            "Brock: What a close battle! Try harder next time!";
+          setTimeout(
+            () =>
+              (this.battleMessage =
+                "You have lost the battle... Lost 1000 Pokédollar!"),
+            3000
+          );
+          setTimeout(() => (this.$store.state.gameState = "game_menu"), 6000);
         } else {
-          this.battleMessage =
-            "You won the battle! Obtained 500 Pokédollar and a Rare Candy!";
-          this.$store.state.userData.pokedollar += 500;
+          this.gymleaderPortrait = true;
+          this.battleMessage = "Brock: No freakin way!";
+          setTimeout(
+            () =>
+              (this.battleMessage =
+                "You won the battle! Obtained 1500 Pokédollar and 2 Rare Candy!"),
+            3000
+          );
+
+          this.$store.state.userData.pokedollar += 1500;
 
           let checkRC = this.$store.state.userData.bag.find(
             (rc) => rc.item_id === 50
@@ -381,7 +434,7 @@ export default {
           if (checkRC == undefined) {
             let rarecandy = {
               item_name: "Rare Candy",
-              item_count: 1,
+              item_count: 2,
               item_id: 50,
             };
             this.$store.state.userData.bag.push(rarecandy);
@@ -395,7 +448,7 @@ export default {
             let rcID = this.$store.state.userData.bag.findIndex(
               (rc) => rc.item_id === 50
             );
-            this.$store.state.userData.bag[rcID].item_count += 1;
+            this.$store.state.userData.bag[rcID].item_count += 2;
 
             await axios.patch(
               "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/userdata/" +
@@ -403,7 +456,7 @@ export default {
               this.$store.state.userData
             );
           }
-          setTimeout(() => (this.$store.state.gameState = "game_menu"), 4000);
+          setTimeout(() => (this.$store.state.gameState = "game_menu"), 6000);
         }
       }
     },
