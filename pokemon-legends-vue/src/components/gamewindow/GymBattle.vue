@@ -1,5 +1,5 @@
 <template>
-  <div id="battle-window">
+  <div id="gym-battle-window">
     <div class="top-message-div bg-dark shadow p-2">
       {{ battleMessage }}
     </div>
@@ -45,16 +45,26 @@
       <div class="hp-display d-flex justify-content-center align-items-center">
         HP<b-progress
           :value="foe.PkmnHP"
-          :max="foe.ActivePkmn.stats[0].base_stat"
+          :max="foe.ActivePkmn.stats.hp"
           variant="success"
           class="hp-bar ml-1"
         ></b-progress>
       </div>
-      <div>{{ foe.PkmnHP }}/{{ foe.ActivePkmn.stats[0].base_stat }}</div>
+      <div>{{ foe.PkmnHP }}/{{ foe.ActivePkmn.stats.hp }}</div>
     </div>
     <img
+      v-if="gymleaderPortrait == true"
+      class="gymleader-portrait"
+      v-bind:src="$store.state.gymLeader && $store.state.gymLeader.imageUrl"
+    />
+    <img
+      v-else
       class="foe-pokemon-portrait"
-      v-bind:src="foe.ActivePkmn && foe.ActivePkmn.sprites.front_default"
+      v-bind:src="
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/front/' +
+        foe.ActivePkmn.pokemon_id +
+        '.png'
+      "
     />
 
     <!-- select action -->
@@ -107,6 +117,7 @@ export default {
         availablePkmn: 0,
       },
       foe: {
+        gymLeader: {},
         ActivePkmnName: "",
         ActivePkmn: "",
         PkmnLvl: 1,
@@ -115,9 +126,11 @@ export default {
         PkmnMP: 0,
         SelMove: "",
         Dmg: 0,
+        availablePkmn: 0,
       },
       allyTurn: () => {},
       foeTurn: () => {},
+      gymleaderPortrait: true,
       battleState: "",
       battleMessage: "",
       showStat: false,
@@ -128,7 +141,7 @@ export default {
   },
   created: async function () {
     this.battleState = "battle_start";
-    this.$store.state.battleType = "random";
+    this.$store.state.battleType = "gymbattle";
     this.$store.state.inBattle = true;
     this.ally.availablePkmn = this.$store.state.userData.party_pokemon.length;
   },
@@ -144,7 +157,7 @@ export default {
         (((2 * this.ally.ActivePkmn.lvl) / 5 + 2) *
           parseInt(moves.power * 2) *
           parseInt(this.ally.ActivePkmn.stats.atk)) /
-          parseInt(this.foe.ActivePkmn.stats[2].base_stat) /
+          parseInt(this.foe.ActivePkmn.stats.def) /
           50 +
         2 +
         Math.floor(Math.random() * 3);
@@ -189,16 +202,10 @@ export default {
         this.ally.ActivePkmn = this.$store.state.userData.party_pokemon[0];
 
         // foe pokemon
-        let randomEnemyID = Math.floor(Math.random() * 110) + 1;
-        let response2 = await axios.get(
-          "https://pokeapi.co/api/v2/pokemon/" + randomEnemyID
-        );
-
-        this.foe.ActivePkmn = response2.data;
-        this.foe.ActivePkmnName =
-          this.foe.ActivePkmn.name.charAt(0).toUpperCase() +
-          this.foe.ActivePkmn.name.slice(1);
-        this.battleMessage = `Encountered ${this.foe.ActivePkmnName}!`;
+        this.foe.availablePkmn = this.$store.state.gymLeader.pokemon_team.length;
+        this.foe.ActivePkmn = this.$store.state.gymLeader.pokemon_team[0];
+        this.foe.ActivePkmnName = this.foe.ActivePkmn.pokemon_name;
+        this.battleMessage = `${this.$store.state.gymLeader.gymleader_name} wants to battle!`;
 
         let response = await axios.get(
           "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/movesets"
@@ -206,7 +213,7 @@ export default {
         let pkmnmove = response.data;
         // foe pokemon move
         let foepkmnmoveset = pkmnmove.find(
-          (pm) => pm.pokemon_id == this.foe.ActivePkmn.id
+          (pm) => pm.pokemon_id == this.foe.ActivePkmn.pokemon_id
         );
         if (foepkmnmoveset !== undefined) {
           this.foe.ActivePkmnMove = foepkmnmoveset.moveset;
@@ -215,7 +222,7 @@ export default {
           this.foe.ActivePkmnMove = foepkmnmoveset.moveset;
         }
 
-        this.foe.PkmnHP = this.foe.ActivePkmn.stats[0].base_stat;
+        this.foe.PkmnHP = this.foe.ActivePkmn.stats.hp;
         this.foe.PkmnMP = 0;
 
         // ally pokemon move
@@ -405,8 +412,8 @@ export default {
 </script>
 
 <style scoped>
-#battle-window {
-  background-image: url("https://cutewallpaper.org/21/pokemon-battle-field-background/OR-AS-Battle-Background-1B-by-PhoenixOfLight92-on-DeviantArt.jpg");
+#gym-battle-window {
+  background-image: url("https://tinyurl.com/gym-battle-bg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -461,6 +468,13 @@ export default {
   font-size: 1rem;
   color: black;
   background-color: lightyellow;
+}
+
+.gymleader-portrait {
+  position: absolute !important;
+  right: 20%;
+  height: 45%;
+  bottom: 35%;
 }
 
 .foe-pokemon-portrait {

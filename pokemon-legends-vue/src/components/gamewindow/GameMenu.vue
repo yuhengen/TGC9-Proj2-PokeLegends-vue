@@ -320,23 +320,22 @@ export default {
         "https://pxs-tgc9-pokemonlegendsapi.herokuapp.com/gymleaders"
       );
       let gymleaderData = response.data;
-      let gymLeaderName = gymleaderData.find(
+      let gymLeaderData1 = gymleaderData.find(
         (gl) => gl.gymleader_name == gymleader.name
       );
-      if (gymLeaderName !== undefined) {
-        this.$store.state.gymLeader = gymleader.name;
+      if (gymLeaderData1 !== undefined) {
+        this.$store.state.gymLeader = gymLeaderData1;
 
         this.$store.state.bgm.pause();
         let gymbattleBGM = new Audio("bgm/gymbattle.mp3");
         this.$store.state.bgm = gymbattleBGM;
         this.$store.state.bgmName = "gymbattleBGM";
-        //   this.$store.state.bgm.volume = 0.5;
         this.$store.state.bgm.loop = true;
         this.$store.state.bgm.play();
 
         this.$store.state.gameState = "gym_battle";
       } else {
-          alert("Coming soon...")
+        alert("Coming soon...");
       }
     },
     openPokedex: function () {
@@ -497,7 +496,7 @@ h5 {
 }
 
 .card-img-top {
-  height: 11vw;
+  height: 150px;
   object-fit: cover;
   border: 2px white solid;
 }
