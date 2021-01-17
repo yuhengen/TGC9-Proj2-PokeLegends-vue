@@ -24,7 +24,7 @@
           />
         </div>
         <div class="d-flex justify-content-center align-items-center ml-3">
-            <span style="color:white">Copyright© 1998-2021 The Pokémon Company ALL RIGHTS RESERVED</span>
+            <span style="color:white; text-align:center;">Copyright© 1998-2021 The Pokémon Company ALL RIGHTS RESERVED</span>
         </div>
       </div>
     </footer>

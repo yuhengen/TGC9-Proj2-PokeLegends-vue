@@ -565,4 +565,22 @@ h5 {
   margin: auto;
   z-index: 4;
 }
+
+@media only screen and (max-height: 768px) {
+  .char-image {
+    z-index: 0;
+  }
+}
+
+@media only screen and (max-height: 375px) {
+  .battle-button {
+    height: 180px;
+  }
+  .battle-text {
+    font-size: 3.5rem;
+  }
+  .user-info-icon {
+    width: 60px;
+  }
+}
 </style>

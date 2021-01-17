@@ -15,7 +15,9 @@
         <button
           class="play-button btn btn-dark d-flex align-items-center justify-content-center shadow"
         >
-          <h1 class="mb-3" @click="toGame">Play Pokémon<br />Legends Now!</h1>
+          <h1 class="mb-3 play-btn" @click="toGame">
+            Play Pokémon<br />Legends Now!
+          </h1>
         </button>
       </div>
     </div>
@@ -48,7 +50,7 @@
             :img-src="feature.imageurl"
             img-alt="Pokemon GIF Image"
             img-top
-            style="width: 25%; position: relative"
+            style="width: 380px; position: relative"
           >
             <b-card-text class="pt-2">
               {{ feature.description }}
@@ -176,6 +178,13 @@ export default {
 @media only screen and (max-width: 720px) {
   .pokemon-logo {
     width: 300px;
+  }
+  .play-button {
+    width: 260px;
+    height: 100px;
+  }
+  .play-btn {
+    font-size: 27px !important;
   }
 }
 </style>

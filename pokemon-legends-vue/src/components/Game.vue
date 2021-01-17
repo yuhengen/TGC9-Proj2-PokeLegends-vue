@@ -181,4 +181,10 @@ export default {
 .exit-fullscreen-btn:hover {
   cursor: pointer;
 }
+
+@media only screen and (max-height: 375px) {
+  .title-logo {
+    width: 35%;
+  }
+}
 </style>
