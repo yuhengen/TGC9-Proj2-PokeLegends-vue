@@ -15,6 +15,19 @@
     <div class="container">
       <router-view></router-view>
     </div>
+    <footer class="site-footer">
+      <div class="d-flex justify-content-center socials-bar">
+        <div class="mr-3">
+          <img
+            src="https://vignette.wikia.nocookie.net/bondlegends/images/0/00/Pkmn_Legends_Reboot.png/revision/latest/scale-to-width-down/340?cb=20150827225946"
+            style="width: 150px"
+          />
+        </div>
+        <div class="d-flex justify-content-center align-items-center ml-3">
+            <span style="color:white">Copyright© 1998-2021 The Pokémon Company ALL RIGHTS RESERVED</span>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -25,7 +38,7 @@ export default {
   name: "App",
   components: {
     NavBar,
-  }
+  },
 };
 </script>
 
@@ -84,5 +97,11 @@ export default {
   min-width: 100%;
   min-height: 100%;
   z-index: -10;
+}
+
+.site-footer {
+  background-color: #343a40;
+  padding: 10px;
+  z-index: 9;
 }
 </style>

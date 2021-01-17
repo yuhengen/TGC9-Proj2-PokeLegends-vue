@@ -6,6 +6,9 @@ import './plugins/bootstrap-vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import store from './store'
 import fullscreen from 'vue-fullscreen'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import VueRouter from 'vue-router';
 
@@ -63,6 +66,12 @@ const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err)
 }
+
+library.add(faFacebookSquare)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+Vue.config.productionTip = false
 
 new Vue({
     render: h => h(App),

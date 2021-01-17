@@ -18,28 +18,32 @@
         <h3>Select Your Starter</h3>
       </div>
       <div class="d-flex flex-wrap justify-content-around">
-        <b-card
-          v-for="(starter, i) in starters"
-          v-bind:key="i"
-          :title="starter.name"
-          :img-src="
-            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' +
-            starter.pokemonID +
-            '.png'
-          "
-          img-alt="Pokemon Image"
-          img-top
-          style="
-            width: 25%;
-            position: relative;
-            background-color: rgba(52, 58, 64, 0);
-          "
-          class="mt-3"
-        >
-          <b-button variant="success" @click="selectStarter(starter.pokemonID)"
-            >Select</b-button
+        <b-card-group deck>
+          <b-card
+            v-for="(starter, i) in starters"
+            v-bind:key="i"
+            :title="starter.name"
+            :img-src="
+              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' +
+              starter.pokemonID +
+              '.png'
+            "
+            img-alt="Pokemon Image"
+            img-top
+            style="
+              width: 25%;
+              position: relative;
+              background-color: rgba(52, 58, 64, 0);
+            "
+            class="mt-3"
           >
-        </b-card>
+            <b-button
+              variant="success"
+              @click="selectStarter(starter.pokemonID)"
+              >Select</b-button
+            >
+          </b-card>
+        </b-card-group>
       </div>
     </div>
   </div>
