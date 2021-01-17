@@ -130,18 +130,12 @@
           Select Battle
         </h3>
       </div>
-      <div
-        class="d-flex justify-content-center"
-        style="width: 100%; height: 40%"
-      >
+      <div class="d-flex justify-content-center banner-div">
         <div class="wild-banner battle-banner" @click="enterRBattle">
           <h2 class="battle-banner-text">Random Wild Battle</h2>
         </div>
       </div>
-      <div
-        class="d-flex justify-content-center mb-3"
-        style="width: 100%; height: 40%"
-      >
+      <div class="d-flex justify-content-center mb-3 banner-div">
         <div class="gym-banner battle-banner" @click="selectGymLeader">
           <h2 class="battle-banner-text">Gym Battle</h2>
         </div>
@@ -171,8 +165,7 @@
       </div>
 
       <div
-        class="d-flex flex-wrap justify-content-center align-items-center"
-        style="width: 70%; height: 70%"
+        class="d-flex flex-wrap justify-content-center align-items-center gymleader-div"
       >
         <b-card
           v-for="(gymleader, i) in gymleaders"
@@ -461,6 +454,11 @@ h5 {
   z-index: 10;
 }
 
+.banner-div {
+  height: 40%;
+  width: 100%;
+}
+
 .wild-banner {
   background-image: url("https://i.pinimg.com/originals/0f/2a/c0/0f2ac01ac666c8a1ec02f763afaa1016.jpg");
   background-position: center !important;
@@ -488,6 +486,11 @@ h5 {
 .battle-banner-text {
   margin-top: 3%;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.gymleader-div {
+  height: 70%;
+  width: 70%;
 }
 
 .card-title {
@@ -566,9 +569,12 @@ h5 {
   z-index: 4;
 }
 
-@media only screen and (max-height: 768px) {
+@media only screen and (max-height: 1024px) {
   .char-image {
     z-index: 0;
+  }
+  .gymleader-div {
+    height:50%;
   }
 }
 
@@ -595,6 +601,26 @@ h5 {
   }
   .party-pokemon-sprite {
     height: 120%;
+  }
+  .banner-div {
+    height: 30%;
+  }
+  .battle-banner-text {
+    font-size: 25px;
+  }
+  .gymleader-div {
+    width: 100%;
+    height:40%;
+  }
+  .card {
+    width: 12% !important;
+    margin:2px !important;
+  }
+  .card-img-top {
+    height: 100px;
+  }
+  .card-title {
+    font-size: 0.6rem;
   }
 }
 </style>
