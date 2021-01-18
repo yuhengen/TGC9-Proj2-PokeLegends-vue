@@ -41,8 +41,7 @@
       </div>
 
       <h1 class="about mb-5">Game Features</h1>
-      <div class="about-desc">
-        <b-card-group deck>
+      <div class="about-desc d-flex flex-wrap justify-content-center">
           <b-card
             v-for="(feature, i) in features"
             v-bind:key="i"
@@ -50,13 +49,13 @@
             :img-src="feature.imageurl"
             img-alt="Pokemon GIF Image"
             img-top
-            style="width: 380px; position: relative"
+            style="width: 350px; position: relative"
+            class="m-1"
           >
             <b-card-text class="pt-2">
               {{ feature.description }}
             </b-card-text>
           </b-card>
-        </b-card-group>
       </div>
     </div>
   </div>
@@ -175,13 +174,13 @@ export default {
   border: 2px black solid;
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 736px) {
   .pokemon-logo {
-    width: 300px;
+    width: 280px;
   }
   .play-button {
-    width: 260px;
-    height: 100px;
+    width: 250px;
+    height: 90px;
   }
   .play-btn {
     font-size: 27px !important;

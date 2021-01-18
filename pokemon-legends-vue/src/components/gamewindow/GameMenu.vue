@@ -578,7 +578,7 @@ h5 {
   }
 }
 
-@media only screen and (max-height: 375px) {
+@media only screen and (max-height: 414px) {
   .battle-button {
     height: 180px;
   }
@@ -614,13 +614,13 @@ h5 {
   }
   .card {
     width: 12% !important;
-    margin:2px !important;
+    margin:1px !important;
   }
   .card-img-top {
     height: 100px;
   }
   .card-title {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
   }
 }
 </style>

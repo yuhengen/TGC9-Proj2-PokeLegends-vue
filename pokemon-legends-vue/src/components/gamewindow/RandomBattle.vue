@@ -519,7 +519,7 @@ export default {
   width: 85%;
 }
 
-@media only screen and (max-height: 375px) {
+@media only screen and (max-height: 414px) {
   .top-message-div {
     font-size: 0.7rem;
   }
