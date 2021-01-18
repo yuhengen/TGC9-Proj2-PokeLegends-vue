@@ -52,9 +52,9 @@ The primary purpose of this website is to allow players to play the Pokémon Leg
 ```
 ## Features to Implement in Future
 ```
+- Game Tutorial
 - Adding loading screen to pages that require load time
 - Add function to prompt user confirmation on whether they want to navigate away from the game window
-- Mobile responsiveness (Game)
 - Add function to allow users to update profile
 - Privacy Policy page (When necessary)
 ```
@@ -66,24 +66,8 @@ The Pokémon Legends website has a navigation bar and footer on every page, allo
 ### Game
 The Pokémon Legends game has navigation buttons at the main menu screen of the game, allowing players to access most of the game functions with ease. All the personal game data that the players need to access can be seen in the game
 
-## Sitemap
-
----
-
-The sitemap of the project will be available soon...
-
----
-
 # Developing Page Structure and Organize Interactions (SKELETON)
 Most important features of Pokémon Legends are featured first. We want our players to play our game and at the same time know more about Pokémon Legends, so the PLAY button is the first thing they see upon entering the site with more information regarding the game on the same page.
-
-## Wireframes
-
----
-
-The wireframes of the project will be available soon...
-
----
 
 # Designing the Graphics User Interface (SURFACE)
 ## Colors
@@ -153,6 +137,33 @@ Secondary fonts used are [Pokémon Font](https://www.dafont.com/Pokémon.font) f
 <img src="./pokemon-legends-vue/public/screenshots/battleselect1.jpg" style="margin: 0;">
 <img src="./pokemon-legends-vue/public/screenshots/battleselect2.jpg" style="margin: 0;">
 
+### Gym Battle/Wild Pokemon Battle
+- ✅ In the battle, you will face off against an opponent and brawl it out. Whichever Pokemon's HP that is reduced to 0 loses the battle
+- ✅ Select FIGHT to select from a list of moves. Each of them has their own Power, which is calculated into damage dealt to opposing Pokemon
+- ✅ If you win the battle, you will get rewards such as Rare Candy and Pokedollar. The game will then autosave and redirect to the Game Menu page
+- ✅ If you lose the battle, you will lose some Pokedollars. The game then autosaves and redirect to the Game Menu page
+- ✅ Select RUN to escape from the battle. No penalties will occur
+
+<img src="./pokemon-legends-vue/public/screenshots/battle1.jpg" style="margin: 0;">
+<img src="./pokemon-legends-vue/public/screenshots/battle2.jpg" style="margin: 0;">
+
+
+### Pokedex
+- ✅ See the whole list of available Pokemon in the game
+- ✅ Tapping on any of the cards will show their relevant information
+
+<img src="./pokemon-legends-vue/public/screenshots/pokedex1.jpg" style="margin: 0;">
+<img src="./pokemon-legends-vue/public/screenshots/pokedex2.jpg" style="margin: 0;">
+
+### Pokemon
+- ✅ See the Pokemon available in your party and their relavant information
+- ✅ Clicking on move names toggle between the move name and their effects
+- ✅ Selecting USE R. CANDY allows you to use obtained Rare Candies to upgrade your Pokemon levels and stats!
+
+<img src="./pokemon-legends-vue/public/screenshots/pokemon1.jpg" style="margin: 0;">
+<img src="./pokemon-legends-vue/public/screenshots/pokemon2.jpg" style="margin: 0;">
+
+
 # Technologies
 - VueJS and CSS for structuring and styling the website
 - Javascript to implement interactivty with website
@@ -189,10 +200,10 @@ Big appreciation to the Pokémon series, w3schools, Stackoverflow forums, Bootst
 - [Nintendo Pixel Font](https://www.fontspace.com/press-start-2p-font-f11591)
 - [Vue Fullscreen](http://mirari.cc/vue-fullscreen/) for granting fullscreen to the game window
 - [Vuex-PersistedState](https://www.npmjs.com/package/vuex-persistedstate) for simple inter-component state control
-- [Am I Responsive Checker](http://ami.responsivedesign.is/)
+- [Am I Responsive Checker](http://ami.responsivedesign.is/) to check for mobile responsiveness
 
 ### Images
-All images are used from their sources (None of them are downloaded). All credits and copyright goes to the Pokemon series and their original artists
+All images are used from their sources and links (None of them are downloaded). All credits and copyright goes to the Pokemon series and their original artists
 
 ### Music
 - intro.mp3 - [Professor Oak - Pokémon Masters](https://www.youtube.com/watch?v=1Z8twVQ0fDo)
