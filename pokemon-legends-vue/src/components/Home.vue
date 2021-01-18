@@ -135,8 +135,8 @@ export default {
   position: relative;
   left: -50%;
   font-family: pokemonsolid;
-  width: 380px;
-  height: 150px;
+  width: 350px;
+  height: 130px;
   z-index: 5;
   border: 4px white solid;
   border-radius: 15px;

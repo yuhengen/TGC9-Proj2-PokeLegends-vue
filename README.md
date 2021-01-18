@@ -11,6 +11,12 @@ The demo of the site is available [here](https://yuhengen.github.io/TGC9-Proj2-P
 
 *NOTE: The game is currently not optimized for mobile in portrait mode and is thus not fully mobile responsive.
 
+---
+
+<img src="./pokemon-legends-vue/public/screenshots/Responsive.jpg" style="margin: 0;">
+
+---
+
 # Note
 This repository only contains the frontend codes for the Pokémon Legends project.
 Backend codes can be found at [TGC9-Proj2-PokéLegends-api](https://github.com/yuhengen/tgc9-proj2-PokeLegends-api).
@@ -92,29 +98,60 @@ After some research and considerations, the main colors I decide to use for the 
 The font mainly used on the website is Sans Serif, the default font family, which is often used to convey modernity or minimalism.
 Secondary fonts used are [Pokémon Font](https://www.dafont.com/Pokémon.font) for the navigation bar, and the [Nintendo Pixel Font](https://www.fontspace.com/press-start-2p-font-f11591) as main font for the game to bring forth a retro look.
 
-# Testing
-## Navigation bar
-- ✅ [Home](https://yuhengen.github.io/TGC9-Proj2-PokeLegends-vue/) routes to the Home page, Home.vue component
-- ✅ [Pokédex](https://8080-c1affde1-a811-46d2-9345-b1ed65ca2518.ws-us03.gitpod.io/#/Pokédex) routes to the Pokédex page, Pokédex.vue component
-- ✅ [Pokeball Icon](https://yuhengen.github.io/TGC9-Proj2-PokeLegends-vue/) routes to the page to play Pokémon Legends game, Game.vue component
-### Before Login
-- ✅ Login opens the Login modal
-- ✅ [Register](https://8080-c1affde1-a811-46d2-9345-b1ed65ca2518.ws-us03.gitpod.io/#/register) routes to the Registration page, RegisterPage.vue component
-### After Login
-- ✅ Profile opens a dropdown to allow logging out
-- ✅ [Play](https://8080-c1affde1-a811-46d2-9345-b1ed65ca2518.ws-us03.gitpod.io/#/game) routes to the page to play Pokémon Legends game, Game.vue component
+# Step-by-Step Testing
 
-## Home
-- ✅ [Play Pokémon Legends Now](https://8080-c1affde1-a811-46d2-9345-b1ed65ca2518.ws-us03.gitpod.io/#/game) routes to the page to play Pokémon Legends game, Game.vue component
+## Register for Account
+- ✅ Tap on registration in Navbar
+- ✅ Keying in the necessary information (Email Address, Username, Password, Re-type Password and Gender) will allow the registration of a new unique account. Contains form validation to ensure form is properly filed up
+- ✅ Entered Username will be displayed as character name in-game
+- ✅ Selected Gender will determine your in-game character
+- ✅ Tap on REGISTER to register your free account
+- ✅ After successful registration, you will be routed to [Play Pokémon Legends](https://8080-c1affde1-a811-46d2-9345-b1ed65ca2518.ws-us03.gitpod.io/#/game)
 
-## Pokédex
-- ✅ Clicking/tapping on any of the Pokémon displayed in the Pokédex to see more information about them
+<img src="./pokemon-legends-vue/public/screenshots/register.jpg" style="margin: 0;">
 
 ## Login
+- ✅ Type in the username and password of your previously registered account and tap on LOGIN
 - ✅ Keying in a registered account username will allow users to login and retrieve data from their previous save. Contains form validation to ensure form is properly filed up
+- ✅ Pressing register will lead to registration page
 
-## Register
-- ✅ Keying in the necessary information will allow the registration of a new unique account. Contains form validation to ensure form is properly filed up
+<img src="./pokemon-legends-vue/public/screenshots/login.jpg" style="margin: 0;">
+
+## Game
+### Start Page
+- ✅ Once logged in, the LOGIN button will be PROFILE, where you can use to logout. The REGISTER button will become PLAY where it will lead to the game page
+- ✅ Click 'Play in Fullscreen' to enjoy the game in fullscreen mode
+- ✅ Click on "Welcome, 'username' Click to start game" to proceed to the game
+
+<img src="./pokemon-legends-vue/public/screenshots/startgame.jpg" style="margin: 0;">
+
+### Introduction
+- ✅ New accounts should go through an introduction for the game. Click on the textbox to read through the short intro
+- ✅ After which, you will get 1000 Pokedollar and 3 Rare Candies at the end of the intro
+- ✅ You will be directed to select a starter Pokemon. Click on SELECT after you have decided and the game will automatically save your progress after doing so
+- ✅ You will then be led to the game menu page
+
+<img src="./pokemon-legends-vue/public/screenshots/intro1.jpg" style="margin: 0;">
+<img src="./pokemon-legends-vue/public/screenshots/intro2.jpg" style="margin: 0;">
+<img src="./pokemon-legends-vue/public/screenshots/intro3.jpg" style="margin: 0;">
+
+### Game Menu
+- ✅ Clicking on BATTLE in the middle of the screen will bring you to Battle Selection page
+- ✅ Clicking on your character portrait or the Pokeball icon on the top right will open the User Info panel where some of your data (Username, Pokedollar, Party Pokemon etc) will be displayed
+- ✅ Clicking on POKEDEX opens the Pokedex page to view the whole list of Pokemon
+- ✅ Clicking on POKEMON opens the Pokemon page to view your party of Pokemon and their stats/movesets
+- ✅ BAG is still a work in progress
+- ✅ Clicking on +1000 Poke$ adds 1000 Pokedollars to your account and autosaves
+
+<img src="./pokemon-legends-vue/public/screenshots/gamemenu.jpg" style="margin: 0;">
+
+### Battle Selection
+- ✅ Select RANDOM WILD BATTLE to start a battle with a random Pokemon
+- ✅ Select GYM BATTLE to select a Gym Leader to start a battle
+- ✅ Click on cancel button at the top right to close the selection screen
+
+<img src="./pokemon-legends-vue/public/screenshots/battleselect1.jpg" style="margin: 0;">
+<img src="./pokemon-legends-vue/public/screenshots/battleselect2.jpg" style="margin: 0;">
 
 # Technologies
 - VueJS and CSS for structuring and styling the website
@@ -153,6 +190,9 @@ Big appreciation to the Pokémon series, w3schools, Stackoverflow forums, Bootst
 - [Vue Fullscreen](http://mirari.cc/vue-fullscreen/) for granting fullscreen to the game window
 - [Vuex-PersistedState](https://www.npmjs.com/package/vuex-persistedstate) for simple inter-component state control
 - [Am I Responsive Checker](http://ami.responsivedesign.is/)
+
+### Images
+All images are used from their sources (None of them are downloaded). All credits and copyright goes to the Pokemon series and their original artists
 
 ### Music
 - intro.mp3 - [Professor Oak - Pokémon Masters](https://www.youtube.com/watch?v=1Z8twVQ0fDo)
