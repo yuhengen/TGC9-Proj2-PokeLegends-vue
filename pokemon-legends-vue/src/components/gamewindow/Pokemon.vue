@@ -62,7 +62,7 @@
       </div>
       <!-- buttons -->
       <div
-        class="d-flex justify-content-around align-items-center mb-3"
+        class="d-flex justify-content-around align-items-center mb-3 perform-action"
         style="width: 100%"
       >
         <SelectButtons
@@ -91,12 +91,12 @@
         </div>
         <!-- pokemon name and type -->
         <div>
-          <h4>{{ pokemonData.pokemon_name }}</h4>
+          <h4 class="pokemon-name">{{ pokemonData.pokemon_name }}</h4>
           <div class="d-flex justify-content-center align-items-center">
             <span
               v-for="(type, i) in pokemonData.types"
               v-bind:key="i"
-              class="text-center btn-dark type-display"
+              class="text-center btn-dark type-display pokemon-type"
               >{{ type }}</span
             >
           </div>
@@ -106,7 +106,7 @@
           class="d-flex align-items-center justify-content-center mb-2 mt-2"
           style="height: 40%; width: 100%; text-align: center"
         >
-          <table class="table">
+          <table class="table stat-table">
             <tr>
               <th scope="row">Lvl</th>
               <td>{{ pokemonData.lvl }}</td>
@@ -446,6 +446,7 @@ export default {
   padding: 5px;
   margin: 5px;
   border-radius: 5px;
+  z-index: 1;
 }
 
 .move-info {
@@ -487,5 +488,41 @@ export default {
   font-size: 1rem;
   border-radius: 7px;
   z-index: 5;
+}
+
+@media only screen and (max-height: 414px) {
+  h4 {
+    font-size: 20px;
+  }
+
+  .pokemon-bar {
+    font-size: 12px;
+  }
+
+  .pokemon-name {
+    font-size: 17px;
+  }
+
+  .pokemon-type {
+    font-size: 10px;
+  }
+
+  .type-display {
+    width: 80px;
+    padding: 2px;
+    margin: 2px;
+  }
+
+  .stat-table {
+    font-size: 8px;
+  }
+
+  .move-info {
+    margin: 3px;
+    padding: 5px;
+    height: 40px;
+    width: 100%;
+    font-size: 0.5rem;
+  }
 }
 </style>
