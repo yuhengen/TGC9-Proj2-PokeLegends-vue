@@ -66,8 +66,24 @@ The Pokémon Legends website has a navigation bar and footer on every page, allo
 ### Game
 The Pokémon Legends game has navigation buttons at the main menu screen of the game, allowing players to access most of the game functions with ease. All the personal game data that the players need to access can be seen in the game
 
+## Sitemap
+
+---
+
+The sitemap of the project will be available soon...
+
+---
+
 # Developing Page Structure and Organize Interactions (SKELETON)
 Most important features of Pokémon Legends are featured first. We want our players to play our game and at the same time know more about Pokémon Legends, so the PLAY button is the first thing they see upon entering the site with more information regarding the game on the same page.
+
+## Wireframes
+
+---
+
+The wireframes of the project will be available soon...
+
+---
 
 # Designing the Graphics User Interface (SURFACE)
 ## Colors
